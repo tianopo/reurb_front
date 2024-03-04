@@ -3,6 +3,10 @@
     ".vscode/tailwind.json"
   ],
   "material-icon-theme.activeIconPack": "react",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#198c9b",
+    "titleBar.inactiveBackground": "#105a64",
+  },
   "files.exclude": {
     "**/.git": true,
     ".eslintrc.json": true,
