@@ -1,15 +1,17 @@
 /* # Importe de componentes */
-@import "componentes/Botoes/Botao.css";
+@import "componentes/Buttons/Button.css";
+@import "componentes/Buttons/ButtonChangeLanguage.css";
+@import "componentes/Buttons/ButtonChangeTheme.css";
 
-@import "componentes/Formulario/Input.css";
-@import "componentes/Formulario/Label.css";
-@import "componentes/Formulario/MensagemErro.css";
+@import "componentes/Form/Input.css";
+@import "componentes/Form/Label.css";
+@import "componentes/Form/ErrorMessage.css";
 
 @import "componentes/Layout/Footer.css";
 @import "componentes/Layout/Header.css";
 
-@import "componentes/Outros/Divisor.css";
-@import "componentes/Outros/Link.css";
+@import "componentes/Other/Divider.css";
+@import "componentes/Other/Link.css";
 
 @import "componentes/Section/Section.css";
 

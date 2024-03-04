@@ -1,0 +1,4 @@
+/* Cor */
+.botao_trocar_idioma-light {
+  @apply border-borda-claro text-icone-claro hover:bg-selecionado-claro;
+}
