@@ -4,7 +4,6 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 // fechar sidebar
 export const Layout = () => {
-
   const nav = [
     { text: "Inicio", route: "#" },
     { text: "informações", route: "#informacoes" },

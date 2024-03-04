@@ -19,6 +19,7 @@ export const ButtonChangeTheme = () => {
     <button
       type="button"
       className={`
+        botao_trocar_tema-light
         flex
         h-fit
         w-10
@@ -26,7 +27,6 @@ export const ButtonChangeTheme = () => {
         rounded-6
         border-1
         p-1
-        botao_trocar_tema-light
       `}
       onClick={() => {
         const proximoThemeIndex =
