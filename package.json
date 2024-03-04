@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "PORT=9000 react-scripts start",
     "build": "react-scripts build",
-    "pre-commit-lint": "npm-run-all --sequential lint-staged",
+    "pre-commit-lint": "npm-run-all --parallel lint-staged",
     "prepare": "husky"
   },
   "dependencies": {
