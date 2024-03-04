@@ -1,0 +1,35 @@
+.section_card-claro {
+  @apply border-fundo_secundario-claro bg-fundo_secundario-claro hover:border-erro-claro;
+}
+
+.duvidas_pergunta {
+  @apply text-24 font-semibold;
+}
+
+.duvidas_resposta {
+  @apply text-20 font-normal;
+}
+
+.duvidas_tabela {
+  @apply m-4 min-w-full divide-y rounded-6;
+}
+
+.duvidas_th {
+  @apply px-6 py-3 text-left text-20 font-normal text-white;
+}
+
+.duvidas_td {
+  @apply px-6 py-4 text-16 font-normal text-white;
+}
+
+.section_botao-claro {
+  @apply bg-verde-claro;
+}
+
+.section_icone-claro {
+  @apply border-borda-claro text-icone-claro;
+}
+
+.carousel-claro {
+  @apply bg-primaria-claro;
+}

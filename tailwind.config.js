@@ -1,11 +1,11 @@
-import { coresX } from "./src/configuracao/coresX";
-import { medidasX } from "./src/configuracao/medidasX";
+import { colors } from "./src/config/colors";
+import { measures } from "./src/config/measures";
 
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      colors: coresX,
+      colors: colors,
       fontFamily: {
         primaria: ["Roboto"],
         secundaria: ["Roboto"],
@@ -17,12 +17,12 @@ module.exports = {
         semibold: "600",
         bold: "700",
       },
-      fontSize: medidasX,
-      borderWidth: medidasX,
-      borderRadius: medidasX,
-      margin: medidasX,
-      iconSize: medidasX,
-      lineHeight: medidasX,
+      fontSize: measures,
+      borderWidth: measures,
+      borderRadius: measures,
+      margin: measures,
+      iconSize: measures,
+      lineHeight: measures,
     },
   },
   plugins: [],

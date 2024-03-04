@@ -1,0 +1,27 @@
+.header-claro {
+  @apply border-borda-claro bg-fundo_secundario-claro;
+}
+
+.header_imagem-claro {
+  @apply border-borda-claro bg-primaria-claro;
+}
+
+.navbar_texto-claro {
+  @apply hover:text-primaria-claro;
+}
+
+.navbar_mobile_botao-claro {
+  @apply border-borda-claro hover:bg-hover-claro;
+}
+
+.navbar_mobile_article-claro {
+  @apply text-borda-claro;
+}
+
+.menu_mobile-claro {
+  @apply border-borda-claro bg-fundo_secundario-claro;
+}
+
+.menu_navbar-claro {
+  @apply hover:bg-selecionado-claro;
+}
