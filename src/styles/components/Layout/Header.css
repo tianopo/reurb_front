@@ -10,7 +10,7 @@
   @apply hover:text-primaria-light;
 }
 
-.navbar_mobile_botao-light {
+.navbar_mobile_button-light {
   @apply border-borda-light hover:bg-hover-light;
 }
 

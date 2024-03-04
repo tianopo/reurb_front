@@ -1,4 +1,4 @@
-// BotaoTrocarTema.tsx
+// buttonTrocarTema.tsx
 import { Moon, Sun } from "@phosphor-icons/react";
 import { useTheme } from "src/hooks/useTheme";
 import { ITheme } from "src/interfaces/ITheme";
@@ -19,7 +19,7 @@ export const ButtonChangeTheme = () => {
     <button
       type="button"
       className={`
-        botao_trocar_tema-light
+        button_trocar_tema-light
         flex
         h-fit
         w-10

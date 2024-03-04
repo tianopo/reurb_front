@@ -93,7 +93,7 @@ export const ButtonChangeLanguage = ({ menuBottom }: IButtonChangeLanguage) => {
         pl-1.5
         pr-1
         outline-none
-        botao_trocar_idioma-${theme}
+        button_trocar_idioma-${theme}
         `}
       >
         <img
@@ -122,7 +122,7 @@ export const ButtonChangeLanguage = ({ menuBottom }: IButtonChangeLanguage) => {
               w-full
               justify-center
               hover:rounded-6
-              botao_trocar_idioma-${theme}
+              button_trocar_idioma-${theme}
               `}
               onClick={() => changeLanguage(option.value)}
             >

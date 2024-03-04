@@ -10,8 +10,8 @@ export const ButtonOnClick = ({ onClick, children, className }: IButtonOnClick) 
     <button
       onClick={onClick}
       className={`
-      botao
-      botao-light
+      button
+      button-light
       ${className}
       `}
     >

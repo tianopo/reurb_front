@@ -45,21 +45,11 @@ export const SectionCard = ({ id, title, description, button, card, route }: ISe
         {card?.map(({ title, description, image, route, button = false }: ICard, key) => (
           <FlexCol
             key={key}
-            className={`h-fit w-72 items-center gap-1.5 rounded-10 section_card-light p-3 shadow-xl`}
+            className={`section_card-light h-fit w-72 items-center gap-1.5 rounded-10 p-3 shadow-xl`}
           >
-            {image && (
-              <img src={image} alt={title} className="h-16 w-16 rounded-full bg-cover" />
-            )}
-            {title && (
-              <h5 className="text-20 font-bold text-white">
-                {title}
-              </h5>
-            )}
-            {description && (
-              <p className="text-center text-16 text-white">
-                {description}
-              </p>
-            )}
+            {image && <img src={image} alt={title} className="h-16 w-16 rounded-full bg-cover" />}
+            {title && <h5 className="text-20 font-bold text-white">{title}</h5>}
+            {description && <p className="text-center text-16 text-white">{description}</p>}
             {button && route && (
               <button
                 className="hover:opacity-50"

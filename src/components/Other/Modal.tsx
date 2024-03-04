@@ -7,7 +7,6 @@ interface IModalPix {
 }
 
 export const ModalPagamento = ({ setShowModal, showModal }: IModalPix) => {
-
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
       <FlexCol className="h-3/5 w-4/5 overflow-y-auto rounded-2xl bg-white p-3">

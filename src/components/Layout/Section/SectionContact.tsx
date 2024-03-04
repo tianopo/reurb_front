@@ -84,7 +84,7 @@ export const SectionContact = ({ id, title }: ISectionContact) => {
               placeholder={t("mensagemPlaceholder")}
               errors={errors.mensagem?.message}
             />
-            <button className={`botao botao-light m-10`}>{t("botaoEnviar")}</button>
+            <button className={`button button-light m-10`}>{t("buttonEnviar")}</button>
             <input type="hidden" name="redirectTo" value={window.location.href}></input>
           </Form>
         </FormProvider>

@@ -1,4 +1,4 @@
-// BotaoSubmit.tsx
+// buttonSubmit.tsx
 import { HTMLAttributes, ReactNode } from "react";
 
 interface IButtonSubmit extends HTMLAttributes<HTMLDivElement> {
@@ -11,8 +11,8 @@ export const ButtonSubmit = ({ className, children, disabled }: IButtonSubmit) =
     <button
       disabled={disabled}
       className={`
-        botao
-        botao-light
+        button
+        button-light
         ${className}`}
     >
       {children}

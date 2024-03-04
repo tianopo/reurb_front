@@ -2,7 +2,7 @@
   @apply border-fundo_secundario-light bg-fundo_secundario-light hover:border-erro-light;
 }
 
-.section_botao-light {
+.section_button-light {
   @apply bg-verde-light;
 }
 

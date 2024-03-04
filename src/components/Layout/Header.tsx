@@ -80,7 +80,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                       setMenuOpen(false);
                     }, 100)
                   }
-                  className={`navbar_mobile_botao-light rounded-6 border-1`}
+                  className={`navbar_mobile_button-light rounded-6 border-1`}
                 >
                   <Article
                     className={`
