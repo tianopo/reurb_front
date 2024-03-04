@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "PORT=9000 react-scripts start",
     "build": "react-scripts build",
-    "format": "eslint -c .eslintrc.json --fix --ext .ts,.tsx src && prettier --write 'src/**/*.+(js|jsx|ts|tsx|html|css)'"
+    "pre-commit-lint": "npm-run-all --sequential lint-staged",
+    "prepare": "husky"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -48,6 +49,7 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
+    "husky": "^9.0.11",
     "prettier": "^3.1.0"
   },
   "author": "https://github.com/tianopo",

@@ -11,8 +11,11 @@
     "**/.git": true,
     ".eslintrc.json": true,
     ".eslintignore": true,
+    ".lintstagedrc.json": true,
+    ".eslintrc-commit.json": true,
     "postcss.config.js": true,
     ".prettierrc": true,
+    ".husky": true,
   },
   "typescript.preferences.quoteStyle": "double",
   "editor.minimap.enabled": true, // ativa o minimap
