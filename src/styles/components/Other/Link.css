@@ -1,4 +1,4 @@
 /* Cor */
-.link-claro {
-  @apply text-escrita-claro hover:text-hover-claro;
+.link-light {
+  @apply text-escrita-light hover:text-hover-light;
 }

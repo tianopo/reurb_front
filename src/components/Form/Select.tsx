@@ -23,7 +23,7 @@ export const Select = ({ disabled, required, register, errors, title, options }:
         autoComplete="complete"
         className={`
         input
-        input-claro
+        input-light
         ${disabled ? "opacity-80" : ""}
         `}
       >

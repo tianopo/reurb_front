@@ -13,7 +13,7 @@ export const LinkX = ({ route, children, target }: ILink) => {
       to={route!}
       target={target}
       className={`
-      link-claro
+      link-light
       w-fit
       font-normal
       transition

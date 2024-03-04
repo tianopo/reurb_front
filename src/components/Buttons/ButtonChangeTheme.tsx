@@ -1,15 +1,13 @@
 // BotaoTrocarTema.tsx
-import { Cloud, Moon, Star, Sun } from "@phosphor-icons/react";
-import { useTheme } from "src/hooks";
-import { ITheme } from "src/interfaces";
+import { Moon, Sun } from "@phosphor-icons/react";
+import { useTheme } from "src/hooks/useTheme";
+import { ITheme } from "src/interfaces/ITheme";
 
 export const ButtonChangeTheme = () => {
-  const { theme: selectedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const options: { theme: keyof ITheme; icone: JSX.Element }[] = [
-    { theme: "claro", icone: <Sun size="20px" weight="fill" className="text-icone-claro" /> },
-    { theme: "escuro", icone: <Moon size="20px" weight="fill" className="text-icone-escuro" /> },
-    { theme: "estrela", icone: <Star size="20px" weight="fill" className="text-icone-estrela" /> },
-    { theme: "nuvem", icone: <Cloud size="20px" weight="fill" className="text-icone-nuvem" /> },
+    { theme: "light", icone: <Sun size="20px" weight="fill" className="text-icone-light" /> },
+    { theme: "dark", icone: <Moon size="20px" weight="fill" className="text-icone-dark" /> },
   ];
 
   const alternarTheme = (newTheme: keyof ITheme) => {
@@ -28,15 +26,15 @@ export const ButtonChangeTheme = () => {
         rounded-6
         border-1
         p-1
-        botao_trocar_tema-${selectedTheme}
+        botao_trocar_tema-light
       `}
       onClick={() => {
         const proximoThemeIndex =
-          (options.findIndex((theme) => theme.theme === selectedTheme) + 1) % options.length;
+          (options.findIndex((option) => option.theme === theme) + 1) % options.length;
         alternarTheme(options[proximoThemeIndex].theme);
       }}
     >
-      {options.find((opcao) => opcao.theme === selectedTheme)?.icone}
+      {options.find((option) => option.theme === theme)?.icone}
     </button>
   );
 };

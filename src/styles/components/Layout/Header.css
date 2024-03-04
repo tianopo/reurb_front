@@ -1,27 +1,27 @@
-.header-claro {
-  @apply border-borda-claro bg-fundo_secundario-claro;
+.header-light {
+  @apply border-borda-light bg-fundo_secundario-light;
 }
 
-.header_imagem-claro {
-  @apply border-borda-claro bg-primaria-claro;
+.header_imagem-light {
+  @apply border-borda-light bg-primaria-light;
 }
 
-.navbar_texto-claro {
-  @apply hover:text-primaria-claro;
+.navbar_texto-light {
+  @apply hover:text-primaria-light;
 }
 
-.navbar_mobile_botao-claro {
-  @apply border-borda-claro hover:bg-hover-claro;
+.navbar_mobile_botao-light {
+  @apply border-borda-light hover:bg-hover-light;
 }
 
-.navbar_mobile_article-claro {
-  @apply text-borda-claro;
+.navbar_mobile_article-light {
+  @apply text-borda-light;
 }
 
-.menu_mobile-claro {
-  @apply border-borda-claro bg-fundo_secundario-claro;
+.menu_mobile-light {
+  @apply border-borda-light bg-fundo_secundario-light;
 }
 
-.menu_navbar-claro {
-  @apply hover:bg-selecionado-claro;
+.menu_navbar-light {
+  @apply hover:bg-selecionado-light;
 }

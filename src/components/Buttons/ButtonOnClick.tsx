@@ -11,7 +11,7 @@ export const ButtonOnClick = ({ onClick, children, className }: IButtonOnClick) 
       onClick={onClick}
       className={`
       botao
-      botao-claro
+      botao-light
       ${className}
       `}
     >

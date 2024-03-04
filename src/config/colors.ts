@@ -1,44 +1,44 @@
 export const colors = {
   primaria: {
-    claro: "##FFCCCC",
+    light: "##FFCCCC",
   },
   secundaria: {
-    claro: "#FF6666",
+    light: "#FF6666",
   },
   verde: {
-    claro: "#5CB85C",
+    light: "#5CB85C",
   },
   fundo: {
-    claro: "#FFEEEE",
+    light: "#FFEEEE",
   },
   fundo_secundario: {
-    claro: "#AA4444",
+    light: "#AA4444",
   },
   escrita: {
-    claro: "#333",
+    light: "#333",
   },
   erro: {
-    claro: "#FF7575",
+    light: "#FF7575",
   },
   sucesso: {
-    claro: "#70BF81",
+    light: "#70BF81",
   },
   borda: {
-    claro: "#FFBBBB",
+    light: "#FFBBBB",
   },
   icone: {
-    claro: "#AA4444",
+    light: "#AA4444",
   },
   input: {
-    claro: "#FFDDDD",
+    light: "#FFDDDD",
   },
   placeholder: {
-    claro: "#FFAAAA",
+    light: "#FFAAAA",
   },
   selecionado: {
-    claro: "#CCE5F2",
+    light: "#CCE5F2",
   },
   hover: {
-    claro: "#FFCCCC",
+    light: "#FFCCCC",
   },
 };

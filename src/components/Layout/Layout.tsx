@@ -4,14 +4,12 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 // fechar sidebar
 export const Layout = () => {
-  const { t: tradutor } = useTranslation();
-  const t = (t: string) => tradutor(`layout.${t}`);
 
   const nav = [
-    { text: t("inicio"), route: "#" },
+    { text: "Inicio", route: "#" },
     { text: "informações", route: "#informacoes" },
     { text: "agendamento", route: "#agendamento" },
-    { text: t("contato"), route: "#contato" },
+    { text: "Contato", route: "#contato" },
   ];
 
   const icones = [
@@ -21,10 +19,10 @@ export const Layout = () => {
   ];
 
   return (
-    <div className={`home-claro`}>
+    <div className={`home-light`}>
       <Header image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" />
       <Outlet />
-      <Footer title="Matheus Henrique de Abreu" description={t("description")} icons={icones} />
+      <Footer title="Matheus Henrique de Abreu" description={"descrição"} icons={icones} />
     </div>
   );
 };

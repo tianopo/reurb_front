@@ -1,4 +1,4 @@
 /* Cor */
-.label_required-claro {
-  @apply text-erro-claro;
+.label_required-light {
+  @apply text-erro-light;
 }

@@ -3,6 +3,6 @@
 }
 
 /* Cor */
-.botao-claro {
-  @apply border-borda-claro bg-primaria-claro text-black;
+.botao-light {
+  @apply border-borda-light bg-primaria-light text-black;
 }

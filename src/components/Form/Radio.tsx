@@ -13,8 +13,8 @@ export interface IRadio extends IUseForm {
 export const Radio = ({ disabled, errors, register, options, title, required }: IRadio) => {
   return (
     <FlexCol className="input_container">
-      <h4 className={`label-texto label-claro`}>
-        {title} {required && <span className={`label_required-claro`}>*</span>}
+      <h4 className={`label-texto label-light`}>
+        {title} {required && <span className={`label_required-light`}>*</span>}
       </h4>
       {options.map((option) => {
         const palavras = labelFormatted(option);
@@ -29,7 +29,7 @@ export const Radio = ({ disabled, errors, register, options, title, required }: 
               readOnly
               disabled={disabled}
               checked
-              className={`radio-claro h-5 w-5`}
+              className={`radio-light h-5 w-5`}
               {...register}
             />
             <Label title={option} words={labelFormatted(option)} />

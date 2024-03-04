@@ -25,7 +25,7 @@ export const Footer = ({ title, description, icons, nav }: IFooter) => {
   return (
     <footer
       className={`
-      footer-claro
+      footer-light
       flex
       h-fit
       w-full

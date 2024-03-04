@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./idiomas/tradutor";
 import "./index.css";
-import { browserRouter } from "./rotas/rotasApp";
+import { browserRouter } from "./routes/rotasApp";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useState } from "react";
-import { LocalStorage } from "src/utils";
+import { LocalStorage } from "src/utils/localStorage";
 
 interface ThemeContextProps {
   theme: string;
@@ -10,7 +10,7 @@ export const ThemeContext = createContext<ThemeContextProps | undefined>(undefin
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const localStorage = new LocalStorage();
-  const beginTheme = localStorage.get("theme") || "claro";
+  const beginTheme = localStorage.get("theme") || "light";
   const [theme, setTheme] = useState(beginTheme);
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;

@@ -7,5 +7,5 @@ export const ErrorMessages = ({ errors }: IErrorMessages) => {
     return <></>;
   }
 
-  return <span className={`label_required-claro text-12 font-normal`}>{errors}</span>;
+  return <span className={`label_required-light text-12 font-normal`}>{errors}</span>;
 };

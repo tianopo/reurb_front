@@ -45,7 +45,7 @@ export const SectionCarousel = ({ id, images }: ISectionCarousel) => {
           <span
             key={index}
             onClick={() => imageSelected(index)}
-            className={`mx-1 inline-block h-4 w-4 -translate-y-5 cursor-pointer rounded-full bg-icone-claro ${
+            className={`mx-1 inline-block h-4 w-4 -translate-y-5 cursor-pointer rounded-full bg-icone-light ${
               index === indexImage ? "opacity-100" : "opacity-50"
             }`}
           />
@@ -53,13 +53,13 @@ export const SectionCarousel = ({ id, images }: ISectionCarousel) => {
       </div>
       <button
         onClick={previousImage}
-        className={`absolute left-12 top-1/2 -translate-y-1/2 transform cursor-pointer rounded-full bg-icone-claro p-2 text-white`}
+        className={`absolute left-12 top-1/2 -translate-y-1/2 transform cursor-pointer rounded-full bg-icone-light p-2 text-white`}
       >
         {"<"}
       </button>
       <button
         onClick={nextImage}
-        className={`absolute right-12 top-1/2 -translate-y-1/2 transform cursor-pointer rounded-full bg-icone-claro p-2 text-white`}
+        className={`absolute right-12 top-1/2 -translate-y-1/2 transform cursor-pointer rounded-full bg-icone-light p-2 text-white`}
       >
         {">"}
       </button>

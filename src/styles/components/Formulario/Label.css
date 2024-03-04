@@ -1,4 +1,4 @@
 /* Cor */
-.label-claro {
-  @apply text-escrita-claro;
+.label-light {
+  @apply text-escrita-light;
 }

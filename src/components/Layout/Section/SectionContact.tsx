@@ -10,7 +10,7 @@ import { Input } from "src/components/Form/Input";
 export const SectionContact = ({ id, title }: ISectionContact) => {
   const { context } = useHome();
   const { t: translator } = useTranslation();
-  const t = (t: string) => translator(`contato.${t}`);
+  const t = (t: string) => translator(`contact.${t}`);
 
   const {
     formState: { errors },
@@ -84,7 +84,7 @@ export const SectionContact = ({ id, title }: ISectionContact) => {
               placeholder={t("mensagemPlaceholder")}
               errors={errors.mensagem?.message}
             />
-            <button className={`botao botao-claro m-10`}>{t("botaoEnviar")}</button>
+            <button className={`botao botao-light m-10`}>{t("botaoEnviar")}</button>
             <input type="hidden" name="redirectTo" value={window.location.href}></input>
           </Form>
         </FormProvider>

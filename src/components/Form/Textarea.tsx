@@ -33,7 +33,7 @@ export const Textarea = ({
         rows={rows}
         {...register}
         className={`
-          input-claro
+          input-light
           input
           resize-none
           ${disabled ? "opacity-80" : ""}

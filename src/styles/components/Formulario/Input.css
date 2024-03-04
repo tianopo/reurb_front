@@ -3,8 +3,8 @@
 }
 
 /* Cor */
-.input-claro {
-  @apply border-borda-claro bg-input-claro text-escrita-claro placeholder:text-placeholder-claro focus:border-primaria-claro;
+.input-light {
+  @apply border-borda-light bg-input-light text-escrita-light placeholder:text-placeholder-light focus:border-primaria-light;
 }
 
 .input_container {

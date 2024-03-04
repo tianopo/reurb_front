@@ -12,7 +12,7 @@ export const ButtonSubmit = ({ className, children, disabled }: IButtonSubmit) =
       disabled={disabled}
       className={`
         botao
-        botao-claro
+        botao-light
         ${className}`}
     >
       {children}

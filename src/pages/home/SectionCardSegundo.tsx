@@ -19,9 +19,9 @@ export const SectionCardSegundo = ({ id, card }: ISectionCardSegundo) => {
         {card?.map(({ description, icon }: ICard, key) => (
           <FlexCol
             key={key}
-            className={`section_card-claro h-fit w-72 items-center gap-1.5 rounded-10 border-3 p-3 shadow-xl`}
+            className={`section_card-light h-fit w-72 items-center gap-1.5 rounded-10 border-3 p-3 shadow-xl`}
           >
-            <div className={`section_icone-claro rounded-full border-1 p-4 text-white`} id={id}>
+            <div className={`section_icone-light rounded-full border-1 p-4 text-white`} id={id}>
               {icon}
             </div>
             {description && <p className="text-center text-16 text-white">{description}</p>}

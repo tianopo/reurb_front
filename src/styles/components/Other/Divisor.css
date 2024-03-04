@@ -1,4 +1,4 @@
 /* Cor */
-.divisor-claro {
-  @apply border-borda-claro;
+.divisor-light {
+  @apply border-borda-light;
 }

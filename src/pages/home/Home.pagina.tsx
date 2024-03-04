@@ -1,26 +1,23 @@
 import { CarProfile, Moon, Table } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
 import { FlexCol } from "src/components/Flex/FlexCol";
+import { SectionCarousel } from "src/components/Layout/Section/SectionCarousel";
 import { SectionContact } from "src/components/Layout/Section/SectionContact";
 import { SectionBannerSegundo } from "./SectionBannerSegundo";
 import { SectionCardSegundo } from "./SectionCardSegundo";
-import { SectionCarousel } from "src/components/Layout/Section/SectionCarousel";
 
 export const Home = () => {
-  const { t: translator } = useTranslation();
-  const t = (t: string) => translator(`inicio.${t}`);
-
   const card = [
     {
-      description: t("cardDescricao"),
+      description: "descrição",
       icon: <Moon size={60} />,
     },
     {
-      description: t("cardDescricao"),
+      description: "descrição",
       icon: <CarProfile size={60} />,
     },
     {
-      description: t("cardDescricao"),
+      description: "descrição",
       icon: <Table size={60} />,
     },
   ];
@@ -34,12 +31,12 @@ export const Home = () => {
       <SectionBannerSegundo
         imagem="/projeto/banner.webp"
         titulo="Fábrica de Software"
-        descricao={t("bannerDescricao")}
+        descricao={"descrição"}
         rota="https://wa.me/5512982435638"
-        botao={t("bannerBotao")}
+        botao={"button"}
         id="agendamento"
       />
-      <SectionContact id="contato" title={t("contatoTitulo")} />
+      <SectionContact id="contato" title={"Contato"} />
     </FlexCol>
   );
 };

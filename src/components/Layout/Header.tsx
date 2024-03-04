@@ -20,7 +20,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
     <>
       <header
         className={`
-      header-claro
+      header-light
       sticky
       top-0
       z-10
@@ -40,7 +40,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
               src={image}
               alt={title}
               className={`
-              header_imagem-claro
+              header_imagem-light
               h-12
               w-10
               rounded-20
@@ -80,11 +80,11 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                       setMenuOpen(false);
                     }, 100)
                   }
-                  className={`navbar_mobile_botao-claro rounded-6 border-1`}
+                  className={`navbar_mobile_botao-light rounded-6 border-1`}
                 >
                   <Article
                     className={`
-                  navbar_mobile_article-claro
+                  navbar_mobile_article-light
                   h-7
                   w-7
                   font-bold
@@ -94,7 +94,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                 {menuOpen && (
                   <div
                     className={`
-                    menu_mobile-claro
+                    menu_mobile-light
                     absolute
                     right-0
                     w-auto

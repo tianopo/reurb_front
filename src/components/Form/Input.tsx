@@ -34,7 +34,7 @@ export const Input = ({
         autoComplete="complete"
         className={`
             input
-            input-claro
+            input-light
             ${disabled ? "opacity-80" : ""}
           `}
       />

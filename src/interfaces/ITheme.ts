@@ -1,4 +1,4 @@
 export interface ITheme {
-  claro: string;
-  escuro: string;
+  light: string;
+  dark: string;
 }

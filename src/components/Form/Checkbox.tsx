@@ -23,7 +23,7 @@ export const Checkbox = ({ disabled, required, errors, titulo, register }: IChec
           disabled={disabled}
           {...register}
           className={`
-          checkbox_input-claro
+          checkbox_input-light
           h-4
           w-4
           outline-none
