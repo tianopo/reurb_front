@@ -10,7 +10,7 @@
   "files.exclude": {
     "**/.git": true,
     ".eslintrc.json": true,
-    ".eslintignore": true,
+    ".eslintignore": false,
     ".lintstagedrc.json": false,
     ".eslintrc-commit.json": false,
     "postcss.config.js": true,
