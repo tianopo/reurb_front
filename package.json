@@ -12,7 +12,7 @@
     "lintStaged": "npx --no-install lint-staged",
     "pre-commit-lint": "npm-run-all --parallel lintStaged",
     "prepare": "husky",
-    "check-types": "tsc"
+    "check": "tsc"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
