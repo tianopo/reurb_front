@@ -3,7 +3,6 @@ import { SectionCarousel } from "src/components/Layout/Section/SectionCarousel";
 import { SectionContact } from "src/components/Layout/Section/SectionContact";
 
 export const Home = () => {
-  console.log("oi");
   return (
     <FlexCol className="gap-32">
       <SectionCarousel
