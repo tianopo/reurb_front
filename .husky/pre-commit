@@ -18,4 +18,4 @@ if [ "$branch" = "main" ]; then
   fi
 fi
 
-npm run format
+npm run pre-commit-lint
