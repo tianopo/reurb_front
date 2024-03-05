@@ -1,7 +1,8 @@
-#Logs
+#Runtime Data
 yarn-error.log*
 
 node_modules
+build
 
 # Outros
 .env

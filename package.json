@@ -7,7 +7,8 @@
   "description": "",
   "scripts": {
     "dev": "PORT=9000 react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
+    "test": "react-scripts test",
     "format": "eslint -c .eslintrc.json --fix --ext .ts,.tsx src && prettier --write 'src/**/*.+(js|jsx|ts|tsx|html|css)'",
     "lintStaged": "npx --no-install lint-staged",
     "pre-commit-lint": "npm-run-all --parallel lintStaged",

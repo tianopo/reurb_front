@@ -9,6 +9,7 @@
   },
   "files.exclude": {
     "**/.git": true,
+    ".github": false,
     ".eslintrc.json": true,
     ".eslintignore": true,
     ".lintstagedrc.json": true,
