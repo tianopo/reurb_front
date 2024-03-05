@@ -18,4 +18,16 @@ if [ "$branch" = "main" ]; then
   fi
 fi
 
-npm run pre-commit-lint
+# Executa o comando para formatar o código e captura a saída
+format_output="$(npm run format 2>&1)"
+
+# Verifica se houve erros ou avisos no comando format
+if echo "$format_output" | grep -q 'error' || echo "$format_output" | grep -q 'warn'; then
+  echo "######################################"
+  echo "#"
+  echo "# O comando 'yarn format' encontrou erros ou avisos."
+  echo "# Por favor, corrija-os antes de realizar o commit."
+  echo "#"
+  echo "######################################"
+  exit 1
+fi
