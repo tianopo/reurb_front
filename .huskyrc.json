@@ -1,6 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "sh .husky/pre-commit"
-  },
-  "debug": false
-}
