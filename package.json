@@ -11,7 +11,8 @@
     "format": "eslint -c .eslintrc.json --fix --ext .ts,.tsx src && prettier --write 'src/**/*.+(js|jsx|ts|tsx|html|css)'",
     "lintStaged": "npx --no-install lint-staged",
     "pre-commit-lint": "npm-run-all --parallel lintStaged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "check-types": "tsc"
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
