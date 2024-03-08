@@ -10,6 +10,10 @@
       "toastSucesso": "Formulário enviado com sucesso",
       "toastErro": "Erro ao enviar o formulário"
     },
+    "layout": {
+      "pessoaNaoAutenticada": "Pessoa não autenticada, Redirecionando em",
+      "segundos": "segundos"
+    },
     "footer": {
       "redesSociais": "Redes Sociais",
       "feitoPor": "Feito por",
