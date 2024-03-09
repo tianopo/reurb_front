@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
-import "./languages/tradution";
+import "./languages/translation";
 import { browserRouter } from "./routes/rotasApp";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./config/api";

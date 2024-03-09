@@ -1,14 +1,14 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import usJson from "./tradutions/us.json";
+import ptbrJson from "./translations/ptbr.json";
 
 i18n.use(initReactI18next).init({
-  fallbackLng: "us",
+  fallbackLng: "ptbr",
   interpolation: {
     escapeValue: false,
   },
   resources: {
-    us: usJson,
+    ptbr: ptbrJson,
   },
 });
 
