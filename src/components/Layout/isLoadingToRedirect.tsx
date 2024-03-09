@@ -19,9 +19,9 @@ export const LoadingToRedirect = () => {
   }, [count, navigate]);
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-black">
-      <div className="h-fit w-fit bg-white p-6 text-2xl font-semibold">
-        <p>{t("pessoaNaoAutenticada") + `${count}` + t("segundos")}</p>
+    <div className="flex h-screen w-full items-center justify-center bg-gradient-to-r from-slate-600">
+      <div className="h-fit w-fit rounded-6 bg-white p-6 text-2xl font-semibold text-secundaria-light">
+        <p>{t("unauthenticatedPerson") + ` ${count} ` + t("seconds")}</p>
       </div>
     </div>
   );
