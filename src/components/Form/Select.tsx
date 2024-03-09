@@ -1,3 +1,4 @@
+import { UseFormRegisterReturn, useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
@@ -6,11 +7,16 @@ import { Label } from "./Label";
 
 interface ISelect extends IUseForm {
   title: string;
+  register?: UseFormRegisterReturn<string>;
   options?: string[];
 }
 
-export const Select = ({ disabled, required, register, errors, title, options }: ISelect) => {
+export const Select = ({ disabled, required, title, register, options }: ISelect) => {
   const words = labelFormatted(title);
+  const formContext = useFormContext();
+  const { formState } = formContext || {};
+
+  const { errors } = formState || {};
 
   return (
     <FlexCol className="input_container">
@@ -33,7 +39,7 @@ export const Select = ({ disabled, required, register, errors, title, options }:
           </option>
         ))}
       </select>
-      <ErrorMessages errors={errors} />
+      <ErrorMessages errors={errors.root?.message} />
     </FlexCol>
   );
 };

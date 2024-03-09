@@ -9,3 +9,10 @@ export interface IAuthModel extends IGeneralModel {
   email: string;
   password: string;
 }
+
+export interface IRegisterDto {
+  name: string;
+  password: string;
+  confirmPassword: string;
+  email: string;
+}

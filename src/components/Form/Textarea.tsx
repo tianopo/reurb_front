@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react";
+import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
@@ -7,6 +9,7 @@ import { Label } from "./Label";
 interface ITextarea extends IUseForm {
   title: string;
   placeholder?: string;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
   rows?: number;
 }
 
@@ -15,11 +18,16 @@ export const Textarea = ({
   required,
   title,
   placeholder,
-  register,
-  errors,
+  onChange,
   rows = 4,
 }: ITextarea) => {
   const words = labelFormatted(title);
+
+  const formContext = useFormContext();
+  const { register, formState } = formContext || {};
+
+  const { errors } = formState || {};
+  const inputRegister = register ? register(title, { required }) : undefined;
 
   return (
     <FlexCol className={`input_container`}>
@@ -31,7 +39,10 @@ export const Textarea = ({
         readOnly={disabled}
         placeholder={placeholder}
         rows={rows}
-        {...register}
+        onChange={(e) => {
+          inputRegister?.onChange(e);
+          onChange && onChange(e);
+        }}
         className={`
           input-light
           input
@@ -39,7 +50,7 @@ export const Textarea = ({
           ${disabled ? "opacity-80" : ""}
           `}
       />
-      <ErrorMessages errors={errors} />
+      <ErrorMessages errors={errors.root?.message} />
     </FlexCol>
   );
 };

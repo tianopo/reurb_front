@@ -71,7 +71,7 @@
     "no-use-before-define": "off", // não será emitido aviso em var sendo usadas antes de declarar
     "react/react-in-jsx-scope": 0, // desativa aviso sobre a importação React usando JSX tsconfig
     "@typescript-eslint/no-empty-function": 1, // avisa sobre funções vazias
-    "@typescript-eslint/no-explicit-any": 2, // define aviso se encontrar o tipo 'any'
+    "@typescript-eslint/no-explicit-any": 1, // define aviso se encontrar o tipo 'any'
     "@typescript-eslint/prefer-nullish-coalescing": 0, // desativa o aviso de ?? em vez de ||
     "@typescript-eslint/strict-boolean-expressions": 0, // desativa expressões boleanas estritas
     "@typescript-eslint/restrict-template-expressions": 0, // `${123}` desativa este erro

@@ -5,16 +5,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api, auth } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
-import { IAuthModel } from "src/interfaces/models";
+import { IAuthModel, IRegisterDto } from "src/interfaces/models";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
-
-interface IRegisterDto {
-  name: string;
-  password: string;
-  confirmPassword: string;
-  email: string;
-}
 
 export const useRegister = () => {
   const navigate = useNavigate();

@@ -1,5 +1,9 @@
 .input {
-  @apply w-full rounded-6 p-2.5 font-normal outline-none duration-300 md:w-64;
+  @apply w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-6 p-2.5 font-normal outline-none duration-300 md:w-64;
+}
+
+.input::placeholder {
+  @apply h-fit text-14;
 }
 
 /* Cor */

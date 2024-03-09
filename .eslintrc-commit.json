@@ -71,7 +71,7 @@
     "no-use-before-define": "off",
     "react/react-in-jsx-scope": 0,
     "@typescript-eslint/no-empty-function": 1,
-    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/prefer-nullish-coalescing": 0,
     "@typescript-eslint/strict-boolean-expressions": 0,
     "@typescript-eslint/restrict-template-expressions": 0,

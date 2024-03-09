@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react";
+import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
@@ -6,22 +8,31 @@ import { ErrorMessages } from "./ErrorMessages";
 import { Label } from "./Label";
 
 export interface ICheckbox extends IUseForm {
-  titulo: string;
+  title: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-export const Checkbox = ({ disabled, required, errors, titulo, register }: ICheckbox) => {
-  const palavras = labelFormatted(titulo);
+export const Checkbox = ({ disabled, required, title, onChange }: ICheckbox) => {
+  const words = labelFormatted(title);
+  const formContext = useFormContext();
+  const { register, formState } = formContext || {};
+
+  const { errors } = formState || {};
+  const inputRegister = register ? register(title, { required }) : undefined;
 
   return (
     <FlexCol>
       <FlexRow className="gap-1 p-2">
         <input
-          id={titulo}
-          name={palavras}
+          id={title}
+          name={words}
           type="checkbox"
           readOnly
           disabled={disabled}
-          {...register}
+          onChange={(e) => {
+            inputRegister?.onChange(e);
+            onChange && onChange(e);
+          }}
           className={`
           checkbox_input-light
           h-4
@@ -30,9 +41,9 @@ export const Checkbox = ({ disabled, required, errors, titulo, register }: IChec
           focus:outline-none
           `}
         />
-        <Label title={titulo} words={palavras} required={required} />
+        <Label title={title} words={words} required={required} />
       </FlexRow>
-      <ErrorMessages errors={errors} />
+      <ErrorMessages errors={errors.root?.message} />
     </FlexCol>
   );
 };

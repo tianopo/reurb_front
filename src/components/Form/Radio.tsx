@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react";
+import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
@@ -7,10 +9,17 @@ import { Label } from "./Label";
 
 export interface IRadio extends IUseForm {
   title: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   options: string[];
 }
 
-export const Radio = ({ disabled, errors, register, options, title, required }: IRadio) => {
+export const Radio = ({ disabled, options, title, onChange, required }: IRadio) => {
+  const formContext = useFormContext();
+  const { register, formState } = formContext || {};
+
+  const { errors } = formState || {};
+  const inputRegister = register ? register(title, { required }) : undefined;
+
   return (
     <FlexCol className="input_container">
       <h4 className={`label-texto label-light`}>
@@ -30,13 +39,16 @@ export const Radio = ({ disabled, errors, register, options, title, required }: 
               disabled={disabled}
               checked
               className={`radio-light h-5 w-5`}
-              {...register}
+              onChange={(e) => {
+                inputRegister?.onChange(e);
+                onChange && onChange(e);
+              }}
             />
             <Label title={option} words={labelFormatted(option)} />
           </FlexRow>
         );
       })}
-      <ErrorMessages errors={errors} />
+      <ErrorMessages errors={errors.root?.message} />
     </FlexCol>
   );
 };
