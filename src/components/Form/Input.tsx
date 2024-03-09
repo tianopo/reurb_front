@@ -14,7 +14,7 @@ interface IInput extends IUseForm {
 }
 
 export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInput> = (
-  { disabled, required, title, placeholder, typ = "text", onChange }: IInput,
+  { disabled, required, title, placeholder, typ = "text", onChange, ...rest }: IInput,
   ref,
 ) => {
   const words = labelFormatted(title);
@@ -22,7 +22,8 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInput> = (
   const { register, formState } = formContext || {};
 
   const { errors } = formState || {};
-  const inputRegister = register ? register(title, { required }) : undefined;
+  const inputRegister = register ? register(words, { required }) : undefined;
+  const errorMessage = errors && errors[words]?.message;
 
   return (
     <FlexCol className="input_container">
@@ -34,6 +35,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInput> = (
         type={typ}
         disabled={disabled}
         placeholder={placeholder}
+        {...inputRegister}
         onChange={(e) => {
           inputRegister?.onChange(e);
           onChange && onChange(e);
@@ -43,10 +45,11 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInput> = (
             input
             input-light
             ${disabled ? "cursor-not-allowed opacity-80" : ""}
-            ${errors ? "border-erro-light" : "border-borda-light"}
+            ${errorMessage ? "border-1 border-erro-light" : ""}
           `}
+        {...rest}
       />
-      <ErrorMessages errors={errors.root?.message} />
+      <ErrorMessages errors={errorMessage?.toString()} />
     </FlexCol>
   );
 };

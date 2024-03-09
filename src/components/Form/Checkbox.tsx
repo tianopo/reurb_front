@@ -12,13 +12,14 @@ export interface ICheckbox extends IUseForm {
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-export const Checkbox = ({ disabled, required, title, onChange }: ICheckbox) => {
+export const Checkbox = ({ disabled, required, title, onChange, ...rest }: ICheckbox) => {
   const words = labelFormatted(title);
   const formContext = useFormContext();
   const { register, formState } = formContext || {};
 
   const { errors } = formState || {};
   const inputRegister = register ? register(title, { required }) : undefined;
+  const errorMessage = errors && errors[words]?.message;
 
   return (
     <FlexCol>
@@ -29,6 +30,7 @@ export const Checkbox = ({ disabled, required, title, onChange }: ICheckbox) => 
           type="checkbox"
           readOnly
           disabled={disabled}
+          {...inputRegister}
           onChange={(e) => {
             inputRegister?.onChange(e);
             onChange && onChange(e);
@@ -40,10 +42,11 @@ export const Checkbox = ({ disabled, required, title, onChange }: ICheckbox) => 
           outline-none
           focus:outline-none
           `}
+          {...rest}
         />
         <Label title={title} words={words} required={required} />
       </FlexRow>
-      <ErrorMessages errors={errors.root?.message} />
+      <ErrorMessages errors={errorMessage?.toString()} />
     </FlexCol>
   );
 };

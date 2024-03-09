@@ -38,7 +38,7 @@ export const useRegister = () => {
     email: Yup.string()
       .required()
       .email()
-      .matches(Regex.year, "Invalid email address")
+      .matches(Regex.email, "Invalid email address")
       .label("email"),
   });
 

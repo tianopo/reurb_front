@@ -11,12 +11,13 @@ interface ISelect extends IUseForm {
   options?: string[];
 }
 
-export const Select = ({ disabled, required, title, register, options }: ISelect) => {
+export const Select = ({ disabled, required, title, register, options, ...rest }: ISelect) => {
   const words = labelFormatted(title);
   const formContext = useFormContext();
   const { formState } = formContext || {};
 
   const { errors } = formState || {};
+  const errorMessage = errors && errors[words]?.message;
 
   return (
     <FlexCol className="input_container">
@@ -32,6 +33,7 @@ export const Select = ({ disabled, required, title, register, options }: ISelect
         input-light
         ${disabled ? "opacity-80" : ""}
         `}
+        {...rest}
       >
         {options?.map((option, index) => (
           <option key={index} value={labelFormatted(option)}>
@@ -39,7 +41,7 @@ export const Select = ({ disabled, required, title, register, options }: ISelect
           </option>
         ))}
       </select>
-      <ErrorMessages errors={errors.root?.message} />
+      <ErrorMessages errors={errorMessage?.toString()} />
     </FlexCol>
   );
 };

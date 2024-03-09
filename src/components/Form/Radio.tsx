@@ -13,12 +13,14 @@ export interface IRadio extends IUseForm {
   options: string[];
 }
 
-export const Radio = ({ disabled, options, title, onChange, required }: IRadio) => {
+export const Radio = ({ disabled, options, title, onChange, required, ...rest }: IRadio) => {
+  const words = labelFormatted(title);
   const formContext = useFormContext();
   const { register, formState } = formContext || {};
 
   const { errors } = formState || {};
   const inputRegister = register ? register(title, { required }) : undefined;
+  const errorMessage = errors && errors[words]?.message;
 
   return (
     <FlexCol className="input_container">
@@ -26,29 +28,29 @@ export const Radio = ({ disabled, options, title, onChange, required }: IRadio) 
         {title} {required && <span className={`label_required-light`}>*</span>}
       </h4>
       {options.map((option) => {
-        const palavras = labelFormatted(option);
-
         return (
           <FlexRow key={option} className="w-fit gap-1.5 py-1">
             <input
-              id={palavras}
-              name={palavras}
+              id={words}
+              name={words}
               type="radio"
               value={option}
               readOnly
               disabled={disabled}
               checked
               className={`radio-light h-5 w-5`}
+              {...inputRegister}
               onChange={(e) => {
                 inputRegister?.onChange(e);
                 onChange && onChange(e);
               }}
+              {...rest}
             />
             <Label title={option} words={labelFormatted(option)} />
           </FlexRow>
         );
       })}
-      <ErrorMessages errors={errors.root?.message} />
+      <ErrorMessages errors={errorMessage?.toString()} />
     </FlexCol>
   );
 };

@@ -20,6 +20,7 @@ export const Textarea = ({
   placeholder,
   onChange,
   rows = 4,
+  ...rest
 }: ITextarea) => {
   const words = labelFormatted(title);
 
@@ -28,6 +29,7 @@ export const Textarea = ({
 
   const { errors } = formState || {};
   const inputRegister = register ? register(title, { required }) : undefined;
+  const errorMessage = errors && errors[words]?.message;
 
   return (
     <FlexCol className={`input_container`}>
@@ -39,6 +41,7 @@ export const Textarea = ({
         readOnly={disabled}
         placeholder={placeholder}
         rows={rows}
+        {...inputRegister}
         onChange={(e) => {
           inputRegister?.onChange(e);
           onChange && onChange(e);
@@ -49,8 +52,9 @@ export const Textarea = ({
           resize-none
           ${disabled ? "opacity-80" : ""}
           `}
+        {...rest}
       />
-      <ErrorMessages errors={errors.root?.message} />
+      <ErrorMessages errors={errorMessage?.toString()} />
     </FlexCol>
   );
 };

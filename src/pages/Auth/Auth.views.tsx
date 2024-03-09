@@ -27,12 +27,11 @@ export const Auth = () => {
               <FlexCol className="w-fit items-center gap-1">
                 {showRegister && <Input title="Name" placeholder="John Wick" required />}
                 <Input title="E-mail" placeholder="johnwick@domain.com" typ="email" required />
-                <Input title="Senha" placeholder="*******" typ="password" required />
+                <Input title="Password" placeholder="*******" typ="password" required />
                 {showRegister && (
                   <Input title="Confirm Password" placeholder="*******" typ="password" required />
                 )}
                 <button
-                  type="submit"
                   disabled={isPending || formState.errors === undefined}
                   className="button button-light"
                 >
