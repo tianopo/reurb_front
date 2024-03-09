@@ -1,8 +1,8 @@
 .button {
-  @apply w-full rounded-4 border-1 border-solid p-2.5 text-20 font-normal shadow-xl duration-300 ease-in-out hover:opacity-80 active:translate-y-1 md:w-fit;
+  @apply w-full rounded-4 border-1 border-solid p-2.5 text-16 font-semibold shadow-xl duration-300 ease-in-out hover:opacity-80 active:translate-y-1 md:w-64;
 }
 
 /* Cor */
 .button-light {
-  @apply border-borda-light bg-primaria-light text-black;
+  @apply border-borda-light bg-secundaria-light text-white;
 }

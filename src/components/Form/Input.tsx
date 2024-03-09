@@ -7,7 +7,7 @@ import { Label } from "./Label";
 interface IInput extends IUseForm {
   title: string;
   placeholder?: string;
-  typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local";
+  typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local" | "password";
 }
 
 export const Input = ({

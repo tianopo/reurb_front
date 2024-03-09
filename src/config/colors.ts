@@ -1,44 +1,44 @@
 export const colors = {
   primaria: {
-    light: "##FFCCCC",
+    light: "#CCCCCC",
   },
   secundaria: {
-    light: "#FF6666",
+    light: "#999999",
   },
   verde: {
     light: "#5CB85C",
   },
   fundo: {
-    light: "#FFEEEE",
+    light: "#F5F5F5",
   },
   fundo_secundario: {
-    light: "#AA4444",
+    light: "#666666",
   },
   escrita: {
-    light: "#333",
+    light: "#333333",
   },
   erro: {
-    light: "#FF7575",
+    light: "#FF6666",
   },
   sucesso: {
-    light: "#70BF81",
+    light: "#5CB85C",
   },
   borda: {
-    light: "#FFBBBB",
+    light: "#DDDDDD",
   },
   icone: {
-    light: "#AA4444",
+    light: "#666666",
   },
   input: {
-    light: "#FFDDDD",
+    light: "#DDDDDD",
   },
   placeholder: {
-    light: "#FFAAAA",
+    light: "#BBBBBB",
   },
   selecionado: {
-    light: "#CCE5F2",
+    light: "#E5E5E5",
   },
   hover: {
-    light: "#FFCCCC",
+    light: "#CCCCCC",
   },
 };

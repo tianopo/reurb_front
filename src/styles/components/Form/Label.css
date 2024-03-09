@@ -1,4 +1,4 @@
 /* Cor */
 .label-light {
-  @apply text-escrita-light;
+  @apply text-white;
 }
