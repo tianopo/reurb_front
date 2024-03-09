@@ -8,14 +8,14 @@ export const Auth = () => {
 
   return (
     <section
-      className={`h-lvh flex items-center justify-center overflow-hidden bg-gradient-to-r from-purple-800 via-purple-600 to-purple-400 p-10`}
+      className={`via-from-slate-400 to-from-slate-200 flex h-screen items-center justify-center overflow-hidden bg-gradient-to-r from-slate-600 p-2`}
     >
       <div className="w-2/3 rounded-xl bg-neutral-600 p-3 shadow-2xl md:w-96">
         <div className="flex h-full w-full flex-col items-center justify-center gap-2">
           <h2 className="text-4xl font-semibold text-white">
             {!showRegister ? "LOGIN" : "REGISTER"}
           </h2>
-          <FlexCol className="w-full items-center gap-1">
+          <FlexCol className="w-fit items-center gap-1">
             {showRegister && <Input title={"Name"} placeholder="John Wick" required />}
             <Input title="E-mail" placeholder="johnwick@domain.com" typ="email" required />
             <Input title="Senha" placeholder="*******" typ="password" required />
@@ -33,7 +33,7 @@ export const Auth = () => {
           <h5 className="mb-0">
             {!showRegister ? (
               <FlexCol className="items-center">
-                <p className="font-semibold text-white">Don't have an account?</p>
+                <p className="break-all font-semibold text-white">Don't have an account?</p>
                 <p
                   className="cursor-pointer font-semibold text-white hover:underline"
                   onClick={() => setShowRegister(true)}
