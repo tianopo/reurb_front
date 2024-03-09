@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export const LoadingToRedirect = () => {
-  const { t: translator } = useTranslation();
-  const t = (t: string) => translator(`layout.${t}`);
   const [count, setCount] = useState(5);
   const navigate = useNavigate();
 
@@ -13,7 +10,7 @@ export const LoadingToRedirect = () => {
       setCount((contando) => contando - 1);
     }, 1000);
 
-    count === 0 && navigate("/auth");
+    count === 0 && navigate("/");
 
     return () => clearInterval(intervalo);
   }, [count, navigate]);

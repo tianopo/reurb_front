@@ -82,7 +82,7 @@
     "react/prop-types": 0,
     "react/no-unescaped-entities": 0,
     "@typescript-eslint/no-confusing-void-expression": 0,
-    "no-unused-vars": 1,
+    "no-unused-vars": "error",
     "@tanstack/query/exhaustive-deps": "warn",
     "@tanstack/query/no-rest-destructuring": "warn",
     "@tanstack/query/stable-query-client": "warn",

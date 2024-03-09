@@ -13,7 +13,7 @@
     ".eslintrc.json": true,
     ".eslintignore": true,
     ".lintstagedrc.json": true,
-    ".eslintrc-commit.json": true,
+    ".eslintrc-commit.json": false,
     "postcss.config.js": true,
     ".prettierrc": true,
     ".husky": true,
