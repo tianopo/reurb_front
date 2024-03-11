@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api, auth } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
-import { IRegisterDto } from "src/interfaces/models";
+import { IAuthModel, IRegisterDto } from "src/interfaces/models";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
@@ -13,9 +13,10 @@ export const useRegister = () => {
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationFn: path,
-    onSuccess: () => {
+    onSuccess: (data: IAuthModel) => {
       responseSuccess("User registered successfully");
-      navigate(0);
+      localStorage.setItem("token", data.token);
+      navigate("/home");
     },
     onError: (erro: AxiosError) => responseError(erro),
   });
@@ -47,7 +48,7 @@ export const useRegister = () => {
     reValidateMode: "onChange",
   });
 
-  async function path(data: Yup.InferType<typeof schema>): Promise<IRegisterDto> {
+  async function path(data: Yup.InferType<typeof schema>): Promise<IAuthModel> {
     const result = await api().post(`${auth}/signup`, data);
     return result.data;
   }
