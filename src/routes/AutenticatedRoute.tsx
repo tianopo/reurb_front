@@ -9,7 +9,8 @@ interface IPrivateRouteContext {
 const PrivateRouteUserContext = createContext<IPrivateRouteContext>({ token: null });
 
 export const AutenticatedRoute = () => {
-  const token = undefined;
+  const token = localStorage.getItem("token");
+
   return token ? (
     <PrivateRouteUserContext.Provider value={{ token }}>
       <Outlet />

@@ -2,7 +2,6 @@ import { CaretDown, CaretRight } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "src/hooks/useTheme";
-import { LocalStorage } from "src/utils/localStorage";
 import { setLocaleYup } from "src/utils/yupValidation";
 
 interface IButtonChangeLanguage {
@@ -54,7 +53,6 @@ export const ButtonChangeLanguage = ({ menuBottom }: IButtonChangeLanguage) => {
     return languageSave || options[0].value;
   };
 
-  const localStorage = new LocalStorage();
   const { theme } = useTheme();
   const { i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(getStartLanguage());
@@ -64,7 +62,7 @@ export const ButtonChangeLanguage = ({ menuBottom }: IButtonChangeLanguage) => {
     setSelectedLanguage(newLanguage);
     i18n.changeLanguage(newLanguage);
     setMenuOpen(false);
-    localStorage.set("language", newLanguage);
+    localStorage.setItem("language", newLanguage);
   };
 
   useEffect(() => {
