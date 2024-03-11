@@ -9,7 +9,7 @@ export function responseError(err: AxiosError<any, any> | string) {
   else messageError = err;
 
   if (err instanceof AxiosError && err.code === "ERR_NETWORK")
-    toast.error("server has no response");
+    toast.error("Server has no response");
   else if (err instanceof AxiosError && err.code === "ECONNABORTED") toast.error("No reply!");
   else toast.error(messageError);
 }
