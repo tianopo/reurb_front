@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-// fechar sidebar
-export const Layout = () => {
+
+export const LayoutX = () => {
   const nav = [
     { text: "Inicio", route: "#" },
     { text: "informações", route: "#informacoes" },
