@@ -16,6 +16,13 @@ export const useRegister = () => {
     onSuccess: (data: IAuthModel) => {
       responseSuccess("User registered successfully");
       localStorage.setItem("token", data.token);
+      setTimeout(
+        () => {
+          localStorage.removeItem("token");
+        },
+        24 * 60 * 60 * 1000,
+      );
+
       navigate("/home");
     },
     onError: (erro: AxiosError) => responseError(erro),

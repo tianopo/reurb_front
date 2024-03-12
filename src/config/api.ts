@@ -3,13 +3,12 @@ import axios from "axios";
 
 const ip = process.env.REACT_APP_BACK_HOST;
 const port = process.env.REACT_APP_BACK_PORT;
-const path = process.env.REACT_APP_BACK_PATH;
 const timeOut = 1000 * 30;
 const authHeader = () => ({ authorization: `Bearer ${localStorage.getItem("token")}` });
 
 export const auth = "auth";
 
-export const fileBase = (fileUrl: string) => `${ip}${port}${path}/${fileUrl}`;
+export const fileBase = (fileUrl: string) => `${ip}${port}/${fileUrl}`;
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 0 }, mutations: { retry: 0 } },
@@ -17,7 +16,7 @@ export const queryClient = new QueryClient({
 
 export const api = () =>
   axios.create({
-    baseURL: `${ip}${port}${path}`,
+    baseURL: `${ip}${port}`,
     timeout: timeOut,
     headers: {
       Accept: "application/json",
@@ -29,7 +28,7 @@ export const api = () =>
 
 export const apiUpload = () =>
   axios.create({
-    baseURL: `${ip}${port}${path}`,
+    baseURL: `${ip}${port}`,
     timeout: timeOut,
     headers: {
       ...authHeader(),
