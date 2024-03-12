@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Footer } from "./Footer";
-import { Header } from "./Header";
+import { SidebarX } from "./SidebarX";
 
 export const LayoutX = () => {
   const nav = [
@@ -18,7 +18,7 @@ export const LayoutX = () => {
 
   return (
     <div className={`home-light`}>
-      <Header image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" />
+      <SidebarX image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" />
       <Outlet />
       <Footer title="Matheus Henrique de Abreu" description={"descrição"} icons={icones} />
     </div>
