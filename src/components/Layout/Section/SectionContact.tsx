@@ -2,7 +2,7 @@ import axios from "axios";
 import { Form, FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { Input } from "src/components/Form/Input";
+import { InputX } from "src/components/Form/InputX";
 import { Textarea } from "src/components/Form/Textarea";
 import { useHome } from "src/hooks/validation/useHome";
 import { Section } from "../Section";
@@ -50,9 +50,9 @@ export const SectionContact = ({ id, title }: ISectionContact) => {
         <h4 className="w-full text-start text-32 font-bold md:text-end">{title}</h4>
         <FormProvider {...context}>
           <Form onSubmit={onSubmit}>
-            <Input title={t("nome")} placeholder="João da Silva" required />
-            <Input title={t("email")} typ="email" placeholder="x@x.com" required />
-            <Input title={t("contato")} placeholder="(XX) XXXXX-XXXX" typ="tel" required />
+            <InputX title={t("nome")} placeholder="João da Silva" required />
+            <InputX title={t("email")} typ="email" placeholder="x@x.com" required />
+            <InputX title={t("contato")} placeholder="(XX) XXXXX-XXXX" typ="tel" required />
             <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
             <button className={`button button-light m-10`}>{t("buttonEnviar")}</button>
             <input type="hidden" name="redirectTo" value={window.location.href}></input>

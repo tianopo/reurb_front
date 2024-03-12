@@ -6,15 +6,15 @@ import { FlexCol } from "../Flex/FlexCol";
 import { ErrorMessages } from "./ErrorMessages";
 import { Label } from "./Label";
 
-interface IInput extends IUseForm {
+interface IInputX extends IUseForm {
   title: string;
   placeholder?: string;
   typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local" | "password";
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInput> = (
-  { disabled, required, title, placeholder, typ = "text", onChange, ...rest }: IInput,
+export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
+  { disabled, required, title, placeholder, typ = "text", onChange, ...rest }: IInputX,
   ref,
 ) => {
   const words = labelFormatted(title);
@@ -54,4 +54,4 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInput> = (
   );
 };
 
-export const Input = forwardRef(BeginInput);
+export const InputX = forwardRef(BeginInput);
