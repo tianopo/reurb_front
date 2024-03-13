@@ -6,6 +6,7 @@ import { FlexRow } from "../Flex/FlexRow";
 import { Divider } from "../Other/Divider";
 
 interface INavbar {
+  Icon?: JSX.Element;
   text: string;
   route: string;
 }
@@ -29,7 +30,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
         top-0
         z-20
         h-full
-        w-10
+        w-12
         items-center
         gap-3
         rounded-r-6
@@ -42,7 +43,9 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
           onClick={() => setOpenMenu(!openMenu)}
           className={`navbar_mobile_botao-light rounded-6 border-1`}
         >
-          <Sidebar className={`navbar_mobile_article-light h-7 w-7 border-2`} />
+          <Sidebar
+            className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-slate-600`}
+          />
         </button>
       </FlexCol>
       <FlexCol
@@ -72,24 +75,23 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
         {(image || title) && <Divider />}
         <FlexCol className="w-full justify-start">
           {navbar &&
-            navbar.map(({ text, route }, key) => (
-              <a
-                key={key}
-                href={route}
-                onClick={openMenu ? () => setOpenMenu(!openMenu) : undefined}
-              >
-                <p
-                  className={`
+            navbar.map(({ text, route, Icon }, key) => (
+              <FlexRow key={key} className="items-center">
+                <span className="text-white">{Icon}</span>
+                <a href={route} onClick={openMenu ? () => setOpenMenu(!openMenu) : undefined}>
+                  <p
+                    className={`
                 p-2
                 text-16
                 font-bold
                 text-white
                 hover:underline
                 `}
-                >
-                  {text.toUpperCase()}
-                </p>
-              </a>
+                  >
+                    {text.toUpperCase()}
+                  </p>
+                </a>
+              </FlexRow>
             ))}
         </FlexCol>
         {exit && (
@@ -115,7 +117,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
           </FlexCol>
         )}
       </FlexCol>
-      <div className={`position block ${openMenu ? "md:mr-40" : "mr-10"} bg-black`}></div>
+      <div className={`position block ${openMenu ? "md:mr-40" : "mr-12"} bg-black`}></div>
     </>
   );
 };

@@ -1,6 +1,6 @@
+import { Sidebar } from "@phosphor-icons/react";
 import { useState } from "react";
 import { FlexRow } from "../Flex/FlexRow";
-import { Sidebar } from "@phosphor-icons/react";
 
 interface INavbar {
   text: string;
@@ -82,7 +82,9 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                   }
                   className={`navbar_mobile_button-light rounded-6 border-1`}
                 >
-                  <Sidebar className={`navbar_mobile_article-light h-7 w-7 border-2`} />
+                  <Sidebar
+                    className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-slate-600`}
+                  />
                 </button>
                 {menuOpen && (
                   <div
