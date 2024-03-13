@@ -3,7 +3,7 @@ import { SectionContact } from "src/components/Layout/Section/SectionContact";
 
 export const Home = () => {
   return (
-    <FlexCol className="gap-32">
+    <FlexCol>
       <SectionContact id="contato" title={"Contato"} />
     </FlexCol>
   );

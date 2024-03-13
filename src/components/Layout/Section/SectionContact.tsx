@@ -54,6 +54,8 @@ export const SectionContact = ({ id, title }: ISectionContact) => {
             <InputX title={t("email")} typ="email" placeholder="x@x.com" required />
             <InputX title={t("contato")} placeholder="(XX) XXXXX-XXXX" typ="tel" required />
             <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
+            <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
+            <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
             <button className={`button button-light m-10`}>{t("buttonEnviar")}</button>
             <input type="hidden" name="redirectTo" value={window.location.href}></input>
           </Form>

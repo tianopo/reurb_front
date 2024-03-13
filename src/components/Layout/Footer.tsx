@@ -11,7 +11,7 @@ export const Footer = () => {
       footer-light
       flex
       h-fit
-      w-full
+      w-auto
       flex-col
       items-center
       gap-4

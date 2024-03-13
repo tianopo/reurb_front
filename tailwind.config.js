@@ -20,7 +20,6 @@ module.exports = {
       fontSize: measures,
       borderWidth: measures,
       borderRadius: measures,
-      margin: measures,
       iconSize: measures,
       lineHeight: measures,
     },

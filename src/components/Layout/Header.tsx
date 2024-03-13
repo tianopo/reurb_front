@@ -27,6 +27,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
       flex
       h-20
       w-full
+      min-w-full
       flex-row
       justify-between
       rounded-b-6

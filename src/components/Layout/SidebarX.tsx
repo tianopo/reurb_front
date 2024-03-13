@@ -29,10 +29,10 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
       <FlexCol
         className={`
         ${openMenu ? "hidden" : ""}
-        sticky
+        fixed
         top-0
         z-20
-        h-screen
+        h-full
         w-10
         items-center
         gap-3
@@ -51,20 +51,19 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
       </FlexCol>
       <FlexCol
         className={`
-      ${openMenu ? "flex w-full" : "hidden"}
+      ${openMenu ? "flex w-full md:flex" : "hidden"}
       fixed
       left-0
       top-0
       z-20
-      h-screen
+      h-full
       items-center
       gap-3
       rounded-r-6
       border-1
       bg-primaria-light
       p-4
-      md:sticky
-      ${openMenu ? "md:flex" : "hidden"}
+      md:fixed
       md:w-40
       `}
       >
@@ -122,6 +121,7 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
           </FlexCol>
         )}
       </FlexCol>
+      <div className={`position block ${openMenu ? "md:ml-40" : "ml-10"} bg-black`}></div>
     </>
   );
 };

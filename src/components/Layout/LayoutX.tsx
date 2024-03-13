@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Flex } from "../Flex/Flex";
-import { Footer } from "./Footer";
+import { FlexCol } from "../Flex/FlexCol";
+import { Header } from "./Header";
 import { SidebarX } from "./SidebarX";
 
 export const LayoutX = () => {
@@ -13,11 +14,13 @@ export const LayoutX = () => {
 
   return (
     <div className={`home-light`}>
-      <Flex className="w-full">
+      <Flex>
         <SidebarX image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" exit />
-        <Outlet />
+        <FlexCol>
+          <Header />
+          <Outlet />
+        </FlexCol>
       </Flex>
-      <Footer />
     </div>
   );
 };
