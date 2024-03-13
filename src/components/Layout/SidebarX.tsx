@@ -1,8 +1,6 @@
-import { Article, X } from "@phosphor-icons/react";
+import { Sidebar, X } from "@phosphor-icons/react";
 import { SignOut } from "@phosphor-icons/react/dist/ssr";
 import { useState } from "react";
-import { ButtonChangeLanguage } from "../Buttons/ButtonChangeLanguage";
-import { ButtonChangeTheme } from "../Buttons/ButtonChangeTheme";
 import { FlexCol } from "../Flex/FlexCol";
 import { FlexRow } from "../Flex/FlexRow";
 import { Divider } from "../Other/Divider";
@@ -16,12 +14,10 @@ interface ISidebarX {
   image?: string;
   title?: string;
   navbar?: INavbar[];
-  language?: boolean;
-  themeColor?: boolean;
   exit?: boolean;
 }
 
-export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: ISidebarX) => {
+export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
@@ -46,7 +42,7 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
           onClick={() => setOpenMenu(!openMenu)}
           className={`navbar_mobile_botao-light rounded-6 border-1`}
         >
-          <Article className={`navbar_mobile_article-light h-7 w-7 font-bold`} />
+          <Sidebar className={`navbar_mobile_article-light h-7 w-7 border-2`} />
         </button>
       </FlexCol>
       <FlexCol
@@ -96,7 +92,7 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
               </a>
             ))}
         </FlexCol>
-        {(themeColor || language || exit) && (
+        {exit && (
           <FlexCol className="h-full w-full justify-end gap-3">
             <Divider />
             <FlexRow className="justify-between">
@@ -115,8 +111,6 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
                   <SignOut size={24} />
                 </FlexRow>
               )}
-              {themeColor && <ButtonChangeTheme />}
-              {language && <ButtonChangeLanguage menuBottom />}
             </FlexRow>
           </FlexCol>
         )}
