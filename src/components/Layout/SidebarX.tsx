@@ -28,10 +28,11 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
     <>
       <FlexCol
         className={`
-        fixed
+        ${openMenu ? "hidden" : ""}
+        sticky
         top-0
         z-20
-        h-full
+        h-screen
         w-10
         items-center
         gap-3
@@ -51,7 +52,7 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
       <FlexCol
         className={`
       ${openMenu ? "flex w-full" : "hidden"}
-      sticky
+      fixed
       left-0
       top-0
       z-20
