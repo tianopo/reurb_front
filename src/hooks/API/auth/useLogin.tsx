@@ -19,7 +19,7 @@ export const useLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: path,
     onSuccess: (data: IAuthModel) => {
-      responseSuccess("user successfully logged in");
+      responseSuccess("User successfully logged in");
       localStorage.setItem("token", data.token);
       setTimeout(
         () => {

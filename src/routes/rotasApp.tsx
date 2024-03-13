@@ -1,20 +1,24 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { LayoutX } from "src/components/Layout/LayoutX";
 import { Auth } from "src/pages/Auth/Auth.views";
-import { Home } from "src/pages/Home/Home.views";
+import { Perfil } from "src/pages/Home/Home.views";
 import { AutenticatedRoute } from "./AutenticatedRoute";
-
-const token = localStorage.getItem("token");
+import { PublicRoute } from "./PublicRoute";
 
 export const browserRouter = createBrowserRouter([
-  { path: "/", element: token ? <Navigate to="/home" /> : <Auth /> },
-  { path: "*", element: <Navigate to="/home" /> },
+  {
+    element: <PublicRoute />,
+    children: [
+      { path: "/", element: <Auth /> },
+      { path: "*", element: <Auth /> },
+    ],
+  },
   {
     element: <AutenticatedRoute />,
     children: [
       {
         element: <LayoutX />,
-        children: [{ path: "/home", element: <Home /> }],
+        children: [{ path: "/home", element: <Perfil /> }],
       },
     ],
   },

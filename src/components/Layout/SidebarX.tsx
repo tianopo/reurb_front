@@ -1,6 +1,8 @@
 import { Sidebar, X } from "@phosphor-icons/react";
 import { SignOut } from "@phosphor-icons/react/dist/ssr";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FlexCol } from "../Flex/FlexCol";
 import { FlexRow } from "../Flex/FlexRow";
 import { Divider } from "../Other/Divider";
@@ -20,6 +22,7 @@ interface ISidebarX {
 
 export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -81,12 +84,12 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 <a href={route} onClick={openMenu ? () => setOpenMenu(!openMenu) : undefined}>
                   <p
                     className={`
-                p-2
-                text-16
-                font-bold
-                text-white
-                hover:underline
-                `}
+                  p-2
+                  text-16
+                  font-bold
+                  text-white
+                  hover:underline
+                  `}
                   >
                     {text.toUpperCase()}
                   </p>
@@ -99,9 +102,17 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
             <Divider />
             <FlexRow className="justify-between">
               {exit && (
-                <FlexRow
+                <button
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    navigate("/");
+                    toast.success("You exited successfully");
+                  }}
                   className={`
+                  flex
                   cursor-pointer
+                  flex-row
+                  items-center
                   gap-1
                   rounded-6
                   text-center
@@ -111,7 +122,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 >
                   <p>EXIT</p>
                   <SignOut size={24} />
-                </FlexRow>
+                </button>
               )}
             </FlexRow>
           </FlexCol>

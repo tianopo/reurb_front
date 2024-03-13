@@ -21,7 +21,7 @@ export const useRegister = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: path,
     onSuccess: (data: IAuthModel) => {
-      responseSuccess("successfully registered user");
+      responseSuccess("Successfully registered user");
       localStorage.setItem("token", data.token);
       setTimeout(
         () => {
