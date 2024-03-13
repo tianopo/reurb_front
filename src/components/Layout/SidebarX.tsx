@@ -64,7 +64,7 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
       p-4
       md:sticky
       ${openMenu ? "md:flex" : "hidden"}
-      md:w-1/3
+      md:w-40
       `}
       >
         <X
@@ -103,12 +103,15 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
               {exit && (
                 <FlexRow
                   className={`
-                sidebar_hover-light
-                cursor-pointer
-                gap-1
-                rounded-6`}
+                  cursor-pointer
+                  gap-1
+                  rounded-6
+                  text-center
+                  font-bold
+                  text-white
+                  hover:translate-y-1`}
                 >
-                  <p>Sair</p>
+                  <p>EXIT</p>
                   <SignOut size={24} />
                 </FlexRow>
               )}

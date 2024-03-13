@@ -18,7 +18,7 @@ export const LayoutX = () => {
 
   return (
     <div className={`home-light`}>
-      <SidebarX image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" />
+      <SidebarX image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" exit />
       <Outlet />
       <Footer title="Matheus Henrique de Abreu" description={"descrição"} icons={icones} />
     </div>
