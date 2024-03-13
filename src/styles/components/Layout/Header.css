@@ -1,5 +1,5 @@
 .header-light {
-  @apply border-borda-light bg-white;
+  @apply border-borda-light bg-primaria-light;
 }
 
 .header_imagem-light {

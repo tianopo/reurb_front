@@ -45,7 +45,7 @@ export const SectionContact = ({ id, title }: ISectionContact) => {
   };
 
   return (
-    <Section divisao={2} className="items-center p-10">
+    <Section divisao={2} className="items-center p-2">
       <div className="w-full" id={id}>
         <h4 className="w-full text-start text-32 font-bold md:text-end">{title}</h4>
         <FormProvider {...context}>
@@ -54,9 +54,7 @@ export const SectionContact = ({ id, title }: ISectionContact) => {
             <InputX title={t("email")} typ="email" placeholder="x@x.com" required />
             <InputX title={t("contato")} placeholder="(XX) XXXXX-XXXX" typ="tel" required />
             <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
-            <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
-            <Textarea title={t("mensagem")} placeholder={t("mensagemPlaceholder")} />
-            <button className={`button button-light m-10`}>{t("buttonEnviar")}</button>
+            <button className={`button button-light ml-2`}>{t("buttonEnviar")}</button>
             <input type="hidden" name="redirectTo" value={window.location.href}></input>
           </Form>
         </FormProvider>

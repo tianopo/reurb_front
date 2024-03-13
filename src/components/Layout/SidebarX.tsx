@@ -121,7 +121,7 @@ export const SidebarX = ({ image, title, navbar, language, themeColor, exit }: I
           </FlexCol>
         )}
       </FlexCol>
-      <div className={`position block ${openMenu ? "md:ml-40" : "ml-10"} bg-black`}></div>
+      <div className={`position block ${openMenu ? "md:mr-40" : "mr-10"} bg-black`}></div>
     </>
   );
 };

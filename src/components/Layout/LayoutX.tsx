@@ -16,8 +16,8 @@ export const LayoutX = () => {
     <div className={`home-light`}>
       <Flex>
         <SidebarX image="/projeto/logo.svg" navbar={nav} title="Fábrica de Software" exit />
-        <FlexCol>
-          <Header />
+        <FlexCol className="w-full">
+          <Header title="Olá" />
           <Outlet />
         </FlexCol>
       </Flex>
