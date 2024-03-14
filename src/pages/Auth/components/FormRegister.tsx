@@ -33,7 +33,7 @@ export const FormRegister = () => {
             typ={showPassword ? "text" : "password"}
             required
           />
-          <label className="flex w-11/12 flex-row items-start gap-2 text-sm text-primaria-light">
+          <label className="flex w-11/12 flex-row items-center gap-2 text-sm text-primaria-light">
             <input
               type="checkbox"
               checked={showPassword}
