@@ -14,7 +14,10 @@ export const LayoutX = () => {
         <SidebarX image="/projeto/logo.svg" navbar={nav} title="Software" exit />
         <FlexCol className="w-full">
           <Header title="Olá" />
-          <Outlet />
+          <div className="h-screen w-full bg-slate-400">
+            <Outlet />
+          </div>
+          ;
         </FlexCol>
       </Flex>
     </div>

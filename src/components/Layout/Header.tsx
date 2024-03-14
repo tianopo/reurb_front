@@ -49,7 +49,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
           `}
             />
           )}
-          {title && <h1 className="text-20 font-bold text-white">{title}</h1>}
+          {title && <h1 className="text-20 font-bold text-escrita-light">{title}</h1>}
         </FlexRow>
         {navbar && (
           <>
@@ -61,7 +61,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                     p-2
                     text-16
                     font-bold
-                    text-white
+                    text-escrita-light
                     hover:underline
                     `}
                   >
@@ -83,7 +83,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                   className={`navbar_mobile_button-light rounded-6 border-1`}
                 >
                   <Sidebar
-                    className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-slate-600`}
+                    className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-escrita-light hover:bg-slate-600`}
                   />
                 </button>
                 {menuOpen && (
@@ -105,7 +105,7 @@ export const Header = ({ image, title, navbar }: IHeader) => {
                         p-2
                         text-16
                         font-bold
-                        text-white
+                        text-escrita-light
                         hover:underline
                         `}
                         >

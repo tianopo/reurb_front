@@ -42,7 +42,7 @@ export const FormRegister = () => {
               h-4
               w-4
               appearance-none
-              rounded-full
+              rounded-6
               bg-primaria-light
               outline-none
               checked:bg-slate-800

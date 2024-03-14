@@ -38,7 +38,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
         gap-32
         rounded-r-6
         border-1
-        bg-primaria-light
+        bg-white
         p-2
         `}
       >
@@ -47,7 +47,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
           className={`navbar_mobile_botao-light rounded-6 border-1`}
         >
           <Sidebar
-            className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-selecionado-light`}
+            className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-escrita-light hover:bg-selecionado-light`}
           />
         </button>
         <FlexCol className="h-full justify-between">
@@ -58,7 +58,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 key={key}
                 className="flex h-7 w-full items-center justify-center rounded-6 hover:bg-selecionado-light"
               >
-                <span className="text-white">{Icon}</span>
+                <span className="text-escrita-light">{Icon}</span>
               </a>
             ))}
           <FlexCol className="gap-3">
@@ -81,7 +81,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 p-2
                 text-center
                 font-bold
-                text-white
+                text-escrita-light
                 hover:bg-selecionado-light
                 `}
               >
@@ -103,18 +103,18 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
       gap-3
       rounded-r-6
       border-1
-      bg-primaria-light
+      bg-white
       p-4
       md:fixed
       md:w-40
       `}
       >
         <X
-          className="h-40 w-10 cursor-pointer self-end text-white md:absolute md:right-0 md:h-5"
+          className="h-40 w-10 cursor-pointer self-end text-escrita-light md:absolute md:right-0 md:h-5"
           onClick={() => setOpenMenu(!openMenu)}
         />
         {image && <img src={image} alt={title} className={`h-20 w-20`} />}
-        {title && <h2 className="text-center text-2xl font-bold text-white">{title}</h2>}
+        {title && <h2 className="text-center text-2xl font-bold text-escrita-light">{title}</h2>}
         {(image || title) && <Divider />}
         <FlexCol className="w-full justify-start">
           {navbar &&
@@ -125,13 +125,13 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 key={key}
               >
                 <FlexRow className="items-center rounded-6 px-1 hover:bg-selecionado-light">
-                  <span className="text-white">{Icon}</span>
+                  <span className="text-escrita-light">{Icon}</span>
                   <p
                     className={`
                   p-2
                   text-16
                   font-bold
-                  text-white
+                  text-escrita-light
                   `}
                   >
                     {text.toUpperCase()}
@@ -162,7 +162,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                   p-2
                   text-center
                   font-bold
-                  text-white
+                  text-escrita-light
                   hover:bg-selecionado-light
                   `}
                 >
