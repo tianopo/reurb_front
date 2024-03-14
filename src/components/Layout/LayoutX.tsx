@@ -6,7 +6,7 @@ import { Header } from "./Header";
 import { SidebarX } from "./SidebarX";
 
 export const LayoutX = () => {
-  const nav = [{ text: "Home", route: "/home", Icon: <HouseLine /> }];
+  const nav = [{ text: "Perfil", route: "/perfil", Icon: <HouseLine /> }];
 
   return (
     <div className={`home-light`}>

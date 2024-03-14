@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { api, auth } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
@@ -18,10 +19,13 @@ export interface IRegisterDto {
 
 export const useRegister = () => {
   const navigate = useNavigate();
+  const { t: translator } = useTranslation();
+  const t = (t: string) => translator(`hooks.auth.${t}`);
+
   const { mutate, isPending } = useMutation({
     mutationFn: path,
     onSuccess: (data: IAuthModel) => {
-      responseSuccess("Successfully registered user");
+      responseSuccess(t("userRegistered"));
       localStorage.setItem("token", data.token);
       setTimeout(
         () => {
@@ -30,7 +34,7 @@ export const useRegister = () => {
         24 * 60 * 60 * 1000,
       );
 
-      navigate("/home");
+      navigate("/perfil");
     },
     onError: (erro: AxiosError) => responseError(erro),
   });
@@ -41,20 +45,16 @@ export const useRegister = () => {
       .required()
       .min(8)
       .max(30)
-      .matches(Regex.uppercase, "Password must have at least one uppercase character")
-      .matches(Regex.lowcase, "Password must have at least one lowercase character")
-      .matches(Regex.number, "Password must have at least one number character")
-      .matches(Regex.special_character, "Password must have at least one special character")
+      .matches(Regex.uppercase, t("passwordUpper"))
+      .matches(Regex.lowcase, t("passwordLower"))
+      .matches(Regex.number, t("passwordNumber"))
+      .matches(Regex.special_character, t("passwordSpecial"))
       .label("password"),
     confirmPassword: Yup.string()
       .required()
-      .oneOf([Yup.ref("password")], "Passwords don't match")
+      .oneOf([Yup.ref("password")], t("passwordMatch"))
       .label("Confirm Password"),
-    email: Yup.string()
-      .required()
-      .email()
-      .matches(Regex.email, "Invalid email address")
-      .label("email"),
+    email: Yup.string().required().email().matches(Regex.email, t("InvalidEmail")).label("email"),
   });
 
   const context = useForm<IRegisterDto>({
