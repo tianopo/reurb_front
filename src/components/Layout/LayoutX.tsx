@@ -17,7 +17,6 @@ export const LayoutX = () => {
           <div className="h-screen w-full bg-slate-400">
             <Outlet />
           </div>
-          ;
         </FlexCol>
       </Flex>
     </div>

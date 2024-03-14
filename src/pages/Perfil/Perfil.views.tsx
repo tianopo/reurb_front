@@ -1,3 +1,5 @@
+import { CardContainer } from "src/components/Layout/CardContainer";
+
 export const Perfil = () => {
-  return <></>;
+  return <CardContainer>p</CardContainer>;
 };
