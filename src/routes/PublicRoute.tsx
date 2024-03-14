@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useTitle } from "src/hooks/utils/useTitle";
 
 interface IPublicRouteContext {
   token: string | null;
@@ -8,6 +9,7 @@ interface IPublicRouteContext {
 const PublicRouteUserContext = createContext<IPublicRouteContext>({ token: null });
 
 export const PublicRoute = () => {
+  useTitle();
   const token = localStorage.getItem("token");
 
   return !token ? (
@@ -15,6 +17,6 @@ export const PublicRoute = () => {
       <Outlet />
     </PublicRouteUserContext.Provider>
   ) : (
-    <Navigate to="/home" />
+    <Navigate to="/perfil" />
   );
 };
