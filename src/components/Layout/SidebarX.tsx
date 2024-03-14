@@ -35,7 +35,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
         h-full
         w-12
         items-center
-        gap-3
+        gap-32
         rounded-r-6
         border-1
         bg-primaria-light
@@ -50,6 +50,46 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
             className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-slate-600`}
           />
         </button>
+        <FlexCol className="h-full justify-between">
+          {navbar &&
+            navbar.map(({ route, Icon }, key) => (
+              <a
+                href={route}
+                key={key}
+                className="flex h-7 w-full items-center justify-center rounded-6 hover:bg-selecionado-light"
+              >
+                <span className="text-white">{Icon}</span>
+              </a>
+            ))}
+          <FlexCol className="gap-3">
+            <Divider />
+            {exit && (
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  navigate("/");
+                  toast.success("You exited successfully");
+                }}
+                className={`
+                flex
+                w-full
+                cursor-pointer
+                flex-row
+                items-center
+                gap-1
+                rounded-6
+                p-2
+                text-center
+                font-bold
+                text-white
+                hover:bg-selecionado-light
+                `}
+              >
+                <SignOut />
+              </button>
+            )}
+          </FlexCol>
+        </FlexCol>
       </FlexCol>
       <FlexCol
         className={`
@@ -79,22 +119,25 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
         <FlexCol className="w-full justify-start">
           {navbar &&
             navbar.map(({ text, route, Icon }, key) => (
-              <FlexRow key={key} className="items-center">
-                <span className="text-white">{Icon}</span>
-                <a href={route} onClick={openMenu ? () => setOpenMenu(!openMenu) : undefined}>
+              <a
+                href={route}
+                onClick={openMenu ? () => setOpenMenu(!openMenu) : undefined}
+                key={key}
+              >
+                <FlexRow className="items-center rounded-6 px-1 hover:bg-selecionado-light">
+                  <span className="text-white">{Icon}</span>
                   <p
                     className={`
                   p-2
                   text-16
                   font-bold
                   text-white
-                  hover:underline
                   `}
                   >
                     {text.toUpperCase()}
                   </p>
-                </a>
-              </FlexRow>
+                </FlexRow>
+              </a>
             ))}
         </FlexCol>
         {exit && (
@@ -110,15 +153,18 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                   }}
                   className={`
                   flex
+                  w-full
                   cursor-pointer
                   flex-row
                   items-center
                   gap-1
                   rounded-6
+                  p-2
                   text-center
                   font-bold
                   text-white
-                  hover:translate-y-1`}
+                  hover:bg-selecionado-light
+                  `}
                 >
                   <p>EXIT</p>
                   <SignOut size={24} />

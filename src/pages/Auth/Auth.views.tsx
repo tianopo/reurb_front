@@ -9,7 +9,7 @@ export const Auth = () => {
 
   return (
     <section
-      className={`via-from-slate-400 to-from-slate-200 flex h-screen items-center justify-center overflow-hidden bg-gradient-to-r from-slate-600 p-2`}
+      className={`flex h-screen items-center justify-center bg-gradient-to-r from-slate-600 to-slate-200 p-2`}
     >
       <div className="w-2/3 rounded-xl bg-neutral-600 p-3 shadow-2xl md:w-96">
         <div className="flex h-full w-full flex-col items-center justify-center gap-2">
