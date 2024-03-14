@@ -47,7 +47,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
           className={`navbar_mobile_botao-light rounded-6 border-1`}
         >
           <Sidebar
-            className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-slate-600`}
+            className={`h-7 w-7 rounded-6 border-2 border-slate-300 text-slate-300 hover:bg-selecionado-light`}
           />
         </button>
         <FlexCol className="h-full justify-between">
