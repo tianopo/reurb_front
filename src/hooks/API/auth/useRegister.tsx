@@ -33,7 +33,6 @@ export const useRegister = () => {
       setTimeout(
         () => {
           localStorage.removeItem("token");
-          queryClient.setQueryData(["token-data"], "");
         },
         24 * 60 * 60 * 1000,
       );

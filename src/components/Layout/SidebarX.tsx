@@ -3,10 +3,11 @@ import { SignOut } from "@phosphor-icons/react/dist/ssr";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useLogout } from "src/hooks/API/auth/useLogout";
+import { app } from "src/routes/app";
 import { FlexCol } from "../Flex/FlexCol";
 import { FlexRow } from "../Flex/FlexRow";
 import { Divider } from "../Other/Divider";
-import { app } from "src/routes/app";
 
 interface INavbar {
   Icon?: JSX.Element;
@@ -24,6 +25,7 @@ interface ISidebarX {
 export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
+  const { mutate } = useLogout();
 
   return (
     <>
@@ -147,11 +149,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
             <FlexRow className="justify-between">
               {exit && (
                 <button
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    navigate(app.auth);
-                    toast.success("You exited successfully");
-                  }}
+                  onClick={() => mutate}
                   className={`
                   flex
                   w-full

@@ -11,13 +11,13 @@ export const useToken = ({ token }: { token: string }) => {
   }
 
   const { data } = useQuery({
-    enabled: !!token,
     queryKey: ["token-data", token],
     queryFn: path,
     throwOnError: (error: AxiosError) => {
-      responseError(error);
+      if (token !== "") responseError(error);
       return false;
     },
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   return { data };

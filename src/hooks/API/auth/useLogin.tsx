@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { api, auth } from "src/config/api";
+import { api, auth, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
 import { IAuthModel } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
@@ -26,6 +26,7 @@ export const useLogin = () => {
     mutationFn: path,
     onSuccess: (data: IAuthModel) => {
       responseSuccess(t("userLogged"));
+      queryClient.setQueryData(["token-data"], data.token);
       localStorage.setItem("token", data.token);
       setTimeout(
         () => {
