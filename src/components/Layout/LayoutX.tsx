@@ -4,9 +4,10 @@ import { Flex } from "../Flex/Flex";
 import { FlexCol } from "../Flex/FlexCol";
 import { Header } from "./Header";
 import { SidebarX } from "./SidebarX";
+import { app } from "src/routes/app";
 
 export const LayoutX = () => {
-  const nav = [{ text: "Perfil", route: "/perfil", Icon: <HouseLine /> }];
+  const nav = [{ text: "Perfil", route: app.perfil, Icon: <HouseLine /> }];
 
   return (
     <div className={`home-light`}>

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { FlexCol } from "../Flex/FlexCol";
 import { FlexRow } from "../Flex/FlexRow";
 import { Divider } from "../Other/Divider";
+import { app } from "src/routes/app";
 
 interface INavbar {
   Icon?: JSX.Element;
@@ -67,7 +68,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
               <button
                 onClick={() => {
                   localStorage.removeItem("token");
-                  navigate("/");
+                  navigate(app.auth);
                   toast.success("You exited successfully");
                 }}
                 className={`
@@ -148,7 +149,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 <button
                   onClick={() => {
                     localStorage.removeItem("token");
-                    navigate("/");
+                    navigate(app.auth);
                     toast.success("You exited successfully");
                   }}
                   className={`

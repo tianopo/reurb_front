@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useTitle } from "src/hooks/utils/useTitle";
+import { app } from "../app";
 
 interface IPublicRouteContext {
   token: string | null;
@@ -17,6 +18,6 @@ export const PublicRoute = () => {
       <Outlet />
     </PublicRouteUserContext.Provider>
   ) : (
-    <Navigate to="/perfil" />
+    <Navigate to={app.perfil} />
   );
 };

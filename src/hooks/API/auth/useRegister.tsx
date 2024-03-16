@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { api, auth } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
 import { IAuthModel } from "src/interfaces/models";
+import { apiRoute } from "src/routes/api";
+import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
@@ -34,7 +36,7 @@ export const useRegister = () => {
         24 * 60 * 60 * 1000,
       );
 
-      navigate("/perfil");
+      navigate(app.perfil);
     },
     onError: (erro: AxiosError) => responseError(erro),
   });
@@ -63,7 +65,7 @@ export const useRegister = () => {
   });
 
   async function path(data: Yup.InferType<typeof schema>): Promise<IAuthModel> {
-    const result = await api().post(`${auth}/signup`, data);
+    const result = await api().post(`${auth}${apiRoute.signup}`, data);
     return result.data;
   }
 
