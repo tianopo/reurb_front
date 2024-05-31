@@ -11,7 +11,7 @@ export const useLogout = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token") || "";
 
-  const { mutate } = useMutation({
+  const mutation = useMutation({
     mutationFn: path,
     onSuccess: () => {
       localStorage.removeItem("token");
@@ -19,7 +19,7 @@ export const useLogout = () => {
       toast.success("You exited successfully");
       navigate(app.auth);
     },
-    onError: (erro: AxiosError) => responseError(erro),
+    onError: (error: AxiosError) => responseError(error),
   });
 
   async function path(): Promise<string> {
@@ -27,5 +27,5 @@ export const useLogout = () => {
     return result.data;
   }
 
-  return { mutate };
+  return mutation;
 };
