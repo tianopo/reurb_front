@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { Outlet } from "react-router-dom";
 import { LoadingToRedirect } from "src/components/Layout/isLoadingToRedirect";
-import { useToken } from "src/hooks/API/auth/useToken";
 import { useTitle } from "src/hooks/utils/useTitle";
 
 interface IPrivateRouteContext {
@@ -12,10 +11,9 @@ const PrivateRouteUserContext = createContext<IPrivateRouteContext>({ token: nul
 
 export const AutenticatedRoute = () => {
   useTitle();
-  const token = localStorage.getItem("token") || "";
-  const { data } = useToken({ token });
+  const token = localStorage.getItem("token");
 
-  return data ? (
+  return token ? (
     <PrivateRouteUserContext.Provider value={{ token }}>
       <Outlet />
     </PrivateRouteUserContext.Provider>

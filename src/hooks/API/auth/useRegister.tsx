@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { api, auth, queryClient } from "src/config/api";
+import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
 import { IAuthModel } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
@@ -66,7 +66,7 @@ export const useRegister = () => {
   });
 
   async function path(data: Yup.InferType<typeof schema>): Promise<IAuthModel> {
-    const result = await api().post(`${auth}${apiRoute.signup}`, data);
+    const result = await api().post(`${apiRoute.signup}`, data);
     return result.data;
   }
 
