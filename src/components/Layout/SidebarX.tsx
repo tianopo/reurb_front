@@ -44,7 +44,10 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
         md:rounded-r-6
         `}
       >
-        <button onClick={() => setOpenMenu(!openMenu)} className={`navbar_mobile_botao-light`}>
+        <button
+          onClick={() => setOpenMenu(!openMenu)}
+          className={`navbar_mobile_botao-light rounded-6 border-2 border-slate-300`}
+        >
           <ArrowRight className={`h-7 w-7 text-escrita-light hover:bg-selecionado-light`} />
         </button>
         <FlexCol className="h-full justify-between">
