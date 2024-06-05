@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useToken } from "src/hooks/API/auth/useToken";
 import { useTitle } from "src/hooks/utils/useTitle";
@@ -13,7 +13,15 @@ const PublicRouteUserContext = createContext<IPublicRouteContext>({ token: null 
 export const PublicRoute = () => {
   useTitle();
   const token = localStorage.getItem("token") || "";
-  const { data } = useToken({ token });
+  const [dataFetched, setDataFetched] = useState(false);
+  const { data, refetch } = useToken({ token });
+
+  useEffect(() => {
+    if (!dataFetched && token) {
+      refetch();
+      setDataFetched(true);
+    }
+  }, [dataFetched, token, refetch]);
 
   return !data ? (
     <PublicRouteUserContext.Provider value={{ token }}>

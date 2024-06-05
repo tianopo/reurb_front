@@ -10,7 +10,7 @@ export const useToken = ({ token }: { token: string }) => {
     return result.data;
   }
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["token-data", token],
     queryFn: path,
     throwOnError: (error: AxiosError) => {
@@ -20,5 +20,5 @@ export const useToken = ({ token }: { token: string }) => {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  return { data };
+  return { data, refetch };
 };
