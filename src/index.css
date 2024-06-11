@@ -16,4 +16,33 @@
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   font-family: "Roboto";
+  overflow-x: hidden;
+}
+
+p {
+  @apply text-16 leading-tight;
+}
+
+h6 {
+  @apply text-20 leading-tight;
+}
+
+h5 {
+  @apply text-24 leading-tight;
+}
+
+h4 {
+  @apply text-30 leading-tight;
+}
+
+h3 {
+  @apply text-38 leading-tight;
+}
+
+h2 {
+  @apply text-48 leading-tight;
+}
+
+h1 {
+  @apply text-60 leading-tight;
 }
