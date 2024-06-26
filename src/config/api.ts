@@ -1,8 +1,9 @@
 import { QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const ip = process.env.REACT_APP_BACK_HOST;
-const port = process.env.REACT_APP_BACK_PORT ?? "";
+const ip = process.env.REACT_APP_BACK_HOST || "";
+const port = process.env.REACT_APP_BACK_PORT;
+const prod = process.env.REACT_APP_NODE_ENV;
 const timeOut = 1000 * 30;
 const authHeader = () => ({ authorization: `Bearer ${localStorage.getItem("token")}` });
 
@@ -16,7 +17,7 @@ export const queryClient = new QueryClient({
 
 export const api = () =>
   axios.create({
-    baseURL: `${ip}${port}`,
+    baseURL: `${prod === "dev" ? ip + port : ip}`,
     timeout: timeOut,
     headers: {
       Accept: "application/json",
