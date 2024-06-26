@@ -6,6 +6,7 @@ build
 
 # Outros
 .env
+.tool-versions
 
 # Arquivos Hardhat
 cache

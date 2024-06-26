@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const ip = process.env.REACT_APP_BACK_HOST;
-const port = process.env.REACT_APP_BACK_PORT;
+const port = process.env.REACT_APP_BACK_PORT ?? "";
 const timeOut = 1000 * 30;
 const authHeader = () => ({ authorization: `Bearer ${localStorage.getItem("token")}` });
 
