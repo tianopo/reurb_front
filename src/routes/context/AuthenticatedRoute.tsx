@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { LoadingToRedirect } from "src/components/Layout/isLoadingToRedirect";
+import { Navigate, Outlet } from "react-router-dom";
 import { useToken } from "src/hooks/API/auth/useToken";
 import { useTitle } from "src/hooks/utils/useTitle";
+import { app } from "../app";
 
 interface IPrivateRouteContext {
   token: string | null;
@@ -10,7 +10,7 @@ interface IPrivateRouteContext {
 
 const PrivateRouteUserContext = createContext<IPrivateRouteContext>({ token: null });
 
-export const AutenticatedRoute = () => {
+export const AuthenticatedRoute = () => {
   useTitle();
   const token = localStorage.getItem("token") || "";
   const [dataFetched, setDataFetched] = useState(false);
@@ -23,11 +23,13 @@ export const AutenticatedRoute = () => {
     }
   }, [dataFetched, token, refetch]);
 
-  return data ? (
+  if (!data) {
+    return <Navigate to={app.auth} />;
+  }
+
+  return (
     <PrivateRouteUserContext.Provider value={{ token }}>
       <Outlet />
     </PrivateRouteUserContext.Provider>
-  ) : (
-    <LoadingToRedirect />
   );
 };

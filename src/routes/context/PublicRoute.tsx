@@ -23,11 +23,13 @@ export const PublicRoute = () => {
     }
   }, [dataFetched, token, refetch]);
 
-  return !data ? (
+  if (data) {
+    return <Navigate to={app.perfil} />;
+  }
+
+  return (
     <PublicRouteUserContext.Provider value={{ token }}>
       <Outlet />
     </PublicRouteUserContext.Provider>
-  ) : (
-    <Navigate to={app.perfil} />
   );
 };

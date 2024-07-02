@@ -18,6 +18,7 @@ export const useToken = ({ token }: { token: string }) => {
       return false;
     },
     staleTime: 24 * 60 * 60 * 1000,
+    enabled: !!token,
   });
 
   return { data, refetch };

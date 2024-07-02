@@ -4,7 +4,7 @@ import { Auth } from "src/pages/Auth/Auth.views";
 import { Perfil } from "src/pages/Perfil/Perfil.views";
 import { Teste } from "src/pages/Teste";
 import { app } from "./app";
-import { AutenticatedRoute } from "./context/AutenticatedRoute";
+import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
 import { PublicRoute } from "./context/PublicRoute";
 
 export const browserRouter = createBrowserRouter([
@@ -17,7 +17,7 @@ export const browserRouter = createBrowserRouter([
     ],
   },
   {
-    element: <AutenticatedRoute />,
+    element: <AuthenticatedRoute />,
     children: [
       {
         element: <LayoutX />,
