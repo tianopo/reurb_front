@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { LinkX } from "../Other/LinkX";
+import { LinkX } from "../../Other/LinkX/LinkX";
+import "./Footer.css";
 
 export const Footer = () => {
   const { t: translator } = useTranslation();

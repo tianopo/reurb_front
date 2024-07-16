@@ -3,8 +3,9 @@ import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
-import { ErrorMessages } from "./ErrorMessages";
-import { Label } from "./Label";
+import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
+import "./Input.css";
+import { Label } from "./Label/Label";
 
 interface IInputX extends IUseForm {
   title: string;

@@ -1,5 +1,6 @@
 // buttonSubmit.tsx
 import { HTMLAttributes, ReactNode } from "react";
+import "./Button.css";
 
 interface IButtonSubmit extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;

@@ -1,4 +1,0 @@
-/* Cor */
-.button_trocar_idioma-light {
-  @apply border-borda-light text-icone-light hover:bg-selecionado-light;
-}

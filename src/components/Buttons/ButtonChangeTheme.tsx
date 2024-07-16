@@ -2,6 +2,7 @@
 import { Moon, Sun } from "@phosphor-icons/react";
 import { useTheme } from "src/hooks/useTheme";
 import { ITheme } from "src/interfaces/ITheme";
+import "./Button.css";
 
 export const ButtonChangeTheme = () => {
   const { theme, setTheme } = useTheme();

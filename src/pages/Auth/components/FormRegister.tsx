@@ -3,7 +3,7 @@ import { FormProvider } from "react-hook-form";
 import { FlexCol } from "src/components/Flex/FlexCol";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/InputX";
-import { IRegisterDto, useRegister } from "src/hooks/API/auth/useRegister";
+import { IRegisterDto, useRegister } from "src/pages/Auth/hooks/useRegister";
 
 export const FormRegister = () => {
   const { mutate, isPending, context } = useRegister();

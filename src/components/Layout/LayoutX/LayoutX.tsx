@@ -1,10 +1,11 @@
 import { HouseLine } from "@phosphor-icons/react";
 import { Outlet } from "react-router-dom";
-import { Flex } from "../Flex/Flex";
-import { FlexCol } from "../Flex/FlexCol";
-import { Header } from "./Header";
-import { SidebarX } from "./SidebarX";
 import { app } from "src/routes/app";
+import "./Layout.css";
+import { Flex } from "src/components/Flex/Flex";
+import { SidebarX } from "../SidebarX";
+import { FlexCol } from "src/components/Flex/FlexCol";
+import { Header } from "../Header/Header";
 
 export const LayoutX = () => {
   const nav = [{ text: "Perfil", route: app.perfil, Icon: <HouseLine /> }];

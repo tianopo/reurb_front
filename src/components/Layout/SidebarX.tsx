@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useLogout } from "src/hooks/API/auth/useLogout";
 import { FlexCol } from "../Flex/FlexCol";
 import { FlexRow } from "../Flex/FlexRow";
-import { Divider } from "../Other/Divider";
+import { Divider } from "../Other/Divider/Divider";
 
 interface INavbar {
   Icon?: JSX.Element;

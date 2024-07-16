@@ -1,6 +1,7 @@
 import { Sidebar } from "@phosphor-icons/react";
 import { useState } from "react";
-import { FlexRow } from "../Flex/FlexRow";
+import { FlexRow } from "src/components/Flex/FlexRow";
+import "./Header.css";
 
 interface INavbar {
   text: string;

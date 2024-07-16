@@ -11,3 +11,4 @@ build
 # Arquivos Hardhat
 cache
 artifacts
+.vercel

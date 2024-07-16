@@ -6,3 +6,11 @@
 .button-light {
   @apply border-borda-light bg-secundaria-light text-white;
 }
+
+.button_trocar_idioma-light {
+  @apply border-borda-light text-icone-light hover:bg-selecionado-light;
+}
+
+.button_trocar_tema-light {
+  @apply border-borda-light hover:bg-hover-light;
+}

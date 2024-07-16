@@ -13,3 +13,7 @@
   background-color: #555;
   display: block;
 }
+
+.home-light {
+  @apply border-borda-light bg-slate-400 text-escrita-light;
+}

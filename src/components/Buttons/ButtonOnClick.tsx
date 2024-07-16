@@ -1,4 +1,5 @@
 import { HTMLAttributes, ReactNode } from "react";
+import "./Button.css";
 
 interface IButtonOnClick extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "src/hooks/useTheme";
 import { setLocaleYup } from "src/utils/yupValidation";
+import "./Button.css";
 
 interface IButtonChangeLanguage {
   menuBottom?: boolean;

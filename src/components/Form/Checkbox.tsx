@@ -4,8 +4,9 @@ import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
 import { FlexRow } from "../Flex/FlexRow";
-import { ErrorMessages } from "./ErrorMessages";
-import { Label } from "./Label";
+import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
+import { Label } from "./Label/Label";
+import "./Input.css";
 
 export interface ICheckbox extends IUseForm {
   title: string;

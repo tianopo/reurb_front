@@ -1,5 +1,6 @@
-import { IUseForm } from "../../interfaces/IUseForm";
-import { FlexRow } from "../Flex/FlexRow";
+import { IUseForm } from "../../../interfaces/IUseForm";
+import { FlexRow } from "../../Flex/FlexRow";
+import "./Label.css";
 
 interface ILabel extends IUseForm {
   title: string;
