@@ -3,6 +3,8 @@ export const app = {
   register: "/cadastro",
   login: "/login",
   forgotPassword: "/esqueceu-senha",
+
+  // After Login
   auth: "/",
   perfil: "/perfil",
 };
