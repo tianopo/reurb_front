@@ -1,27 +1,27 @@
 .header-light {
-  @apply border-borda-light bg-white;
+  @apply border-edge-primary bg-white;
 }
 
 .header_imagem-light {
-  @apply border-borda-light bg-primaria-light;
+  @apply border-edge-primary bg-primary;
 }
 
 .navbar_texto-light {
-  @apply hover:text-primaria-light;
+  @apply hover:text-primary;
 }
 
 .navbar_mobile_button-light {
-  @apply border-borda-light hover:bg-hover-light;
+  @apply border-edge-primary hover:bg-selected-primary;
 }
 
 .navbar_mobile_article-light {
-  @apply text-borda-light;
+  @apply text-edge-primary;
 }
 
 .menu_mobile-light {
-  @apply border-borda-light bg-fundo_secundario-light;
+  @apply border-edge-primary bg-secundary;
 }
 
 .menu_navbar-light {
-  @apply hover:bg-selecionado-light;
+  @apply hover:bg-selected-primary;
 }

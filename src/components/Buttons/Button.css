@@ -4,13 +4,13 @@
 
 /* Cor */
 .button-light {
-  @apply border-borda-light bg-secundaria-light text-white;
+  @apply border-edge-primary bg-secundary text-white;
 }
 
 .button_trocar_idioma-light {
-  @apply border-borda-light text-icone-light hover:bg-selecionado-light;
+  @apply border-edge-primary text-write-secundary hover:bg-selected-primary;
 }
 
 .button_trocar_tema-light {
-  @apply border-borda-light hover:bg-hover-light;
+  @apply border-edge-primary hover:bg-selected-primary;
 }

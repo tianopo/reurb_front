@@ -48,7 +48,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
           onClick={() => setOpenMenu(!openMenu)}
           className={`navbar_mobile_botao-light rounded-6 border-2 border-slate-300`}
         >
-          <ArrowRight className={`h-7 w-7 text-escrita-light hover:bg-selecionado-light`} />
+          <ArrowRight className={`text-write-primaryhover:bg-selected-primary h-7 w-7`} />
         </button>
         <FlexCol className="h-full justify-between">
           {navbar &&
@@ -56,9 +56,9 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
               <a
                 href={route}
                 key={key}
-                className="flex h-7 w-full items-center justify-center rounded-6 hover:bg-selecionado-light"
+                className="flex h-7 w-full items-center justify-center rounded-6 hover:bg-selected-primary"
               >
-                <span className="text-escrita-light">{Icon}</span>
+                <span className="text-write-primary">{Icon}</span>
               </a>
             ))}
           <FlexCol className="gap-3">
@@ -77,8 +77,8 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 p-2
                 text-center
                 font-bold
-                text-escrita-light
-                hover:bg-selecionado-light
+                text-write-primary
+                hover:bg-selected-primary
                 `}
               >
                 <SignOut />
@@ -100,7 +100,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
           className={`navbar_mobile_botao-light rounded-6 border-1`}
         >
           <List
-            className={`h-10 w-10 rounded-6 border-2 border-slate-300 text-escrita-light hover:bg-selecionado-light`}
+            className={`text-write-primaryhover:bg-selected-primary h-10 w-10 rounded-6 border-2 border-slate-300`}
           />
         </button>
       </FlexCol>
@@ -113,11 +113,11 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
       `}
       >
         <X
-          className="h-40 w-10 cursor-pointer self-end text-escrita-light md:absolute md:right-0 md:h-5"
+          className="text-write-primarymd:absolute h-40 w-10 cursor-pointer self-end md:right-0 md:h-5"
           onClick={() => setOpenMenu(!openMenu)}
         />
         {image && <img src={image} alt={title} className={`h-20 w-20`} />}
-        {title && <h2 className="text-center text-2xl font-bold text-escrita-light">{title}</h2>}
+        {title && <h2 className="text-center text-2xl font-bold text-write-primary">{title}</h2>}
         {(image || title) && <Divider />}
         <FlexCol className="w-full justify-start">
           {navbar &&
@@ -127,9 +127,9 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
                 onClick={openMenu ? () => setOpenMenu(!openMenu) : undefined}
                 key={key}
               >
-                <FlexRow className="items-center rounded-6 px-1 hover:bg-selecionado-light">
-                  <span className="text-escrita-light">{Icon}</span>
-                  <p className={` p-2 text-16 font-bold text-escrita-light`}>
+                <FlexRow className="items-center rounded-6 px-1 hover:bg-selected-primary">
+                  <span className="text-write-primary">{Icon}</span>
+                  <p className={` p-2 text-16 font-bold text-write-primary`}>
                     {text.toUpperCase()}
                   </p>
                 </FlexRow>
@@ -143,7 +143,7 @@ export const SidebarX = ({ image, title, navbar, exit }: ISidebarX) => {
               {exit && (
                 <button
                   onClick={() => mutate()}
-                  className={` flex w-full cursor-pointer flex-row items-center gap-1 rounded-6 p-2 text-center text-16 font-bold text-escrita-light hover:bg-selecionado-light `}
+                  className={` text-write-primaryhover:bg-selected-primary flex w-full cursor-pointer flex-row items-center gap-1 rounded-6 p-2 text-center text-16 font-bold `}
                 >
                   <p>EXIT</p>
                   <SignOut size={24} />

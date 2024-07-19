@@ -15,5 +15,5 @@
 }
 
 .home-light {
-  @apply border-borda-light bg-slate-400 text-escrita-light;
+  @apply border-edge-primary bg-slate-400 text-write-primary;
 }

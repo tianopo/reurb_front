@@ -4,8 +4,8 @@ import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
 import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
-import { Label } from "./Label/Label";
 import "./Input.css";
+import { Label } from "./Label/Label";
 
 interface ITextarea extends IUseForm {
   title: string;
@@ -48,7 +48,7 @@ export const Textarea = ({
           onChange && onChange(e);
         }}
         className={`
-          input-light
+          white
           input
           resize-none
           ${disabled ? "opacity-80" : ""}

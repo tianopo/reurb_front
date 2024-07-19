@@ -7,8 +7,8 @@
 }
 
 /* Cor */
-.input-light {
-  @apply bg-input-light text-escrita-light placeholder:text-placeholder-light focus:border-primaria-light;
+.white {
+  @apply bg-white text-write-primary placeholder:text-write-placeholder focus:text-edge-primary;
 }
 
 .input_container {

@@ -1,4 +1,4 @@
 /* Cor */
 .label_required-light {
-  @apply text-erro-light;
+  @apply text-variation-error;
 }

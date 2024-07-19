@@ -3,8 +3,8 @@ import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
 import { FlexCol } from "../Flex/FlexCol";
 import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
-import { Label } from "./Label/Label";
 import "./Input.css";
+import { Label } from "./Label/Label";
 
 interface ISelect extends IUseForm {
   title: string;
@@ -31,7 +31,7 @@ export const Select = ({ disabled, required, title, register, options, ...rest }
         autoComplete="complete"
         className={`
         input
-        input-light
+        white
         ${disabled ? "opacity-80" : ""}
         `}
         {...rest}
