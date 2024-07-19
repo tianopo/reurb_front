@@ -1,7 +1,7 @@
 import { Button } from "src/components/Buttons/Button";
 import { InputX } from "src/components/Form/InputX";
 
-export const Login = () => {
+export const ForgotPassword = () => {
   return (
     <section className="flex w-full flex-col items-center gap-5 p-2.5 md:w-fit">
       <img
@@ -11,11 +11,10 @@ export const Login = () => {
         width={366}
         className="block md:hidden"
       />
-      <InputX title="E-mail" placeholder="seuemail@gmail.com" required />
-      <InputX title="Senha" placeholder="**************" required typ="password" />
-      <Button>entrar</Button>
+      <InputX title="E-mail" placeholder="seu" required />
+      <Button>recuperar senha</Button>
       <h6 className="cursor-pointer font-bold uppercase text-primary hover:text-terciary">
-        esqueceu sua senha
+        fazer login novamente
       </h6>
       <span className="h-auto text-center text-secundary">
         Ao entrar você concorda com os Termos de Uso e a Política de Privacidade do Astrea
