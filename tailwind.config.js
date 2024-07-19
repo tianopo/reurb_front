@@ -20,7 +20,7 @@ module.exports = {
         'gradient': 'linear-gradient(270deg, #80BAEC 0%, #228BE5 100%)'
       },
       boxShadow: {
-        primary: '10px 4px 10px rgba(0, 0, 0, 0.25)'
+        primary: '0 4px 8px rgba(0, 0, 0, 0.5)'
       }
     },
   },

@@ -44,7 +44,6 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
         autoComplete="complete"
         className={`
             input
-            white
             ${disabled ? "cursor-not-allowed opacity-80" : ""}
             ${errorMessage ? "border-1 border-variation-error" : ""}
           `}

@@ -1,18 +1,17 @@
 .input {
-  @apply w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-6 p-2.5 font-normal outline-none duration-300 md:w-64;
+  @apply h-10 w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-4 border-1 border-edge-primary p-2.5 text-12 outline-none duration-300;
+
+  @apply hover:border-primary;
+
+  @apply focus:border-primary focus:shadow-primary;
 }
 
 .input::placeholder {
-  @apply h-fit text-14;
-}
-
-/* Cor */
-.white {
-  @apply bg-white text-write-primary placeholder:text-write-placeholder focus:text-edge-primary;
+  @apply h-fit text-12;
 }
 
 .input_container {
-  @apply gap-1.5 p-2.5;
+  @apply w-full gap-2.5;
 }
 
 .input_textarea {
