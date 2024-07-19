@@ -10,6 +10,9 @@ export const PublicLayout = () => {
       </div>
       <FlexCol className="flex h-full w-full flex-col items-center justify-center md:w-1/2">
         <Outlet />
+        <div className="absolute bottom-4 right-4 h-5 w-5 rounded-full bg-gradient">
+          <img src="" alt="Ícone do whatsapp"></img>
+        </div>
       </FlexCol>
     </Flex>
   );

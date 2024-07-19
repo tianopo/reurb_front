@@ -18,29 +18,29 @@
 }
 
 span {
-  @apply text-10 font-medium leading-pattern;
+  @apply overflow-y-hidden text-10 font-medium leading-pattern;
 }
 
 p {
-  @apply text-12 font-medium leading-pattern;
+  @apply overflow-y-hidden text-12 font-medium leading-pattern;
 }
 
 h6 {
-  @apply text-16 font-medium leading-pattern;
+  @apply overflow-y-hidden text-16 font-medium leading-pattern;
 }
 
 h5 {
-  @apply text-20 font-medium leading-pattern;
+  @apply overflow-y-hidden text-20 font-medium leading-pattern;
 }
 
 h4 {
-  @apply text-24 font-medium leading-pattern;
+  @apply overflow-y-hidden text-24 font-medium leading-pattern;
 }
 
 h3 {
-  @apply text-30 font-medium leading-pattern;
+  @apply overflow-y-hidden text-30 font-medium leading-pattern;
 }
 
 h2 {
-  @apply text-36 font-medium leading-pattern;
+  @apply overflow-y-hidden text-36 font-medium leading-pattern;
 }

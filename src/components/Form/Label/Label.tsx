@@ -1,5 +1,4 @@
 import { IUseForm } from "../../../interfaces/IUseForm";
-import { FlexRow } from "../../Flex/FlexRow";
 
 interface ILabel extends IUseForm {
   title: string;
@@ -8,12 +7,12 @@ interface ILabel extends IUseForm {
 
 export const Label = ({ required, title, words }: ILabel) => {
   return (
-    <FlexRow>
+    <div className="flex flex-row items-center">
       <label htmlFor={words} className="block w-fit">
         <p className={`text-write-primary`}>
           {title} {required && <span className={`text-variation-error`}>*</span>}
         </p>
       </label>
-    </FlexRow>
+    </div>
   );
 };
