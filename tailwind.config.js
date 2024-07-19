@@ -7,21 +7,18 @@ module.exports = {
     extend: {
       colors: colors,
       fontFamily: {
-        primaria: ["Roboto"],
-        secundaria: ["Roboto"],
-        terciaria: ["Roboto"],
-      },
-      fontWeight: {
-        low: "400",
-        normal: "500",
-        semibold: "600",
-        bold: "700",
+        primary: ["Montserrat"],
       },
       fontSize: measures,
       borderWidth: measures,
       borderRadius: measures,
       iconSize: measures,
-      lineHeight: measures,
+      lineHeight: {
+        "pattern": '1.2'
+      },
+      boxShadow: {
+        primary: '10px 4px 10px rgba(0, 0, 0, 0.25)'
+      }
     },
   },
   plugins: [],
