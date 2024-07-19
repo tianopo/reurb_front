@@ -2,7 +2,6 @@ export const colors = {
   primary: "#228BE5",
   secundary: "#A3C5E2",
   terciary: "#185A93",
-  gradient: "linear-gradient(90deg, #80BAEC 0%, #228BE5 100%)",
   write: {
     primary: "#202124",
     secundary: "#6C757D",
