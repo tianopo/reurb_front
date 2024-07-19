@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { LayoutX } from "src/components/Layout/LayoutX/LayoutX";
 import { PublicLayout } from "src/components/Layout/PublicLayout/PublicLayout";
 import { Auth } from "src/pages/Auth/Auth.views";
+import { Login } from "src/pages/Login/login.views";
 import { Perfil } from "src/pages/Perfil/Perfil.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
@@ -14,7 +15,7 @@ export const browserRouter = createBrowserRouter([
       {
         element: <PublicLayout />,
         children: [
-          { path: app.auth, element: <Auth /> },
+          { path: app.login, element: <Login /> },
           { path: "*", element: <Auth /> },
         ],
       },
