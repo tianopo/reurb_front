@@ -18,29 +18,46 @@
 }
 
 span {
-  @apply overflow-y-hidden text-10 font-medium leading-pattern;
+  @apply text-10 font-medium leading-pattern;
 }
 
 p {
-  @apply overflow-y-hidden text-12 font-medium leading-pattern;
+  @apply text-12 font-medium leading-pattern;
 }
 
 h6 {
-  @apply overflow-y-hidden text-16 font-medium leading-pattern;
+  @apply text-16 font-medium leading-pattern;
 }
 
 h5 {
-  @apply overflow-y-hidden text-20 font-medium leading-pattern;
+  @apply text-20 font-medium leading-pattern;
 }
 
 h4 {
-  @apply overflow-y-hidden text-24 font-medium leading-pattern;
+  @apply text-24 font-medium leading-pattern;
 }
 
 h3 {
-  @apply overflow-y-hidden text-30 font-medium leading-pattern;
+  @apply text-30 font-medium leading-pattern;
 }
 
 h2 {
-  @apply overflow-y-hidden text-36 font-medium leading-pattern;
+  @apply text-36 font-medium leading-pattern;
+}
+
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 139, 229, 0.5);
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 139, 229, 0.7);
 }

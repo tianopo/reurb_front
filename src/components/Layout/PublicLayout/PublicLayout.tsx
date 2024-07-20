@@ -1,19 +1,29 @@
+import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { Outlet } from "react-router-dom";
-import { Flex } from "src/components/Flex/Flex";
-import { FlexCol } from "src/components/Flex/FlexCol";
 
 export const PublicLayout = () => {
   return (
-    <Flex className="h-screen">
-      <div className="hidden w-1/2 items-center justify-center bg-gradient md:flex">
+    <div className="flex">
+      <div className="hidden h-screen w-1/2 items-center justify-center bg-gradient md:flex">
         <img src="/logo/logo-black.png" alt="logo Reurb" height="267" width="446" />
       </div>
-      <FlexCol className="flex h-full w-full flex-col items-center justify-center md:w-1/2">
+      <div className="flex h-auto w-full flex-col items-center justify-center md:w-1/2">
         <Outlet />
-        <div className="absolute bottom-4 right-4 h-5 w-5 rounded-full bg-gradient">
-          <img src="" alt="Ícone do whatsapp"></img>
+        <div
+          className="fixed bottom-4 right-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient duration-300 hover:scale-125"
+          rel="noopener noreferrer"
+          onClick={() => {
+            const newWindow = window.open(
+              "https://wa.me/5511981452227",
+              "_blank",
+              "noopener,noreferrer",
+            );
+            if (newWindow) newWindow.opener = null;
+          }}
+        >
+          <WhatsappLogo color="white" width={24} height={24} weight="bold" />
         </div>
-      </FlexCol>
-    </Flex>
+      </div>
+    </div>
   );
 };

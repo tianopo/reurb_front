@@ -2,7 +2,6 @@ import { ChangeEventHandler, ForwardRefRenderFunction, forwardRef } from "react"
 import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
-import { FlexCol } from "../Flex/FlexCol";
 import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
 import "./Input.css";
 import { Label } from "./Label/Label";
@@ -10,12 +9,13 @@ import { Label } from "./Label/Label";
 interface IInputX extends IUseForm {
   title: string;
   placeholder?: string;
+  value?: string;
   typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local" | "password";
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
-  { disabled, required, title, placeholder, typ = "text", onChange, ...rest }: IInputX,
+  { disabled, required, title, placeholder, value, typ = "text", onChange, ...rest }: IInputX,
   ref,
 ) => {
   const words = labelFormatted(title);
@@ -27,7 +27,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
   const errorMessage = errors && errors[words]?.message;
 
   return (
-    <FlexCol className="input_container">
+    <div className="input_container">
       <Label title={title} words={words} required={required} />
       <input
         id={words}
@@ -36,6 +36,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
         type={typ}
         disabled={disabled}
         placeholder={placeholder}
+        value={value}
         {...inputRegister}
         onChange={(e) => {
           inputRegister?.onChange(e);
@@ -50,7 +51,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
         {...rest}
       />
       <ErrorMessages errors={errorMessage?.toString()} />
-    </FlexCol>
+    </div>
   );
 };
 
