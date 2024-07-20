@@ -12,12 +12,14 @@ import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
-export interface ILoginDto {
+export interface IRegisterDto {
+  nome: string;
+  senha: string;
+  confirmarSenha: string;
   email: string;
-  password: string;
 }
 
-export const useLogin = () => {
+export const useRegister = () => {
   const navigate = useNavigate();
   const { t: translator } = useTranslation();
   const t = (t: string) => translator(`hooks.auth.${t}`);
@@ -25,7 +27,7 @@ export const useLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: path,
     onSuccess: (data: IAuthModel) => {
-      responseSuccess(t("userLogged"));
+      responseSuccess(t("userRegistered"));
       queryClient.setQueryData(["token-data"], data.token);
       localStorage.setItem("token", data.token);
       setTimeout(
@@ -41,25 +43,30 @@ export const useLogin = () => {
   });
 
   const schema = Yup.object().shape({
-    password: Yup.string()
+    nome: Yup.string().required().min(1).label("Nome"),
+    senha: Yup.string()
       .required()
-      .min(8)
+      .min(6)
       .max(30)
       .matches(Regex.uppercase, t("passwordUpper"))
       .matches(Regex.lowcase, t("passwordLower"))
       .matches(Regex.number, t("passwordNumber"))
       .matches(Regex.special_character, t("passwordSpecial"))
-      .label("password"),
-    email: Yup.string().required().email().matches(Regex.email, t("InvalidEmail")).label("email"),
+      .label("Senha"),
+    confirmarSenha: Yup.string()
+      .required()
+      .oneOf([Yup.ref("senha")], "As senhas não coincidem")
+      .label("Confirmar Senha"),
+    email: Yup.string().required().email().matches(Regex.email, t("InvalidEmail")).label("E-mail"),
   });
 
-  const context = useForm<ILoginDto>({
+  const context = useForm<IRegisterDto>({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
   });
 
   async function path(data: Yup.InferType<typeof schema>): Promise<IAuthModel> {
-    const result = await api().post(apiRoute.signin, data);
+    const result = await api().post(apiRoute.signup, data);
     return result.data;
   }
 

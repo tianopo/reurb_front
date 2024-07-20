@@ -1,12 +1,12 @@
 {
-  "name": "primeiro-front-com-back",
+  "name": "reurb",
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "description": "",
   "scripts": {
-    "dev": "PORT=8999 react-scripts start",
+    "dev": "PORT=9000 react-scripts start",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "format": "eslint -c .eslintrc.json --fix --ext .ts,.tsx src && prettier --write 'src/**/*.+(js|jsx|ts|tsx|html|css)'",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@eslint/compat": "^1.1.1",
     "@hookform/resolvers": "^3.9.0",
     "@phosphor-icons/react": "^2.1.7",
     "@tanstack/react-query": "^5.51.11",

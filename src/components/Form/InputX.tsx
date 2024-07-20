@@ -25,7 +25,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
   const { errors } = formState || {};
   const inputRegister = register ? register(words, { required }) : undefined;
   const errorMessage = errors && errors[words]?.message;
-
+  console.log(errorMessage);
   return (
     <div className="input_container">
       <Label title={title} words={words} required={required} />
@@ -43,11 +43,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
           onChange && onChange(e);
         }}
         autoComplete="complete"
-        className={`
-            input
-            ${disabled ? "cursor-not-allowed opacity-80" : ""}
-            ${errorMessage ? "border-1 border-variation-error" : ""}
-          `}
+        className={`input border-edge-primary ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
         {...rest}
       />
       <ErrorMessages errors={errorMessage?.toString()} />

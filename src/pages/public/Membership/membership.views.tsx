@@ -52,15 +52,15 @@ export const Membership = () => {
       >
         fazer login novamente
       </h6>
-      <span className="h-auto text-center text-secundary">
-        Ao entrar você concorda com os Termos de Uso e a Política de Privacidade do Astrea
-      </span>
       <h6
         className="hidden cursor-pointer text-center font-bold text-primary hover:text-terciary"
         onClick={() => navigate("/")}
       >
         Agradecemos o seu registro aguarde o contato de um representante
       </h6>
+      <span className="h-auto text-center text-secundary">
+        Ao entrar você concorda com os Termos de Uso e a Política de Privacidade do Astrea
+      </span>
     </section>
   );
 };

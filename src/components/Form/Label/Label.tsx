@@ -6,6 +6,7 @@ interface ILabel extends IUseForm {
 }
 
 export const Label = ({ required, title, words }: ILabel) => {
+  console.log(words);
   return (
     <div className="flex flex-row items-center">
       <label htmlFor={words} className="flex w-fit flex-row">

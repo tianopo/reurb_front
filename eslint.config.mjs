@@ -1,104 +1,69 @@
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-import { query as tanstackQuery } from "@tanstack/eslint-plugin-query";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
-import jsxA11Y from "eslint-plugin-jsx-a11y";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [...fixupConfigRules(compat.extends(
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended",
-)), {
-    plugins: {
-        react: fixupPluginRules(react),
-        "react-hooks": fixupPluginRules(reactHooks),
-        "@typescript-eslint": fixupPluginRules(typescriptEslint),
-        "jsx-a11y": jsxA11Y,
-        "@tanstack/query": fixupPluginRules(tanstackQuery),
-    },
-
-    languageOptions: {
-        globals: {
-            ...globals.browser,
-            ...globals.node,
-        },
-
-        parser: tsParser,
+export default {
+    extends: [
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@tanstack/eslint-plugin-query/recommended",
+        "eslint:recommended"
+    ],
+    plugins: [
+        "react",
+        "react-hooks",
+        "@typescript-eslint",
+        "jsx-a11y",
+        "@tanstack/query"
+    ],
+    parser: tsParser,
+    parserOptions: {
+        project: "./tsconfig.json",
         ecmaVersion: "latest",
-        sourceType: "module",
-
-        parserOptions: {
-            project: "./tsconfig.json",
-        },
+        sourceType: "module"
     },
-
     settings: {
         react: {
-            version: "detect",
-        },
+            version: "detect"
+        }
     },
-
+    globals: {
+        ...globals.browser,
+        ...globals.node
+    },
     rules: {
-
         "jsx-a11y/alt-text": ["error", {
             elements: ["img", "object", "area", "input[type='image']"],
-            img: ["Image"],
+            img: ["Image"]
         }],
-
-        "max-lines": ["error", {
-            max: 200,
-        }],
-
+        "max-lines": ["error", { max: 200 }],
         "no-duplicate-imports": "error",
         "no-duplicate-case": "error",
         "no-empty-pattern": "error",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "no-undef": 0,
-        "no-use-before-define": "off",
-        "react/react-in-jsx-scope": 0,
-        "@typescript-eslint/no-empty-function": 1,
-        "@typescript-eslint/no-explicit-any": 1,
-        "@typescript-eslint/prefer-nullish-coalescing": 0,
-        "@typescript-eslint/strict-boolean-expressions": 0,
-        "@typescript-eslint/restrict-template-expressions": 0,
-        "@typescript-eslint/no-useless-constructor": 0,
-        "no-unexpected-multiline": 0,
-        "@typescript-eslint/consistent-type-definitions": 0,
         "no-console": "warn",
-        "react/prop-types": 0,
-        "react/no-unescaped-entities": 0,
-        "@typescript-eslint/no-confusing-void-expression": 0,
-        "no-unused-vars": 1,
-        "@tanstack/query/exhaustive-deps": "error",
-        "@tanstack/query/no-rest-destructuring": "warn",
-        "@tanstack/query/stable-query-client": "error",
-
-        "@typescript-eslint/no-unused-vars": [1, {
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/prefer-nullish-coalescing": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-useless-constructor": "off",
+        "no-unexpected-multiline": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", {
             argsIgnorePattern: "^_",
             varsIgnorePattern: "^_",
-            ignoreRestSiblings: true,
+            ignoreRestSiblings: true
         }],
-
-        "no-restricted-syntax": [1, {
+        "no-restricted-syntax": ["warn", {
             selector: "CallExpression[callee.object.name='console'][callee.property.name!=/^(warn|error)$/]",
-            message: "Remova os console.log's",
+            message: "Remove console.log statements"
         }],
-    },
-}];
+        "@tanstack/query/exhaustive-deps": "error",
+        "@tanstack/query/no-rest-destructuring": "warn",
+        "@tanstack/query/stable-query-client": "error"
+    }
+};

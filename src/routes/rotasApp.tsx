@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LayoutX } from "src/components/Layout/LayoutX/LayoutX";
 import { PublicLayout } from "src/components/Layout/PublicLayout/PublicLayout";
-import { ForgotPassword } from "src/pages/ForgotPassword/forgotPassword.views";
-import { Login } from "src/pages/Login/login.views";
-import { Membership } from "src/pages/Membership/membership.views";
+import { ForgotPassword } from "src/pages/public/ForgotPassword/forgotPassword.views";
+import { Login } from "src/pages/public/Login/login.views";
+import { Membership } from "src/pages/public/Membership/membership.views";
 import { Perfil } from "src/pages/Perfil/Perfil.views";
-import { RecoverPassword } from "src/pages/RecoverPassword/recoverPassword.views";
-import { Register } from "src/pages/Register/register.views";
+import { RecoverPassword } from "src/pages/public/RecoverPassword/recoverPassword.views";
+import { Register } from "src/pages/public/Register/register.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
 import { PublicRoute } from "./context/PublicRoute";
