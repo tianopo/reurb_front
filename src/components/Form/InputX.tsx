@@ -25,7 +25,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
   const { errors } = formState || {};
   const inputRegister = register ? register(words, { required }) : undefined;
   const errorMessage = errors && errors[words]?.message;
-  console.log(errorMessage);
+
   return (
     <div className="input_container">
       <Label title={title} words={words} required={required} />
