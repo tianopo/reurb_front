@@ -2,6 +2,7 @@ import { Bell, DoorOpen, Gear, UserCheck } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "src/hooks/API/auth/useLogout";
 import "./Sidebar.css";
+import { IconX } from "src/components/Icons/IconX";
 
 interface INavbar {
   icon?: JSX.Element;
@@ -38,17 +39,27 @@ export const SidebarX = ({ navbar, menuOpen }: ISidebarX) => {
         <div className="border-edge block border-t-1 md:hidden" />
         <div className="flex flex-col items-center gap-5 md:hidden">
           <div className="flex w-full flex-row gap-1 pl-2.5 text-start">
-            <Gear
-              className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
-              width={19.45}
-              height={20}
-              weight="fill"
+            <IconX
+              name="Acessos"
+              icon={
+                <Gear
+                  className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
+                  width={19.45}
+                  height={20}
+                  weight="fill"
+                />
+              }
             />
-            <Bell
-              className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
-              width={19.45}
-              height={20}
-              weight="fill"
+            <IconX
+              name="Notificações"
+              icon={
+                <Bell
+                  className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
+                  width={19.45}
+                  height={20}
+                  weight="fill"
+                />
+              }
             />
           </div>
           <div className="flex cursor-pointer items-center gap-5 rounded-6 p-2.5 text-write-secundary hover:bg-secundary hover:text-write-primary">
