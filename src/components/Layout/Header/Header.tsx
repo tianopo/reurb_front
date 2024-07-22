@@ -12,12 +12,10 @@ interface INavbar {
 }
 
 interface IHeader {
-  image?: string;
-  title?: string;
   navbar: INavbar[];
 }
 
-export const Header = ({ image, title, navbar }: IHeader) => {
+export const Header = ({ navbar }: IHeader) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMenuToggle = () => setMenuOpen(!menuOpen);

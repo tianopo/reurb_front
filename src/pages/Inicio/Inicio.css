@@ -1,0 +1,11 @@
+.subtitulo {
+  @apply w-full text-center;
+}
+
+.descritivo {
+  @apply text-center text-primary hover:underline;
+}
+
+.descritivo-tarefa {
+  @apply text-center text-write-primary;
+}

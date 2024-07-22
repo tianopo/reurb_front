@@ -4,12 +4,12 @@ import { PublicLayout } from "src/components/Layout/PublicLayout/PublicLayout";
 import { ForgotPassword } from "src/pages/public/ForgotPassword/forgotPassword.views";
 import { Login } from "src/pages/public/Login/login.views";
 import { Membership } from "src/pages/public/Membership/membership.views";
-import { Perfil } from "src/pages/Perfil/Perfil.views";
 import { RecoverPassword } from "src/pages/public/RecoverPassword/recoverPassword.views";
 import { Register } from "src/pages/public/Register/register.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
 import { PublicRoute } from "./context/PublicRoute";
+import { Inicio } from "src/pages/Inicio/Inicio.views";
 
 export const browserRouter = createBrowserRouter([
   {
@@ -33,7 +33,7 @@ export const browserRouter = createBrowserRouter([
     children: [
       {
         element: <LayoutX />,
-        children: [{ path: app.perfil, element: <Perfil /> }],
+        children: [{ path: app.inicio, element: <Inicio /> }],
       },
     ],
   },

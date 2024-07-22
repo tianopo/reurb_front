@@ -8,5 +8,5 @@ export const app = {
 
   // After Login
   auth: "/",
-  perfil: "/perfil",
+  inicio: "/inicio",
 };

@@ -5,5 +5,9 @@ interface ICardContainer {
 }
 
 export const CardContainer = ({ children }: ICardContainer) => {
-  return <div className="w-full rounded-6 border-1 border-black bg-white p-3">{children}</div>;
+  return (
+    <div className="flex w-full flex-col items-center gap-2.5 rounded-16 bg-white p-4 shadow-2xl">
+      {children}
+    </div>
+  );
 };

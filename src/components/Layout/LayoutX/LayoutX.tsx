@@ -6,23 +6,23 @@ import { SidebarX } from "../Sidebar/SidebarX";
 
 export const LayoutX = () => {
   const nav = [
-    { text: "Início", route: app.perfil, icon: <House width={20} height={17} weight="fill" /> },
+    { text: "Início", route: app.inicio, icon: <House width={20} height={17} weight="fill" /> },
     {
       text: "Agenda",
-      route: app.perfil,
+      route: app.inicio,
       icon: <Calendar width={20} height={17} weight="duotone" />,
     },
     {
       text: "Projetos",
-      route: app.perfil,
+      route: app.inicio,
       icon: <ProjectorScreen width={20} height={17} weight="duotone" />,
     },
-    { text: "Financeiro", route: app.perfil, icon: <Money width={20} height={17} weight="fill" /> },
+    { text: "Financeiro", route: app.inicio, icon: <Money width={20} height={17} weight="fill" /> },
   ];
 
   return (
     <div className="flex h-full w-full flex-col">
-      <Header title="Olá" navbar={nav} />
+      <Header navbar={nav} />
       <div className="flex w-full">
         <SidebarX navbar={nav} />
         <div className="flex w-full flex-col gap-2 bg-gradient p-6 md:gap-4">
