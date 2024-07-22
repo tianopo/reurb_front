@@ -8,5 +8,6 @@ export const app = {
 
   // After Login
   auth: "/",
-  inicio: "/inicio",
+  home: "/inicio",
+  schedule: "/agenda",
 };

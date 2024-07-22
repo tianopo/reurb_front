@@ -1,8 +1,8 @@
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
-import "./Inicio.css";
+import "./Home.css";
 
-export const Inicio = () => {
+export const Home = () => {
   return (
     <>
       <CardContainer>

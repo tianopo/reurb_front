@@ -24,7 +24,7 @@ export const PublicRoute = () => {
   }, [dataFetched, token, refetch]);
 
   if (data) {
-    return <Navigate to={app.inicio} />;
+    return <Navigate to={app.home} />;
   }
 
   return (

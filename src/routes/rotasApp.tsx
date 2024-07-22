@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LayoutX } from "src/components/Layout/LayoutX/LayoutX";
 import { PublicLayout } from "src/components/Layout/PublicLayout/PublicLayout";
+import { Home } from "src/pages/Auth/Home/Home.views";
 import { ForgotPassword } from "src/pages/public/ForgotPassword/forgotPassword.views";
 import { Login } from "src/pages/public/Login/login.views";
 import { Membership } from "src/pages/public/Membership/membership.views";
@@ -9,7 +10,7 @@ import { Register } from "src/pages/public/Register/register.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
 import { PublicRoute } from "./context/PublicRoute";
-import { Inicio } from "src/pages/Inicio/Inicio.views";
+import { Schedule } from "src/pages/Auth/Schedule/Schedule.views";
 
 export const browserRouter = createBrowserRouter([
   {
@@ -33,7 +34,10 @@ export const browserRouter = createBrowserRouter([
     children: [
       {
         element: <LayoutX />,
-        children: [{ path: app.inicio, element: <Inicio /> }],
+        children: [
+          { path: app.home, element: <Home /> },
+          { path: app.schedule, element: <Schedule /> },
+        ],
       },
     ],
   },

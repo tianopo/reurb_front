@@ -6,10 +6,10 @@ import { SidebarX } from "../Sidebar/SidebarX";
 
 export const LayoutX = () => {
   const nav = [
-    { text: "Início", route: app.inicio, icon: <House width={20} height={17} weight="fill" /> },
+    { text: "Início", route: app.home, icon: <House width={20} height={17} weight="fill" /> },
     {
       text: "Agenda",
-      route: "",
+      route: app.schedule,
       icon: <Calendar width={20} height={17} weight="duotone" />,
     },
     {
