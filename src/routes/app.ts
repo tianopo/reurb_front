@@ -10,4 +10,5 @@ export const app = {
   auth: "/",
   home: "/inicio",
   schedule: "/agenda",
+  projects: "/projetos",
 };

@@ -14,7 +14,7 @@ export const LayoutX = () => {
     },
     {
       text: "Projetos",
-      route: "",
+      route: app.projects,
       icon: <ProjectorScreen width={20} height={17} weight="duotone" />,
     },
     { text: "Financeiro", route: "", icon: <Money width={20} height={17} weight="fill" /> },

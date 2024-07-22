@@ -1,0 +1,11 @@
+.subtitulo {
+  @apply w-full text-start;
+}
+
+.container-descritivo {
+  @apply h-fit w-32;
+}
+
+.descritivo {
+  @apply text-center text-write-secundary hover:underline;
+}
