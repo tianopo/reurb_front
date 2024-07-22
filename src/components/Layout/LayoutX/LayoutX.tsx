@@ -9,15 +9,15 @@ export const LayoutX = () => {
     { text: "Início", route: app.inicio, icon: <House width={20} height={17} weight="fill" /> },
     {
       text: "Agenda",
-      route: app.inicio,
+      route: "",
       icon: <Calendar width={20} height={17} weight="duotone" />,
     },
     {
       text: "Projetos",
-      route: app.inicio,
+      route: "",
       icon: <ProjectorScreen width={20} height={17} weight="duotone" />,
     },
-    { text: "Financeiro", route: app.inicio, icon: <Money width={20} height={17} weight="fill" /> },
+    { text: "Financeiro", route: "", icon: <Money width={20} height={17} weight="fill" /> },
   ];
 
   return (

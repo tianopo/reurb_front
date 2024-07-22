@@ -1,5 +1,5 @@
 import { Bell, DoorOpen, Gear, UserCheck } from "@phosphor-icons/react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IconX } from "src/components/Icons/IconX";
 import { useLogout } from "src/hooks/API/auth/useLogout";
 import "./Sidebar.css";
@@ -18,6 +18,7 @@ interface ISidebarX {
 export const SidebarX = ({ navbar, menuOpen }: ISidebarX) => {
   const { mutate } = useLogout();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div
@@ -27,7 +28,7 @@ export const SidebarX = ({ navbar, menuOpen }: ISidebarX) => {
         <div>
           {navbar?.map((nav: INavbar, index: number) => (
             <div
-              className="flex h-10 cursor-pointer items-center justify-start gap-2.5 rounded-10 pl-2.5 text-write-secundary hover:bg-selected-primary hover:text-write-primary"
+              className={`- 10 pl - 2.5 flex h-10 cursor-pointer items-center justify-start gap-2.5 rounded hover:bg-selected-primary hover:text-write-primary ${location.pathname === nav.route ? "bg-selected-primary text-write-primary" : "text-write-secundary"} `}
               key={index}
               onClick={() => navigate(nav.route)}
             >
