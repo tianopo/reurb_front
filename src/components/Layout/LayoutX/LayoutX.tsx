@@ -17,7 +17,11 @@ export const LayoutX = () => {
       route: app.projects,
       icon: <ProjectorScreen width={20} height={17} weight="duotone" />,
     },
-    { text: "Financeiro", route: "", icon: <Money width={20} height={17} weight="fill" /> },
+    {
+      text: "Financeiro",
+      route: app.financial,
+      icon: <Money width={20} height={17} weight="fill" />,
+    },
   ];
 
   return (
