@@ -2,7 +2,7 @@ import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
-import { InputX } from "src/components/Form/InputX";
+import { InputX } from "src/components/Form/Input/InputX";
 import { ILoginDto, useLogin } from "./useLogin";
 
 export const Login = () => {

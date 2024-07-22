@@ -60,7 +60,7 @@ export default [
             "no-use-before-define": "off",
             "react/react-in-jsx-scope": 0,
             "@typescript-eslint/no-empty-function": 1,
-            "@typescript-eslint/no-explicit-any": "off", // Allow any type
+            "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/prefer-nullish-coalescing": 0,
             "@typescript-eslint/strict-boolean-expressions": 0,
             "@typescript-eslint/restrict-template-expressions": 0,

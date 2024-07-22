@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
-import { InputX } from "src/components/Form/InputX";
+import { InputX } from "src/components/Form/Input/InputX";
 import { formatCep, formatPhone } from "src/utils/validators";
 
 export const Membership = () => {

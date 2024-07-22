@@ -2,9 +2,9 @@ import { ChangeEventHandler, ForwardRefRenderFunction, forwardRef } from "react"
 import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
-import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
+import { ErrorMessages } from "../ErrorMessages/ErrorMessages";
+import { Label } from "../Label/Label";
 import "./Input.css";
-import { Label } from "./Label/Label";
 
 interface IInputX extends IUseForm {
   title: string;
@@ -43,7 +43,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
           onChange && onChange(e);
         }}
         autoComplete="complete"
-        className={`input border-edge-primary ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
+        className={`input ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
         {...rest}
       />
       <ErrorMessages errors={errorMessage?.toString()} />
