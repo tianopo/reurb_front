@@ -9,5 +9,5 @@
 
 /* TabAcessos */
 .container-user {
-  @apply flex w-full flex-col gap-2.5 pt-2.5 md:flex-row;
+  @apply flex w-full flex-col gap-2.5 md:flex-row;
 }

@@ -97,5 +97,11 @@ export default [
         rules: {
             "@typescript-eslint/no-explicit-any": "off",
         },
+        files: ["src/pages/Auth/Management/TabAcessos/User.tsx"],
+        rules: {
+            "max-lines": ["error", {
+                max: 500,
+            }],
+        },
     },
 ];

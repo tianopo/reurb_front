@@ -1,4 +1,4 @@
-import { Gear } from "@phosphor-icons/react";
+import { Files, Gear, ProjectorScreen, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { InputX } from "src/components/Form/Input/InputX";
@@ -23,6 +23,9 @@ export const User = () => {
   const [valueState, setValueState] = useState("");
   const [valuePhone, setValuePhone] = useState("");
   const [valueCurrency, setValueCurrency] = useState("");
+  const [valueRGConjuge, setValueRGConjuge] = useState("");
+  const [valueCPFConjuge, setValueCPFConjuge] = useState("");
+  const [valuePhoneConjuge, setValuePhoneConjuge] = useState("");
   // const acesso = "funcionário"
 
   const handleRGFormat = (e: { target: { value: string } }) => {
@@ -55,6 +58,21 @@ export const User = () => {
     setValueCurrency(formattedCurrency);
   };
 
+  const handleRGConjugeFormat = (e: { target: { value: string } }) => {
+    const formattedRGConjuge = formatRG(e.target.value);
+    setValueRGConjuge(formattedRGConjuge);
+  };
+
+  const handleCPFConjugeFormat = (e: { target: { value: string } }) => {
+    const formattedCPFConjuge = formatCPF(e.target.value);
+    setValueCPFConjuge(formattedCPFConjuge);
+  };
+
+  const handlePhoneConjugeFormat = (e: { target: { value: string } }) => {
+    const formattedPhoneConjuge = formatPhone(e.target.value);
+    setValuePhoneConjuge(formattedPhoneConjuge);
+  };
+
   return (
     <>
       <CardContainer>
@@ -75,7 +93,7 @@ export const User = () => {
             />
           </div>
         </div>
-        <div className="container-user">
+        <div className="container-user pt-2.5">
           <InputX title="Nome" placeholder="Ciclano Fonseca" required />
           <InputX
             title="RG"
@@ -154,6 +172,13 @@ export const User = () => {
           <InputX title="Quadra Nova" placeholder="B" />
         </div>
         <Button>adicionar projeto</Button>
+        <div className="container-user flex-wrap items-end">
+          <div className="flex items-center gap-2 text-write-secundary">
+            <span>Nome do arquivo</span>
+            <ProjectorScreen width={22} height={22} weight="duotone" />
+            <X width={12} height={12} weight="bold" className="cursor-pointer" />
+          </div>
+        </div>
       </CardContainer>
       <CardContainer>
         <h4 className="text-write-primary">Renda</h4>
@@ -166,6 +191,46 @@ export const User = () => {
             required
           />
           <Button>anexar documentos</Button>
+        </div>
+        <div className="container-user flex-wrap items-end">
+          <div className="flex items-center gap-2 text-write-secundary">
+            <span>Nome do arquivo</span>
+            <Files width={22} height={22} weight="duotone" />
+            <X width={12} height={12} weight="bold" className="cursor-pointer" />
+          </div>
+        </div>
+        <p className="w-full text-start font-bold text-write-primary">Cônjuge</p>
+        <div className="container-user">
+          <InputX title="Nome" placeholder="Renata Siqueira" required />
+          <InputX
+            title="RG"
+            placeholder="XX.XXX.XXX-X"
+            onChange={handleRGConjugeFormat}
+            value={valueRGConjuge}
+            required
+          />
+          <InputX
+            title="CPF"
+            placeholder="XXX.XXX.XXX-XX"
+            onChange={handleCPFConjugeFormat}
+            value={valueCPFConjuge}
+            required
+          />
+          <InputX title="Profissão" placeholder="Carpinteiro" required />
+        </div>
+        <div className="container-user">
+          <InputX
+            title="Telefone"
+            placeholder="(12) 98243-5638"
+            onChange={handlePhoneConjugeFormat}
+            value={valuePhoneConjuge}
+            required
+          />
+          <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" required />
+        </div>
+        <div className="container-user md:justify-between">
+          <Button>adicionar usuário</Button>
+          <Button>gerar documento</Button>
         </div>
       </CardContainer>
     </>
