@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IconX } from "src/components/Icons/IconX";
 import { useLogout } from "src/hooks/API/auth/useLogout";
 import "./Sidebar.css";
+import { app } from "src/routes/app";
 
 interface INavbar {
   icon?: JSX.Element;
@@ -49,6 +50,7 @@ export const SidebarX = ({ navbar, menuOpen }: ISidebarX) => {
                     width={19.45}
                     height={20}
                     weight="fill"
+                    onClick={() => navigate(app.management)}
                   />
                 }
               />
