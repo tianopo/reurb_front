@@ -16,6 +16,36 @@ import {
 import "../Management.css";
 import { SelectUser } from "./components/SelectUser";
 
+interface IModal {
+  isVisible: boolean;
+  onClose: () => void;
+}
+
+const Modal = ({ isVisible, onClose }: IModal) => {
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="flex w-11/12 flex-col gap-2.5 rounded-lg bg-white p-4 shadow-lg md:w-1/2">
+        <button
+          className="absolute right-2 top-2 text-write-primary hover:text-selected-primary"
+          onClick={onClose}
+        >
+          <X size={24} weight="bold" />
+        </button>
+        <h4 className="mb-4 text-lg font-semibold">Adicionar Projeto</h4>
+        <InputX title="Nome do Projeto" placeholder="Nome do Projeto" required />
+        <InputX title="Descrição" placeholder="Descrição do Projeto" required />
+        <InputX title="Data de Início" placeholder="Data de Início" required />
+        <Select title="Status" options={["Planejado", "Em andamento", "Concluído"]} required />
+        <div className="mt-4 flex justify-end">
+          <Button onClick={onClose}>Fechar</Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const User = () => {
   const [valueRG, setValueRG] = useState("");
   const [valueCPF, setValueCPF] = useState("");
@@ -26,6 +56,8 @@ export const User = () => {
   const [valueRGConjuge, setValueRGConjuge] = useState("");
   const [valueCPFConjuge, setValueCPFConjuge] = useState("");
   const [valuePhoneConjuge, setValuePhoneConjuge] = useState("");
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
   // const acesso = "funcionário"
 
   const handleRGFormat = (e: { target: { value: string } }) => {
@@ -171,7 +203,8 @@ export const User = () => {
           <InputX title="Quadra Atual" placeholder="A" />
           <InputX title="Quadra Nova" placeholder="B" />
         </div>
-        <Button>adicionar projeto</Button>
+        <Modal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+        <Button onClick={() => setIsModalVisible(true)}>adicionar projeto</Button>
         <div className="container-user flex-wrap items-end">
           <div className="flex items-center gap-2 text-write-secundary">
             <span>Nome do arquivo</span>
