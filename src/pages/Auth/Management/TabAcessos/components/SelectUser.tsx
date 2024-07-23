@@ -22,9 +22,9 @@ export const SelectUser = () => {
       >
         <h6 className="text-write-primary">Cliente</h6>
         {isOpen ? (
-          <CaretUp className="text-write-secundary" width={19.45} height={20} weight="fill" />
+          <CaretUp className="text-write-secundary" width={19.45} height={20} />
         ) : (
-          <CaretDown className="text-write-secundary" width={19.45} height={20} weight="fill" />
+          <CaretDown className="text-write-secundary" width={19.45} height={20} />
         )}
       </button>
       {isOpen && (
