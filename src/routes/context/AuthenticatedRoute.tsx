@@ -14,14 +14,13 @@ export const AuthenticatedRoute = () => {
   useTitle();
   const token = localStorage.getItem("token") || "";
   const [dataFetched, setDataFetched] = useState(false);
-  const { data, refetch } = useToken({ token });
+  const { data } = useToken({ token });
 
   useEffect(() => {
     if (!dataFetched && token) {
-      refetch();
       setDataFetched(true);
     }
-  }, [dataFetched, token, refetch]);
+  }, [dataFetched, token]);
 
   if (!data) {
     return <Navigate to={app.auth} />;

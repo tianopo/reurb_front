@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { InputX } from "src/components/Form/Input/InputX";
 import { app } from "src/routes/app";
-import { formatCep, formatPhone } from "src/utils/validators";
+import { formatCep, formatPhone } from "src/utils/formats";
 
 export const Membership = () => {
   const navigate = useNavigate();
