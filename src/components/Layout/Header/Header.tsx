@@ -1,11 +1,11 @@
 import { Bell, Gear, List, UserCheck } from "@phosphor-icons/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { InputSearch } from "src/components/Form/Input/InputSearch";
 import { IconX } from "src/components/Icons/IconX";
+import { app } from "src/routes/app";
 import "../Sidebar/Sidebar.css";
 import { SidebarX } from "../Sidebar/SidebarX";
-import { useNavigate } from "react-router-dom";
-import { app } from "src/routes/app";
 
 interface INavbar {
   icon?: JSX.Element;
@@ -25,11 +25,9 @@ export const Header = ({ navbar }: IHeader) => {
 
   return (
     <>
-      <header className="sticky z-10 flex h-fit w-full items-center justify-between bg-white shadow-sm">
+      <header className="sticky z-10 flex h-fit w-full items-center justify-between gap-2.5 bg-white shadow-sm md:gap-0">
         <img src="logo/logo-icon.png" alt="icone da logo da Reurb" width={93} height={67.19} />
-        <div className="w-fit">
-          <InputSearch title="pesquisar" placeholder="Pesquisar Projeto" />
-        </div>
+        <InputSearch title="pesquisar" placeholder="Pesquisar Projeto" />
         <div className="hidden items-center gap-2 md:flex">
           <IconX
             name="Acessos"
@@ -59,11 +57,13 @@ export const Header = ({ navbar }: IHeader) => {
             <UserCheck width={19.45} height={20} weight="fill" />
           </div>
         </div>
-        <List
-          className="cursor-pointer text-write-secundary md:hidden"
-          size={24}
-          onClick={handleMenuToggle}
-        />
+        <div className="mr-2 w-fit">
+          <List
+            className="cursor-pointer text-write-secundary md:hidden"
+            size={24}
+            onClick={handleMenuToggle}
+          />
+        </div>
       </header>
       {menuOpen && (
         <div

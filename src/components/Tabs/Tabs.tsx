@@ -8,7 +8,7 @@ interface ITabs {
 
 export const Tabs = ({ titles, activeTab, setActiveTab }: ITabs) => {
   return (
-    <div className="flex w-full items-start justify-between border-b-1 border-edge-primary text-write-secundary">
+    <div className="flex w-full flex-col items-start justify-between gap-2 border-b-1 border-edge-primary text-write-secundary md:flex-row md:gap-0">
       {titles.map((title: string) => (
         <div
           key={title}
