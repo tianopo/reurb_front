@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { InputX } from "src/components/Form/Input/InputX";
+import { app } from "src/routes/app";
 import { formatCep, formatPhone } from "src/utils/validators";
 
 export const Membership = () => {
@@ -48,7 +49,7 @@ export const Membership = () => {
       <Button>entrar</Button>
       <h6
         className="cursor-pointer font-bold uppercase text-primary hover:text-terciary"
-        onClick={() => navigate("/login")}
+        onClick={() => navigate(app.login)}
       >
         fazer login novamente
       </h6>

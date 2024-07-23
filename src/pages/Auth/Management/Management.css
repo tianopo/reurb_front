@@ -1,0 +1,3 @@
+.subtitulo {
+  @apply w-full text-center text-write-primary;
+}

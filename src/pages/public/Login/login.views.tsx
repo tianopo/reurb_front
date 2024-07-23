@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
+import { app } from "src/routes/app";
 import { ILoginDto, useLogin } from "./useLogin";
 
 export const Login = () => {
@@ -35,7 +36,7 @@ export const Login = () => {
       </FormProvider>
       <h6
         className="cursor-pointer font-bold uppercase text-primary hover:text-terciary"
-        onClick={() => navigate("/esqueceu-senha")}
+        onClick={() => navigate(app.forgotPassword)}
       >
         esqueceu sua senha
       </h6>

@@ -19,8 +19,7 @@ export const BeginInputSearch: ForwardRefRenderFunction<HTMLInputElement, IInput
   const words = labelFormatted(title);
 
   return (
-    <div className="flex w-fit items-end justify-center md:w-72">
-      <MagnifyingGlass size={24} className="absolute top-5 ml-28 text-gray-500 md:ml-60" />
+    <div className="relative flex w-full items-center">
       <input
         id={words}
         ref={ref}
@@ -33,9 +32,10 @@ export const BeginInputSearch: ForwardRefRenderFunction<HTMLInputElement, IInput
           onChange && onChange(e);
         }}
         autoComplete="off"
-        className={`input ${disabled ? "cursor-not-allowed opacity-80" : ""} `}
+        className={`input ${disabled ? "cursor-not-allowed opacity-80" : ""}`}
         {...rest}
       />
+      <MagnifyingGlass size={20} className="absolute right-2 text-gray-500" />
     </div>
   );
 };

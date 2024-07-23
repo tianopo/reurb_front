@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
+import { app } from "src/routes/app";
 import { IRegisterDto, useRegister } from "./useRegister";
 
 export const Register = () => {
@@ -47,7 +48,7 @@ export const Register = () => {
       </FormProvider>
       <h6
         className="cursor-pointer font-bold uppercase text-primary hover:text-terciary"
-        onClick={() => navigate("/login")}
+        onClick={() => navigate(app.login)}
       >
         fazer login novamente
       </h6>

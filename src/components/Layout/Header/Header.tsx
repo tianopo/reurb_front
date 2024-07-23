@@ -4,6 +4,8 @@ import { InputSearch } from "src/components/Form/Input/InputSearch";
 import { IconX } from "src/components/Icons/IconX";
 import "../Sidebar/Sidebar.css";
 import { SidebarX } from "../Sidebar/SidebarX";
+import { useNavigate } from "react-router-dom";
+import { app } from "src/routes/app";
 
 interface INavbar {
   icon?: JSX.Element;
@@ -17,6 +19,7 @@ interface IHeader {
 
 export const Header = ({ navbar }: IHeader) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleMenuToggle = () => setMenuOpen(!menuOpen);
 
@@ -36,6 +39,7 @@ export const Header = ({ navbar }: IHeader) => {
                 width={19.45}
                 height={20}
                 weight="fill"
+                onClick={() => navigate(app.management)}
               />
             }
           />

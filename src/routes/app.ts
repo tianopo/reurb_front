@@ -12,4 +12,5 @@ export const app = {
   schedule: "/agenda",
   projects: "/projetos",
   financial: "/financeiro",
+  management: "/administracao",
 };

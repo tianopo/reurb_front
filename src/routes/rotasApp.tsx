@@ -3,6 +3,7 @@ import { LayoutX } from "src/components/Layout/LayoutX/LayoutX";
 import { PublicLayout } from "src/components/Layout/PublicLayout/PublicLayout";
 import { Financial } from "src/pages/Auth/Financial/Financial.views";
 import { Home } from "src/pages/Auth/Home/Home.views";
+import { Management } from "src/pages/Auth/Management/Management.views";
 import { Projects } from "src/pages/Auth/Projects/Projects.views";
 import { Schedule } from "src/pages/Auth/Schedule/Schedule.views";
 import { ForgotPassword } from "src/pages/public/ForgotPassword/forgotPassword.views";
@@ -41,6 +42,7 @@ export const browserRouter = createBrowserRouter([
           { path: app.schedule, element: <Schedule /> },
           { path: app.projects, element: <Projects /> },
           { path: app.financial, element: <Financial /> },
+          { path: app.management, element: <Management /> },
         ],
       },
     ],
