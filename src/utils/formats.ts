@@ -83,3 +83,35 @@ export const formatCPF = (value: string): string => {
 
   return input;
 };
+
+export const formatState = (value: string): string => {
+  let input = value.replace(/[^a-zA-Z]/g, "").toUpperCase();
+
+  if (input.length > 2) {
+    input = input.slice(0, 2);
+  }
+
+  return input;
+};
+
+export const formatCurrency = (value: string): string => {
+  // Remove tudo que não for número ou vírgula
+  let input = value.replace(/[^0-9,]/g, "");
+
+  if (input.length > 2) {
+    input = input.replace(/,/g, "");
+    input = input.replace(/(\d*)(\d{2})$/, "$1,$2");
+  }
+
+  if (input.length > 0) {
+    input = `R$ ${input}`;
+  }
+
+  input = input.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+  if (input.endsWith(",")) {
+    input = input.slice(0, -1);
+  }
+
+  return input;
+};
