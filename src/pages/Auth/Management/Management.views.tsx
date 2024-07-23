@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { Tabs } from "src/components/Tabs/Tabs";
 import "./Management.css";
-import { TabAcessos } from "./TabAcessos";
+import { TabAcessos } from "./TabAcessos/TabAcessos";
 import { TabDocumentos } from "./TabDocumentos";
 import { TabPersonlizacao } from "./TabPersonalizacao";
 

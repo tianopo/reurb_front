@@ -1,3 +1,13 @@
 .subtitulo {
   @apply w-full text-center text-write-primary;
 }
+
+/* TabAcessos/component/SelectUser */
+.option-select-user {
+  @apply cursor-pointer rounded-lg p-2.5 text-write-secundary hover:bg-selected-primary hover:text-write-primary;
+}
+
+/* TabAcessos */
+.container-user {
+  @apply flex flex-col gap-10 pt-2.5 md:flex-row;
+}

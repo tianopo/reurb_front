@@ -13,4 +13,5 @@ export const app = {
   projects: "/projetos",
   financial: "/financeiro",
   management: "/administracao",
+  user: "/usuario",
 };

@@ -1,10 +1,10 @@
 import { UseFormRegisterReturn, useFormContext } from "react-hook-form";
+import { FlexCol } from "src/components/Flex/FlexCol";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
-import { FlexCol } from "../Flex/FlexCol";
-import { ErrorMessages } from "./ErrorMessages/ErrorMessages";
+import { ErrorMessages } from "../ErrorMessages/ErrorMessages";
+import { Label } from "../Label/Label";
 import "./Input.css";
-import { Label } from "./Label/Label";
 
 interface ISelect extends IUseForm {
   title: string;
@@ -29,11 +29,7 @@ export const Select = ({ disabled, required, title, register, options, ...rest }
         disabled={disabled}
         {...register}
         autoComplete="complete"
-        className={`
-        input
-        white
-        ${disabled ? "opacity-80" : ""}
-        `}
+        className={`input white ${disabled ? "opacity-80" : ""} `}
         {...rest}
       >
         {options?.map((option, index) => (

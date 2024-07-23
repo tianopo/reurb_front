@@ -14,6 +14,7 @@ import { Register } from "src/pages/public/Register/register.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
 import { PublicRoute } from "./context/PublicRoute";
+import { User } from "src/pages/Auth/Management/TabAcessos/User";
 
 export const browserRouter = createBrowserRouter([
   {
@@ -43,6 +44,7 @@ export const browserRouter = createBrowserRouter([
           { path: app.projects, element: <Projects /> },
           { path: app.financial, element: <Financial /> },
           { path: app.management, element: <Management /> },
+          { path: app.user, element: <User /> },
         ],
       },
     ],

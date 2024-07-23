@@ -1,4 +1,6 @@
 import { Gear } from "@phosphor-icons/react";
+import { MouseEventHandler } from "react";
+import { IconX } from "../Icons/IconX";
 import "./Table.css";
 
 interface ITable {
@@ -11,9 +13,10 @@ interface ITable {
     two?: string;
     three?: string;
   }[];
+  onClick?: MouseEventHandler<SVGSVGElement> | undefined;
 }
 
-export const Table = ({ headers, data }: ITable) => {
+export const Table = ({ headers, data, onClick }: ITable) => {
   return (
     <div className="w-full overflow-x-auto">
       <span className="text-write-primary">
@@ -43,7 +46,18 @@ export const Table = ({ headers, data }: ITable) => {
                 {row?.three}
               </td>
               <td className={`space-b min-w-6 max-w-6`}>
-                <Gear size={20} />
+                <IconX
+                  name="Editar"
+                  icon={
+                    <Gear
+                      className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
+                      width={19.45}
+                      height={20}
+                      weight="fill"
+                      onClick={onClick}
+                    />
+                  }
+                />
               </td>
             </tr>
           ))}

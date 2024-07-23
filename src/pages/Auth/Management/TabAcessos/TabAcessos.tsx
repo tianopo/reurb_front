@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { InputSearch } from "src/components/Form/Input/InputSearch";
 import { Table } from "src/components/Table/Table";
+import { app } from "src/routes/app";
 
 export const TabAcessos = () => {
+  const navigate = useNavigate();
   const headers = [
     { title: "Nome/Email", width: "32" },
     { title: "Acessos", width: "14" },
@@ -18,7 +21,7 @@ export const TabAcessos = () => {
     <div className="flex w-full flex-col items-start gap-2.5">
       <h6 className="text-center text-write-primary">Acesso</h6>
       <InputSearch placeholder="Encontre um usuário" title="Encontre um Usuário" />
-      <Table headers={headers} data={data} />
+      <Table headers={headers} data={data} onClick={() => navigate(app.user)} />
     </div>
   );
 };
