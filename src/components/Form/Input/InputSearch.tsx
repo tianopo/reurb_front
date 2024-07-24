@@ -19,7 +19,7 @@ export const BeginInputSearch: ForwardRefRenderFunction<HTMLInputElement, IInput
   const words = labelFormatted(title);
 
   return (
-    <div className="relative flex w-full items-center md:w-72">
+    <div className="relative flex w-full items-center">
       <input
         id={words}
         ref={ref}

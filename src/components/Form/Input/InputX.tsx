@@ -12,10 +12,21 @@ interface IInputX extends IUseForm {
   value?: string;
   typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local" | "password";
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  readOnly?: boolean;
 }
 
 export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
-  { disabled, required, title, placeholder, value, typ = "text", onChange, ...rest }: IInputX,
+  {
+    disabled,
+    required,
+    title,
+    placeholder,
+    value,
+    readOnly,
+    typ = "text",
+    onChange,
+    ...rest
+  }: IInputX,
   ref,
 ) => {
   const words = labelFormatted(title);
@@ -42,6 +53,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
           inputRegister?.onChange(e);
           onChange && onChange(e);
         }}
+        readOnly={readOnly}
         autoComplete="complete"
         className={`input ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
         {...rest}

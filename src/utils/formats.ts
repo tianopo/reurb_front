@@ -95,7 +95,6 @@ export const formatState = (value: string): string => {
 };
 
 export const formatCurrency = (value: string): string => {
-  // Remove tudo que não for número ou vírgula
   let input = value.replace(/[^0-9,]/g, "");
 
   if (input.length > 2) {

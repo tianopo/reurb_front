@@ -1,10 +1,11 @@
 import { Files, Gear, ProjectorScreen, X } from "@phosphor-icons/react";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { InputX } from "src/components/Form/Input/InputX";
 import { Select } from "src/components/Form/Select/Select";
 import { IconX } from "src/components/Icons/IconX";
 import { CardContainer } from "src/components/Layout/CardContainer";
+import { useAddressByCep } from "src/hooks/API/AddressByCep";
 import {
   formatCep,
   formatCPF,
@@ -14,37 +15,8 @@ import {
   formatState,
 } from "src/utils/formats";
 import "../Management.css";
+import { ModalUserProjects } from "./components/ModalUserProjects";
 import { SelectUser } from "./components/SelectUser";
-
-interface IModal {
-  isVisible: boolean;
-  onClose: () => void;
-}
-
-const Modal = ({ isVisible, onClose }: IModal) => {
-  if (!isVisible) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="flex w-11/12 flex-col gap-2.5 rounded-lg bg-white p-4 shadow-lg md:w-1/2">
-        <button
-          className="absolute right-2 top-2 text-write-primary hover:text-selected-primary"
-          onClick={onClose}
-        >
-          <X size={24} weight="bold" />
-        </button>
-        <h4 className="mb-4 text-lg font-semibold">Adicionar Projeto</h4>
-        <InputX title="Nome do Projeto" placeholder="Nome do Projeto" required />
-        <InputX title="Descrição" placeholder="Descrição do Projeto" required />
-        <InputX title="Data de Início" placeholder="Data de Início" required />
-        <Select title="Status" options={["Planejado", "Em andamento", "Concluído"]} required />
-        <div className="mt-4 flex justify-end">
-          <Button onClick={onClose}>Fechar</Button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export const User = () => {
   const [valueRG, setValueRG] = useState("");
@@ -57,6 +29,10 @@ export const User = () => {
   const [valueCPFConjuge, setValueCPFConjuge] = useState("");
   const [valuePhoneConjuge, setValuePhoneConjuge] = useState("");
 
+  const [cep, setCep] = useState("");
+  const [valueStreet, setValueStreet] = useState("");
+  const [valueBairro, setValueBairro] = useState("");
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   // const acesso = "funcionário"
 
@@ -68,11 +44,6 @@ export const User = () => {
   const handleCPFFormat = (e: { target: { value: string } }) => {
     const formattedCPF = formatCPF(e.target.value);
     setValueCPF(formattedCPF);
-  };
-
-  const handleCEPFormat = (e: { target: { value: string } }) => {
-    const formattedCEP = formatCep(e.target.value);
-    setValueCEP(formattedCEP);
   };
 
   const handleStateFormat = (e: { target: { value: string } }) => {
@@ -103,6 +74,26 @@ export const User = () => {
   const handlePhoneConjugeFormat = (e: { target: { value: string } }) => {
     const formattedPhoneConjuge = formatPhone(e.target.value);
     setValuePhoneConjuge(formattedPhoneConjuge);
+  };
+
+  const handleCepChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const cepValue = e.target.value;
+    setCep(cepValue);
+
+    const formattedCEP = formatCep(cepValue);
+    setValueCEP(formattedCEP);
+    const cleanCep = cepValue.replace(/\D/g, "");
+
+    if (cleanCep.length === 8) {
+      const addressData = await useAddressByCep(cleanCep);
+
+      if (addressData) {
+        const { logradouro, bairro, uf } = addressData;
+        setValueStreet(logradouro);
+        setValueBairro(bairro);
+        setValueState(formatState(uf));
+      }
+    }
   };
 
   return (
@@ -152,21 +143,27 @@ export const User = () => {
           <InputX
             title="CEP"
             placeholder="XX.XXX-XXX"
-            onChange={handleCEPFormat}
+            onChange={handleCepChange}
             value={valueCEP}
             required
           />
         </div>
         <div className="container-user">
-          <InputX title="Rua" placeholder="Rua Salvador" required />
+          <InputX
+            title="Rua"
+            placeholder="Rua Salvador"
+            value={valueStreet}
+            onChange={(e) => setValueStreet(e.target.value)}
+            required
+          />
           <div className="md:w-1/2">
             <InputX title="Número" placeholder="100" required />
           </div>
           <InputX
             title="Bairro"
-            placeholder="XX.XXX-XXX"
-            onChange={handleCEPFormat}
-            value={valueCEP}
+            placeholder="Jardim Colinas"
+            value={valueBairro}
+            onChange={(e) => setValueBairro(e.target.value)}
             required
           />
           <div className="md:w-1/8">
@@ -176,8 +173,8 @@ export const User = () => {
             <InputX
               title="Estado"
               placeholder="SP"
-              onChange={handleStateFormat}
               value={valueState}
+              onChange={handleStateFormat}
               required
             />
           </div>
@@ -203,7 +200,7 @@ export const User = () => {
           <InputX title="Quadra Atual" placeholder="A" />
           <InputX title="Quadra Nova" placeholder="B" />
         </div>
-        <Modal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+        <ModalUserProjects isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
         <Button onClick={() => setIsModalVisible(true)}>adicionar projeto</Button>
         <div className="container-user flex-wrap items-end">
           <div className="flex items-center gap-2 text-write-secundary">
@@ -234,32 +231,32 @@ export const User = () => {
         </div>
         <p className="w-full text-start font-bold text-write-primary">Cônjuge</p>
         <div className="container-user">
-          <InputX title="Nome" placeholder="Renata Siqueira" required />
+          <InputX title="Nome Conjuge" placeholder="Renata Siqueira" required />
           <InputX
-            title="RG"
+            title="RG Conjuge"
             placeholder="XX.XXX.XXX-X"
             onChange={handleRGConjugeFormat}
             value={valueRGConjuge}
             required
           />
           <InputX
-            title="CPF"
+            title="CPF Conjuge"
             placeholder="XXX.XXX.XXX-XX"
             onChange={handleCPFConjugeFormat}
             value={valueCPFConjuge}
             required
           />
-          <InputX title="Profissão" placeholder="Carpinteiro" required />
+          <InputX title="Profissão Conjuge" placeholder="Carpinteiro" required />
         </div>
         <div className="container-user">
           <InputX
-            title="Telefone"
+            title="Telefone Conjuge"
             placeholder="(12) 98243-5638"
             onChange={handlePhoneConjugeFormat}
             value={valuePhoneConjuge}
             required
           />
-          <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" required />
+          <InputX title="E-mail Conjuge" placeholder="adoleta@hotmail.com.br" required />
         </div>
         <div className="container-user md:justify-between">
           <Button>adicionar usuário</Button>

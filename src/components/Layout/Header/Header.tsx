@@ -27,7 +27,9 @@ export const Header = ({ navbar }: IHeader) => {
     <>
       <header className="sticky z-10 flex h-fit w-full items-center justify-between gap-2.5 bg-white shadow-sm md:gap-0">
         <img src="logo/logo-icon.png" alt="icone da logo da Reurb" width={93} height={67.19} />
-        <InputSearch title="pesquisar" placeholder="Pesquisar Projeto" />
+        <div className="w-full md:w-72">
+          <InputSearch title="pesquisar" placeholder="Pesquisar Projeto" />
+        </div>
         <div className="hidden items-center gap-2 md:flex">
           <IconX
             name="Acessos"
