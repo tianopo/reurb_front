@@ -2,17 +2,21 @@ import { CaretDown, CaretUp } from "@phosphor-icons/react";
 import { useState } from "react";
 import "../../Management.css";
 
-export const SelectUser = () => {
+interface SelectUserProps {
+  setAccess: (option: string) => void;
+  access: string;
+}
+
+export const SelectUser = ({ setAccess, access }: SelectUserProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Cliente");
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleOptionSelect = (option: string) => {
-    setSelectedOption(option);
     setIsOpen(false);
+    setAccess(option);
   };
 
   return (
@@ -26,7 +30,7 @@ export const SelectUser = () => {
           }, 100)
         }
       >
-        <h6 className="text-write-primary">{selectedOption}</h6>
+        <h6 className="text-write-primary">{access}</h6>
         {isOpen ? (
           <CaretUp className="text-write-secundary" width={19.45} height={20} />
         ) : (
