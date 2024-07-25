@@ -55,7 +55,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
         }}
         readOnly={readOnly}
         autoComplete="complete"
-        className={`input ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
+        className={`input border-edge-primary ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
         {...rest}
       />
       <ErrorMessages errors={errorMessage?.toString()} />

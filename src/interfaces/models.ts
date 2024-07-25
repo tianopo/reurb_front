@@ -1,4 +1,4 @@
-interface IGeneralModel {
+export interface IGeneralModel {
   id?: string;
   createdIn?: Date;
   updated?: Date;

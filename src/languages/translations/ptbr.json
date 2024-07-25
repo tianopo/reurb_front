@@ -13,6 +13,7 @@
     "hooks": {
       "auth": {
         "userLogged": "Login feito com sucesso",
+        "userRegistered": "Usuário registrado com sucesso",
         "passwordUpper": "A senha deve ter pelo menos um caractere maiúsculo",
         "passwordLower": "A senha deve ter pelo menos um caractere minúsculo",
         "passwordNumber": "A senha deve ter pelo menos um caractere numérico",

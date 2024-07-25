@@ -84,14 +84,6 @@ export default [
         },
     },
     {
-        files: ["**/err/**"],
-
-        rules: {
-            "no-console": "off",
-            "no-restricted-syntax": "off",
-        },
-    },
-    {
         // Override for specific files or directories
         files: ["src/config/**/*.ts", "src/config/**/*.tsx"],
         rules: {
