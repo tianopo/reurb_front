@@ -22,7 +22,7 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
   ref,
 ) => {
   const words = labelFormatted(title);
-  const { register, setValue, formState } = useFormContext() || {};
+  const { register, setValue, formState, clearErrors } = useFormContext() || {};
   const { errors } = formState || {};
   const selectRegister = register ? register(words, { required }) : undefined;
   const errorMessage = errors && errors[words]?.message;
@@ -35,6 +35,9 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
     setIsOpen(false);
     if (setValue) {
       setValue(words, option);
+    }
+    if (clearErrors) {
+      clearErrors(words);
     }
     onChange && onChange(option);
   };

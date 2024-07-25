@@ -21,15 +21,7 @@ export const SelectUser = ({ setAccess, access }: SelectUserProps) => {
 
   return (
     <div className="relative">
-      <button
-        className="flex cursor-pointer gap-1"
-        onClick={toggleDropdown}
-        onBlur={() =>
-          setTimeout(() => {
-            setIsOpen(false);
-          }, 100)
-        }
-      >
+      <button className="flex cursor-pointer gap-1" onClick={toggleDropdown}>
         <h6 className="text-write-primary">{access}</h6>
         {isOpen ? (
           <CaretUp className="text-write-secundary" width={19.45} height={20} />

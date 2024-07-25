@@ -90,12 +90,14 @@ export const User = () => {
 
     if (cleanCep.length === 8) {
       const addressData = await useAddressByCep(cleanCep);
-
-      if (addressData) {
+      if (addressData && addressData.erro !== "true") {
         const { logradouro, bairro, uf } = addressData;
         setValueStreet(logradouro);
+        setValue("rua", logradouro);
         setValueBairro(bairro);
+        setValue("bairro", bairro);
         setValueState(formatState(uf));
+        setValue("estado", formatState(uf));
       }
     }
   };
@@ -113,9 +115,9 @@ export const User = () => {
     formState: { errors },
   } = context;
   const onSubmit = (data: ICreateClientDto) => {
-    console.log(data);
     mutate(data);
   };
+  const { setValue } = context;
 
   return (
     <FormProvider {...context}>
@@ -241,10 +243,10 @@ export const User = () => {
           {access !== "Funcionário" && (
             <>
               <div className="container-user">
-                <InputX title="Lote Atual" placeholder="15" />
-                <InputX title="Lote Novo" placeholder="17" />
-                <InputX title="Quadra Atual" placeholder="A" />
-                <InputX title="Quadra Nova" placeholder="B" />
+                <InputX title="Lote Atual" placeholder="15" required />
+                <InputX title="Lote Novo" placeholder="17" required />
+                <InputX title="Quadra Atual" placeholder="A" required />
+                <InputX title="Quadra Nova" placeholder="B" required />
               </div>
               <ModalUserProjects
                 isVisible={isModalVisible}

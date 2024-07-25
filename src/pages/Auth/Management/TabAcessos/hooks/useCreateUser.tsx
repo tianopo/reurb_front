@@ -19,7 +19,6 @@ export interface ICreateClientDto {
   cpf: string;
   profissao: string;
   telefone: string;
-  acesso: string;
   rg: string;
   estadoCivil: EstadoCivil;
   cep: string;
@@ -51,14 +50,14 @@ export const useCreateClient = () => {
     onSuccess: () => {
       responseSuccess("Cliente criado com sucesso");
       queryClient.invalidateQueries({ queryKey: ["client-data"] });
-      navigate(app.home);
+      navigate(app.management);
     },
     onError: (erro: AxiosError) => responseError(erro),
   });
 
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(255).label("Nome"),
-    email: Yup.string().required().email().label("E-mail"),
+    email: Yup.string().required().email().max(255).label("E-mail"),
     tiposDeContrato: Yup.string()
       .required()
       .oneOf(["Procuração", "Contrato", "Requerimento Reurb", "Memorando"])
@@ -66,20 +65,19 @@ export const useCreateClient = () => {
       .label("Tipos de Contrato"),
     cpf: Yup.string().required().matches(Regex.cpf_mask, "CPF inválido").label("CPF"),
     profissao: Yup.string().required().max(100).label("Profissão"),
-    telefone: Yup.string().required().max(15).label("Telefone"),
-    acesso: Yup.string().required().label("Acesso"),
-    rg: Yup.string().required().max(12).matches(Regex.rg_mask, "RG inválido").label("RG"),
+    telefone: Yup.string().required().label("Telefone"),
+    rg: Yup.string().required().matches(Regex.rg_mask, "RG inválido").label("RG"),
     estadoCivil: Yup.string()
       .required()
       .oneOf(["Solteiro", "Casado", "União Estável", "Separado", "Divorciado", "Viúvo"])
       .max(25)
       .label("Estado Civil"),
-    cep: Yup.string().required().max(20).matches(Regex.cep_mask, "CEP inválido").label("CEP"),
+    cep: Yup.string().required().matches(Regex.cep_mask, "CEP inválido").label("CEP"),
     rua: Yup.string().required().max(255).label("Rua"),
     numero: Yup.string().required().max(25).nullable().label("Número"),
     bairro: Yup.string().required().max(100).label("Bairro"),
     complemento: Yup.string().optional().max(100).nullable().label("Complemento"),
-    estado: Yup.string().required().required().max(2).label("Estado"),
+    estado: Yup.string().required().label("Estado"),
     loteAtual: Yup.string().required().max(50).nullable().label("Lote Atual"),
     loteNovo: Yup.string().required().max(50).nullable().label("Lote Novo"),
     quadraAtual: Yup.string().required().max(50).nullable().label("Quadra Atual"),
@@ -94,7 +92,6 @@ export const useCreateClient = () => {
         otherwise: (schema) => schema.optional().label("Nome Cônjuge"),
       }),
     rgConjuge: Yup.string()
-      .max(12)
       .optional()
       .when("estadoCivil", {
         is: (value: EstadoCivil) => ["Casado", "União Estável"].includes(value),
@@ -103,7 +100,6 @@ export const useCreateClient = () => {
         otherwise: (schema) => schema.optional().label("RG Cônjuge"),
       }),
     cpfConjuge: Yup.string()
-      .max(14)
       .optional()
       .when("estadoCivil", {
         is: (value: EstadoCivil) => ["Casado", "União Estável"].includes(value),
@@ -120,7 +116,6 @@ export const useCreateClient = () => {
         otherwise: (schema) => schema.optional().label("Profissão Cônjuge"),
       }),
     telefoneConjuge: Yup.string()
-      .max(15)
       .optional()
       .when("estadoCivil", {
         is: (value: EstadoCivil) => ["Casado", "União Estável"].includes(value),
