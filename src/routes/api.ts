@@ -6,7 +6,7 @@ export const apiRoute = {
   token: (token: string) => `/user/${token}`,
 
   /* User */
-  user: "user", // get
+  user: "/user", // get
   client: "/user/client",
   employee: "/user/employee",
   idClient: (id: string) => `/user/client/${id}`, // delete and update

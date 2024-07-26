@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
-import { IGeneralModel } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
 import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
@@ -25,7 +24,7 @@ export interface ICreateClientDto {
   rua: string;
   numero: string;
   bairro: string;
-  complemento?: string | null;
+  complemento?: string;
   estado: string;
   loteAtual: string;
   loteNovo: string;
@@ -40,8 +39,6 @@ export interface ICreateClientDto {
   emailConjuge?: string;
 }
 
-export interface IClientModel extends IGeneralModel, ICreateClientDto {}
-
 export const useCreateClient = () => {
   const navigate = useNavigate();
 
@@ -49,7 +46,7 @@ export const useCreateClient = () => {
     mutationFn: path,
     onSuccess: () => {
       responseSuccess("Cliente criado com sucesso");
-      queryClient.invalidateQueries({ queryKey: ["client-data"] });
+      queryClient.invalidateQueries({ queryKey: ["user-data"] });
       navigate(app.management);
     },
     onError: (erro: AxiosError) => responseError(erro),
@@ -74,15 +71,15 @@ export const useCreateClient = () => {
       .label("Estado Civil"),
     cep: Yup.string().required().matches(Regex.cep_mask, "CEP inválido").label("CEP"),
     rua: Yup.string().required().max(255).label("Rua"),
-    numero: Yup.string().required().max(25).nullable().label("Número"),
+    numero: Yup.string().required().max(25).label("Número"),
     bairro: Yup.string().required().max(100).label("Bairro"),
-    complemento: Yup.string().optional().max(100).nullable().label("Complemento"),
+    complemento: Yup.string().optional().max(100).label("Complemento"),
     estado: Yup.string().required().label("Estado"),
-    loteAtual: Yup.string().required().max(50).nullable().label("Lote Atual"),
-    loteNovo: Yup.string().required().max(50).nullable().label("Lote Novo"),
-    quadraAtual: Yup.string().required().max(50).nullable().label("Quadra Atual"),
-    quadraNova: Yup.string().required().max(50).nullable().label("Quadra Nova"),
-    totalRendaFamiliar: Yup.string().required().max(50).nullable().label("Total Renda Familiar"),
+    loteAtual: Yup.string().required().max(50).label("Lote Atual"),
+    loteNovo: Yup.string().required().max(50).label("Lote Novo"),
+    quadraAtual: Yup.string().required().max(50).label("Quadra Atual"),
+    quadraNova: Yup.string().required().max(50).label("Quadra Nova"),
+    totalRendaFamiliar: Yup.string().required().max(50).label("Total Renda Familiar"),
     nomeConjuge: Yup.string()
       .max(255)
       .optional()
@@ -134,11 +131,11 @@ export const useCreateClient = () => {
   });
 
   const context = useForm<ICreateClientDto>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
     reValidateMode: "onChange",
   });
 
-  async function path(data: Yup.InferType<typeof schema>): Promise<IClientModel> {
+  async function path(data: Yup.InferType<typeof schema>): Promise<ICreateClientDto> {
     const result = await api().post(apiRoute.client, data);
     return result.data;
   }

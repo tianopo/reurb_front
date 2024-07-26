@@ -30,12 +30,6 @@ export const useRegister = () => {
       responseSuccess(t("userRegistered"));
       queryClient.setQueryData(["token-data"], data.token);
       localStorage.setItem("token", data.token);
-      setTimeout(
-        () => {
-          localStorage.removeItem("token");
-        },
-        24 * 60 * 60 * 1000,
-      );
 
       navigate(app.home);
     },

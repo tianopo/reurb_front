@@ -15,9 +15,9 @@ export const useLogout = () => {
     mutationFn: path,
     onSuccess: () => {
       localStorage.removeItem("token");
-      queryClient.setQueryData(["token-data"], "");
+      queryClient.removeQueries({ queryKey: ["user-data", "token-data"] });
       toast.success("Você saiu com sucesso");
-      navigate(app.auth);
+      navigate(app.login);
     },
     onError: (error: AxiosError) => responseError(error),
   });

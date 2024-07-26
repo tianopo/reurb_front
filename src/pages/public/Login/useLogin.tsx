@@ -26,7 +26,10 @@ export const useLogin = () => {
     mutationFn: path,
     onSuccess: (data: IAuthModel) => {
       responseSuccess(t("userLogged"));
-      queryClient.setQueryData(["token-data"], data.token);
+      queryClient.setQueryData(["token-data"], {
+        token: data.token,
+        timestamp: Date.now(),
+      });
       localStorage.setItem("token", data.token);
 
       navigate(app.home);
