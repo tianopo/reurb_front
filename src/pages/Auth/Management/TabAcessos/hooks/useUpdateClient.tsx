@@ -11,13 +11,13 @@ import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 import { EstadoCivil, IClientDto } from "./interfaces";
 
-export const useCreateClient = () => {
+export const useUpdateClient = (id: string) => {
   const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: path,
+    mutationFn: (data: IClientDto) => path(id, data),
     onSuccess: () => {
-      responseSuccess("Cliente criado com sucesso");
+      responseSuccess("Cliente atualizado com sucesso");
       queryClient.invalidateQueries({ queryKey: ["user-data"] });
       navigate(app.management);
     },
@@ -107,8 +107,8 @@ export const useCreateClient = () => {
     reValidateMode: "onChange",
   });
 
-  async function path(data: Yup.InferType<typeof schema>): Promise<IClientDto> {
-    const result = await api().post(apiRoute.client, data);
+  async function path(id: string, data: Yup.InferType<typeof schema>): Promise<IClientDto> {
+    const result = await api().put(apiRoute.idClient(id), data);
     return result.data;
   }
 

@@ -1,20 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { app } from "src/routes/app";
 import { formatCPF, formatPhone } from "src/utils/formats";
-import "../Management.css";
-import { ICreateEmployeeDto, useCreateEmployee } from "./hooks/useCreateEmployee";
+import "../../Management.css";
+import { IEmployeeDto } from "../hooks/interfaces";
+import { useGetIdUser } from "../hooks/useGetIdUser";
+import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
 
 interface IFormEmployee {
   MainDiv: () => JSX.Element;
 }
 
-export const FormEmployee = ({ MainDiv }: IFormEmployee) => {
+export const FormUpdateEmployee = ({ MainDiv }: IFormEmployee) => {
   const [valueCPF, setValueCPF] = useState("");
   const [valuePhone, setValuePhone] = useState("");
 
@@ -29,20 +31,42 @@ export const FormEmployee = ({ MainDiv }: IFormEmployee) => {
   };
 
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading } = useGetIdUser(id || "");
 
-  const { mutate, isPending, context } = useCreateEmployee();
+  const { mutate, isPending, context } = useUpdateEmployee(id || "");
   const {
     formState: { errors },
+    setValue,
   } = context;
-  const onSubmit = (data: ICreateEmployeeDto) => {
+  const onSubmit = (data: IEmployeeDto) => {
     mutate(data);
   };
+
+  useEffect(() => {
+    if (data) {
+      setValue("nome", data.nome || "");
+      setValue("cpf", data.cpf || "");
+      setValue("profissao", data.profissao || "");
+      setValue("telefone", data.telefone || "");
+      setValue("email", data.email || "");
+    }
+  }, [data, setValue]);
 
   return (
     <FormProvider {...context}>
       <FormX onSubmit={onSubmit} className="flex flex-col gap-1.5">
         <CardContainer>
           <MainDiv />
+          {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}
+          {error && (
+            <>
+              <h6 className="text-center text-variation-error">
+                Ocorreu um erro ao carregar os dados.
+              </h6>
+              <p className="text-center text-red-500">{error.message}</p>
+            </>
+          )}
           <div className="container-user pt-2.5">
             <InputX title="Nome" placeholder="Ciclano Fonseca" required />
             <InputX

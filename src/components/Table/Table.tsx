@@ -1,5 +1,4 @@
 import { Gear } from "@phosphor-icons/react";
-import { MouseEventHandler } from "react";
 import { IconX } from "../Icons/IconX";
 import "./Table.css";
 
@@ -9,11 +8,12 @@ interface ITable {
     width: string;
   }[];
   data: {
+    id: string;
     one: string;
     two?: string;
     three?: string;
   }[];
-  onClick?: MouseEventHandler<SVGSVGElement> | undefined;
+  onClick?: (id: string, access: string) => void;
 }
 
 export const Table = ({ headers, data, onClick }: ITable) => {
@@ -54,7 +54,7 @@ export const Table = ({ headers, data, onClick }: ITable) => {
                       width={19.45}
                       height={20}
                       weight="fill"
-                      onClick={onClick}
+                      onClick={() => row?.two && onClick?.(row?.id, row.two)}
                     />
                   }
                 />

@@ -1,13 +1,21 @@
 import { Gear } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { IconX } from "src/components/Icons/IconX";
-import "../Management.css";
-import { SelectUser } from "./components/SelectUser";
-import { FormClient } from "./FormClient";
-import { FormEmployee } from "./FormEmployee";
+import "../../Management.css";
+import { SelectUser } from "../components/SelectUser";
+import { FormUpdateClient } from "./FormUpdateClient";
+import { FormUpdateEmployee } from "./FormUpdateEmployee";
 
-export const User = () => {
-  const [access, setAccess] = useState("Cliente");
+export const UserUpdate = () => {
+  const location = useLocation();
+  const [access, setAccess] = useState("");
+
+  useEffect(() => {
+    if (location.state?.access) {
+      setAccess(location.state.access);
+    }
+  }, [location.state]);
 
   const handleUserTypeSelect = (option: string) => {
     setAccess(option);
@@ -33,9 +41,9 @@ export const User = () => {
     </div>
   );
 
-  return access !== "Funcionário" ? (
-    <FormClient MainDiv={MainDiv} />
+  return access === "Cliente" ? (
+    <FormUpdateClient MainDiv={MainDiv} />
   ) : (
-    <FormEmployee MainDiv={MainDiv} />
+    <FormUpdateEmployee MainDiv={MainDiv} />
   );
 };

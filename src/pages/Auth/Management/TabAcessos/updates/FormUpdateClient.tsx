@@ -1,7 +1,7 @@
 import { Files, ProjectorScreen, X } from "@phosphor-icons/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FormProvider } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
@@ -17,15 +17,17 @@ import {
   formatRG,
   formatState,
 } from "src/utils/formats";
-import "../Management.css";
-import { ModalUserProjects } from "./components/ModalUserProjects";
-import { ICreateClientDto, useCreateClient } from "./hooks/useCreateClient";
+import "../../Management.css";
+import { ModalUserProjects } from "../components/ModalUserProjects";
+import { IClientDto } from "../hooks/interfaces";
+import { useGetIdUser } from "../hooks/useGetIdUser";
+import { useUpdateClient } from "../hooks/useUpdateClient";
 
 interface IFormClient {
   MainDiv: () => JSX.Element;
 }
 
-export const FormClient = ({ MainDiv }: IFormClient) => {
+export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
   const [valueRG, setValueRG] = useState("");
   const [valueCPF, setValueCPF] = useState("");
   const [valueCEP, setValueCEP] = useState("");
@@ -109,21 +111,67 @@ export const FormClient = ({ MainDiv }: IFormClient) => {
   };
 
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading } = useGetIdUser(id || "");
 
-  const { mutate, isPending, context } = useCreateClient();
+  const { mutate, isPending, context } = useUpdateClient(id || "");
   const {
     formState: { errors },
     setValue,
   } = context;
-  const onSubmit = (data: ICreateClientDto) => {
+  const onSubmit = (data: IClientDto) => {
     mutate(data);
   };
+
+  useEffect(() => {
+    if (data) {
+      setValue("nome", data.nome || "");
+      setValue("rg", data.rg || "");
+      setValue("cpf", data.cpf || "");
+      setValue("profissao", data.profissao || "");
+      setValue("cep", formatCep(data.cep || ""));
+      setValue("rua", data.rua || "");
+      setValue("numero", data.numero || "");
+      setValue("bairro", data.bairro || "");
+      setValue("complemento", data.complemento || "");
+      setValue("estado", formatState(data.estado || ""));
+      setValue("telefone", formatPhone(data.telefone || ""));
+      setValue("email", data.email || "");
+      setValue("tiposDeContrato", data.tiposDeContrato || "");
+      setValue("loteAtual", data.loteAtual || "");
+      setValue("loteNovo", data.loteNovo || "");
+      setValue("quadraAtual", data.quadraAtual || "");
+      setValue("quadraNova", data.quadraNova || "");
+
+      if (data.maritalStatus) {
+        setMaritalStatus(data.maritalStatus);
+      }
+
+      if (data.spouse) {
+        setValue("nomeConjuge", data.nomeConjuge || "");
+        setValue("rgConjuge", data.rgConjuge || "");
+        setValue("cpfConjuge", data.cpfConjuge || "");
+        setValue("profissaoConjuge", data.profissaoConjuge || "");
+        setValue("telefoneConjuge", formatPhone(data.telefoneConjuge || ""));
+        setValue("emailConjuge", data.emailConjuge || "");
+      }
+    }
+  }, [data, setValue]);
 
   return (
     <FormProvider {...context}>
       <FormX onSubmit={onSubmit} className="flex flex-col gap-1.5">
         <CardContainer>
           <MainDiv />
+          {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}
+          {error && (
+            <>
+              <h6 className="text-center text-variation-error">
+                Ocorreu um erro ao carregar os dados.
+              </h6>
+              <p className="text-center text-red-500">{error.message}</p>
+            </>
+          )}
           <div className="container-user pt-2.5">
             <InputX title="Nome" placeholder="Ciclano Fonseca" required />
             <InputX

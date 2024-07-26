@@ -14,4 +14,5 @@ export const app = {
   financial: "/financeiro",
   management: "/administracao",
   user: "/usuario",
+  userUpdate: (id: string) => `/usuario/${id}`,
 };

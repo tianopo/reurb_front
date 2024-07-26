@@ -4,6 +4,8 @@ import { PublicLayout } from "src/components/Layout/PublicLayout/PublicLayout";
 import { Financial } from "src/pages/Auth/Financial/Financial.views";
 import { Home } from "src/pages/Auth/Home/Home.views";
 import { Management } from "src/pages/Auth/Management/Management.views";
+import { UserCreate } from "src/pages/Auth/Management/TabAcessos/create/UserCreate";
+import { UserUpdate } from "src/pages/Auth/Management/TabAcessos/updates/UserUpdate";
 import { Projects } from "src/pages/Auth/Projects/Projects.views";
 import { Schedule } from "src/pages/Auth/Schedule/Schedule.views";
 import { ForgotPassword } from "src/pages/public/ForgotPassword/forgotPassword.views";
@@ -14,7 +16,6 @@ import { Register } from "src/pages/public/Register/register.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
 import { PublicRoute } from "./context/PublicRoute";
-import { User } from "src/pages/Auth/Management/TabAcessos/User";
 
 export const browserRouter = createBrowserRouter([
   {
@@ -44,7 +45,8 @@ export const browserRouter = createBrowserRouter([
           { path: app.projects, element: <Projects /> },
           { path: app.financial, element: <Financial /> },
           { path: app.management, element: <Management /> },
-          { path: app.user, element: <User /> },
+          { path: app.user, element: <UserCreate /> },
+          { path: app.userUpdate(":id"), element: <UserUpdate /> },
         ],
       },
     ],

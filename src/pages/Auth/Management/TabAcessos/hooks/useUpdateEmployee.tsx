@@ -11,13 +11,13 @@ import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 import { IEmployeeDto } from "./interfaces";
 
-export const useCreateEmployee = () => {
+export const useUpdateEmployee = (id: string) => {
   const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: path,
+    mutationFn: (data: IEmployeeDto) => path(id, data),
     onSuccess: () => {
-      responseSuccess("Funcionário criado com sucesso");
+      responseSuccess("Funcionário atualizado com sucesso");
       queryClient.invalidateQueries({ queryKey: ["user-data"] });
       navigate(app.management);
     },
@@ -37,8 +37,8 @@ export const useCreateEmployee = () => {
     reValidateMode: "onChange",
   });
 
-  async function path(data: Yup.InferType<typeof schema>): Promise<IEmployeeDto> {
-    const result = await api().post(apiRoute.employee, data);
+  async function path(id: string, data: Yup.InferType<typeof schema>): Promise<IEmployeeDto> {
+    const result = await api().put(apiRoute.idEmployee(id), data);
     return result.data;
   }
 
