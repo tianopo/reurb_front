@@ -23,7 +23,10 @@ export const SelectUser = ({ setAccess, access }: SelectUserProps) => {
     <div className="relative">
       <div className="flex cursor-pointer gap-1" onClick={toggleDropdown}>
         <input
+          id={access}
+          name={access}
           readOnly
+          autoComplete="complete"
           value={access}
           className="w-24 cursor-pointer bg-inherit text-write-primary outline-none"
         />
