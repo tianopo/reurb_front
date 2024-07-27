@@ -30,6 +30,7 @@ export const useUpdateEmployee = (id: string) => {
     cpf: Yup.string().required().matches(Regex.cpf_mask, "CPF inválido").label("CPF"),
     profissao: Yup.string().required().max(100).label("Profissão"),
     telefone: Yup.string().required().label("Telefone"),
+    status: Yup.boolean().optional().label("Status"),
   });
 
   const context = useForm<IEmployeeDto>({

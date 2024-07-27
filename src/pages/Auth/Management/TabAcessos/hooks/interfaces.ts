@@ -27,6 +27,7 @@ export interface IClientDto {
   quadraAtual: string;
   quadraNova: string;
   totalRendaFamiliar: string;
+  status?: boolean;
   nomeConjuge?: string;
   rgConjuge?: string;
   cpfConjuge?: string;
@@ -41,4 +42,5 @@ export interface IEmployeeDto {
   cpf: string;
   profissao: string;
   telefone: string;
+  status?: boolean;
 }

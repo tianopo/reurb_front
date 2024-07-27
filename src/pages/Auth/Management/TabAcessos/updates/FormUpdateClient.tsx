@@ -29,22 +29,36 @@ interface IFormClient {
 }
 
 export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
-  const [valueRG, setValueRG] = useState("");
-  const [valueCPF, setValueCPF] = useState("");
-  const [valueCEP, setValueCEP] = useState("");
-  const [valueState, setValueState] = useState("");
-  const [valuePhone, setValuePhone] = useState("");
-  const [valueCurrency, setValueCurrency] = useState("");
-  const [valueRGConjuge, setValueRGConjuge] = useState("");
-  const [valueCPFConjuge, setValueCPFConjuge] = useState("");
-  const [valuePhoneConjuge, setValuePhoneConjuge] = useState("");
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading } = useGetIdUser(id || "");
+  const { mutate, isPending, context } = useUpdateClient(id || "");
+  const {
+    formState: { errors },
+    setValue,
+    clearErrors,
+    watch,
+  } = context;
+  const onSubmit = (data: IClientDto) => {
+    mutate(data);
+  };
 
-  const [valueStreet, setValueStreet] = useState("");
-  const [valueBairro, setValueBairro] = useState("");
+  const [valueRG, setValueRG] = useState(data?.rg);
+  const [valueCPF, setValueCPF] = useState(data?.cpf);
+  const [valueCEP, setValueCEP] = useState(data?.cep);
+  const [valueState, setValueState] = useState(data?.estado);
+  const [valuePhone, setValuePhone] = useState(data?.telefone);
+  const [valueCurrency, setValueCurrency] = useState(data?.estado);
+  const [valueRGConjuge, setValueRGConjuge] = useState(data?.rgConjuge);
+  const [valueCPFConjuge, setValueCPFConjuge] = useState(data?.cpf);
+  const [valuePhoneConjuge, setValuePhoneConjuge] = useState(data?.telefoneConjuge);
+
+  const [valueStreet, setValueStreet] = useState(data?.rua);
+  const [valueBairro, setValueBairro] = useState(data?.bairro);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [maritalStatus, setMaritalStatus] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState(data?.estadoCivil);
 
   const handleRGFormat = (e: { target: { value: string } }) => {
     const formattedRG = formatRG(e.target.value);
@@ -112,33 +126,19 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
         setValue("bairro", bairro);
         setValueState(formatState(uf));
         setValue("estado", formatState(uf));
+        setValue("status", data.status || false);
       }
     }
   };
 
-  const handleMaritalStatusChange = (value: string) => {
-    setMaritalStatus(value);
+  const handleMaritalStatusChange = (e: { target: { value: string } }) => {
+    setMaritalStatus(e.target.value);
   };
 
   const handleNameChange = () => {
     const name = watch("nome");
     const formattedName = name.split(" ")[0];
     setUser(formattedName);
-  };
-
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const { data, error, isLoading } = useGetIdUser(id || "");
-
-  const { mutate, isPending, context } = useUpdateClient(id || "");
-  const {
-    formState: { errors },
-    setValue,
-    clearErrors,
-    watch,
-  } = context;
-  const onSubmit = (data: IClientDto) => {
-    mutate(data);
   };
 
   useEffect(() => {
@@ -211,6 +211,12 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               value={valueCPF}
               required
             />
+            <Select
+              title="Status"
+              options={["Ativado", "Desativado"]}
+              value={data?.status ? "Ativado" : "Desativado"}
+              required
+            />
           </div>
           <div className="container-user">
             <InputX title="Profissão" placeholder="Carpinteiro" required />
@@ -219,6 +225,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               placeholder="Solteiro"
               options={["Solteiro", "Casado", "União Estável", "Separado", "Divorciado", "Viúvo"]}
               onChange={handleMaritalStatusChange}
+              value={maritalStatus}
               required
             />
             <InputX
@@ -273,6 +280,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               title="Tipos de Contrato"
               placeholder="Procuração"
               options={["Procuração", "Contrato", "Requerimento Reurb", "Memorando"]}
+              value={data?.tiposDeContrato}
               required
             />
           </div>

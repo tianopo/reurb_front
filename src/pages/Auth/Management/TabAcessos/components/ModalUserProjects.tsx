@@ -27,8 +27,8 @@ export const ModalUserProjects = ({ isVisible, onClose }: IModalUserProjects) =>
     setValueValorEntrada(formattedValorEntrada);
   };
 
-  const handleParcelasChange = (value: string) => {
-    setParcelas(parseInt(value, 10));
+  const handleParcelasChange = (e: { target: { value: string } }) => {
+    setParcelas(parseInt(e.target.value, 10));
   };
 
   useEffect(() => {

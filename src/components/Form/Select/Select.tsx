@@ -1,5 +1,5 @@
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
-import { ForwardRefRenderFunction, forwardRef, useState } from "react";
+import { ChangeEventHandler, ForwardRefRenderFunction, forwardRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
 import { labelFormatted } from "src/utils/formatation/labelFormatted";
@@ -10,7 +10,7 @@ import { Label } from "../Label/Label";
 interface ISelect extends IUseForm {
   title: string;
   options?: string[];
-  onChange?: (value: string) => void;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
   placeholder?: string;
   required?: boolean;
@@ -39,7 +39,14 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
     if (clearErrors) {
       clearErrors(words);
     }
-    onChange && onChange(option);
+    if (onChange) {
+      const simulatedEvent = {
+        target: {
+          value: option,
+        },
+      } as React.ChangeEvent<HTMLInputElement>;
+      onChange(simulatedEvent);
+    }
   };
 
   return (
@@ -53,6 +60,10 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
           placeholder={placeholder}
           value={selectedOption || ""}
           readOnly={true}
+          onChange={(e) => {
+            selectRegister?.onChange(e);
+            onChange && onChange(e);
+          }}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           className={`input cursor-pointer border-edge-primary ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
           {...selectRegister}

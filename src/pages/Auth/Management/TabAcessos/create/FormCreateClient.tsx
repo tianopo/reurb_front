@@ -121,8 +121,8 @@ export const FormCreateClient = ({ MainDiv, setUser }: IFormClient) => {
     setUser(formattedName);
   };
 
-  const handleMaritalStatusChange = (value: string) => {
-    setMaritalStatus(value);
+  const handleMaritalStatusChange = (e: { target: { value: string } }) => {
+    setMaritalStatus(e.target.value);
   };
 
   const navigate = useNavigate();

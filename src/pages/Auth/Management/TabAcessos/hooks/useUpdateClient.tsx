@@ -52,6 +52,7 @@ export const useUpdateClient = (id: string) => {
     quadraAtual: Yup.string().required().max(50).label("Quadra Atual"),
     quadraNova: Yup.string().required().max(50).label("Quadra Nova"),
     totalRendaFamiliar: Yup.string().required().max(50).label("Total Renda Familiar"),
+    status: Yup.boolean().optional().label("Status"),
     nomeConjuge: Yup.string()
       .max(255)
       .optional()

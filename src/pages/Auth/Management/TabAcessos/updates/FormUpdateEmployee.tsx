@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
+import { Select } from "src/components/Form/Select/Select";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { app } from "src/routes/app";
 import { formatCPF, formatPhone } from "src/utils/formats";
@@ -18,8 +19,22 @@ interface IFormEmployee {
 }
 
 export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
-  const [valueCPF, setValueCPF] = useState("");
-  const [valuePhone, setValuePhone] = useState("");
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, error, isLoading } = useGetIdUser(id || "");
+
+  const { mutate, isPending, context } = useUpdateEmployee(id || "");
+  const {
+    formState: { errors },
+    setValue,
+    watch,
+  } = context;
+  const onSubmit = (data: IEmployeeDto) => {
+    mutate(data);
+  };
+
+  const [valueCPF, setValueCPF] = useState(data?.cpf);
+  const [valuePhone, setValuePhone] = useState(data?.telefone);
 
   const handleCPFFormat = (e: { target: { value: string } }) => {
     const formattedCPF = formatCPF(e.target.value);
@@ -39,20 +54,6 @@ export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
     setUser(formattedName);
   };
 
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const { data, error, isLoading } = useGetIdUser(id || "");
-
-  const { mutate, isPending, context } = useUpdateEmployee(id || "");
-  const {
-    formState: { errors },
-    setValue,
-    watch,
-  } = context;
-  const onSubmit = (data: IEmployeeDto) => {
-    mutate(data);
-  };
-
   useEffect(() => {
     if (data) {
       setValue("nome", data.nome || "");
@@ -60,6 +61,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
       setValue("profissao", data.profissao || "");
       setValue("telefone", data.telefone || "");
       setValue("email", data.email || "");
+      setValue("status", data.status || false);
     }
   }, [data, setValue]);
 
@@ -89,6 +91,12 @@ export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
               placeholder="XXX.XXX.XXX-XX"
               onChange={handleCPFFormat}
               value={valueCPF}
+              required
+            />
+            <Select
+              title="Status"
+              options={["Ativado", "Desativado"]}
+              value={data?.status ? "Ativado" : "Desativado"}
               required
             />
           </div>
