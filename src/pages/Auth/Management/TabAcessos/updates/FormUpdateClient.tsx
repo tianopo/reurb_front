@@ -47,21 +47,25 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
 
   const handleRGFormat = (e: { target: { value: string } }) => {
     const formattedRG = formatRG(e.target.value);
+    setValue("rg", formattedRG);
     setValueRG(formattedRG);
   };
 
   const handleCPFFormat = (e: { target: { value: string } }) => {
     const formattedCPF = formatCPF(e.target.value);
+    setValue("cpf", formattedCPF);
     setValueCPF(formattedCPF);
   };
 
   const handleStateFormat = (e: { target: { value: string } }) => {
     const formattedState = formatState(e.target.value);
+    setValue("estado", formattedState);
     setValueState(formattedState);
   };
 
   const handlePhoneFormat = (e: { target: { value: string } }) => {
     const formattedPhone = formatPhone(e.target.value);
+    setValue("telefone", formattedPhone);
     setValuePhone(formattedPhone);
   };
 
@@ -72,16 +76,19 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
 
   const handleRGConjugeFormat = (e: { target: { value: string } }) => {
     const formattedRGConjuge = formatRG(e.target.value);
+    setValue("rgConjuge", formattedRGConjuge);
     setValueRGConjuge(formattedRGConjuge);
   };
 
   const handleCPFConjugeFormat = (e: { target: { value: string } }) => {
     const formattedCPFConjuge = formatCPF(e.target.value);
+    setValue("cpfConjuge", formattedCPFConjuge);
     setValueCPFConjuge(formattedCPFConjuge);
   };
 
   const handlePhoneConjugeFormat = (e: { target: { value: string } }) => {
     const formattedPhoneConjuge = formatPhone(e.target.value);
+    setValue("telefoneConjuge", formattedPhoneConjuge);
     setValuePhoneConjuge(formattedPhoneConjuge);
   };
 
@@ -89,12 +96,14 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
     const cepValue = e.target.value;
 
     const formattedCEP = formatCep(cepValue);
+    setValue("cep", formattedCEP);
     setValueCEP(formattedCEP);
     const cleanCep = cepValue.replace(/\D/g, "");
 
     if (cleanCep.length === 8) {
       const addressData = await useAddressByCep(cleanCep);
       if (addressData && addressData.erro !== "true") {
+        clearErrors();
         const { logradouro, bairro, uf } = addressData;
         setValueStreet(logradouro);
         setValue("rua", logradouro);
@@ -118,6 +127,7 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
   const {
     formState: { errors },
     setValue,
+    clearErrors,
   } = context;
   const onSubmit = (data: IClientDto) => {
     mutate(data);

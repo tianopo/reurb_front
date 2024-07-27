@@ -22,11 +22,13 @@ export const FormUpdateEmployee = ({ MainDiv }: IFormEmployee) => {
 
   const handleCPFFormat = (e: { target: { value: string } }) => {
     const formattedCPF = formatCPF(e.target.value);
+    setValue("cpf", formattedCPF);
     setValueCPF(formattedCPF);
   };
 
   const handlePhoneFormat = (e: { target: { value: string } }) => {
     const formattedPhone = formatPhone(e.target.value);
+    setValue("telefone", formattedPhone);
     setValuePhone(formattedPhone);
   };
 

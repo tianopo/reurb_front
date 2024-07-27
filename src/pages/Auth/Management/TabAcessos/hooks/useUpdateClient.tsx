@@ -35,7 +35,7 @@ export const useUpdateClient = (id: string) => {
     cpf: Yup.string().required().matches(Regex.cpf_mask, "CPF inválido").label("CPF"),
     profissao: Yup.string().required().max(100).label("Profissão"),
     telefone: Yup.string().required().label("Telefone"),
-    rg: Yup.string().required().matches(Regex.rg_mask, "RG inválido").label("RG"),
+    rg: Yup.string().required().label("RG"),
     estadoCivil: Yup.string()
       .required()
       .oneOf(["Solteiro", "Casado", "União Estável", "Separado", "Divorciado", "Viúvo"])
@@ -64,8 +64,7 @@ export const useUpdateClient = (id: string) => {
       .optional()
       .when("estadoCivil", {
         is: (value: EstadoCivil) => ["Casado", "União Estável"].includes(value),
-        then: (schema) =>
-          schema.required().matches(Regex.rg_mask, "RG inválido").label("RG Cônjuge"),
+        then: (schema) => schema.required().label("RG Cônjuge"),
         otherwise: (schema) => schema.optional().label("RG Cônjuge"),
       }),
     cpfConjuge: Yup.string()
