@@ -9,7 +9,7 @@ const authHeader = () => ({ authorization: `Bearer ${localStorage.getItem("token
 
 export const auth = "auth";
 
-export const fileBase = (fileUrl: string) => `${ip}${port}/${fileUrl}`;
+export const fileBase = (fileUrl: string) => `${prod === "prod" ? ip : ip + port}/${fileUrl}`;
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 0 }, mutations: { retry: 0 } },
@@ -29,7 +29,7 @@ export const api = () =>
 
 export const apiUpload = () =>
   axios.create({
-    baseURL: `${ip}${port}`,
+    baseURL: `${prod === "dev" ? ip + port : ip}`,
     timeout: timeOut,
     headers: {
       ...authHeader(),

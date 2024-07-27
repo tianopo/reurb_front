@@ -14,7 +14,7 @@ export const UserCreate = () => {
   };
 
   const MainDiv = () => (
-    <div className="flex w-full items-start justify-between">
+    <div className="flex w-full flex-col items-start justify-between md:flex-row">
       <h4 className="text-start text-write-primary">Usuário Adriana</h4>
       <div className="flex gap-1">
         <SelectUser setAccess={handleUserTypeSelect} access={access} />
