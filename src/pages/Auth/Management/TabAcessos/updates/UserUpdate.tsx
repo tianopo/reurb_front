@@ -10,6 +10,7 @@ import { FormUpdateEmployee } from "./FormUpdateEmployee";
 export const UserUpdate = () => {
   const location = useLocation();
   const [access, setAccess] = useState("");
+  const [user, setUser] = useState("Usuário");
 
   useEffect(() => {
     if (location.state?.access) {
@@ -23,7 +24,9 @@ export const UserUpdate = () => {
 
   const MainDiv = () => (
     <div className="flex w-full flex-col items-start justify-between md:flex-row">
-      <h4 className="text-start text-write-primary">Usuário Adriana</h4>
+      <h4 className="Matheustruncate md:w-max-80 w-full text-start text-write-primary md:w-80">
+        Usuário Adriana
+      </h4>
       <div className="flex gap-1">
         <SelectUser setAccess={handleUserTypeSelect} access={access} />
         <IconX
@@ -42,8 +45,8 @@ export const UserUpdate = () => {
   );
 
   return access === "Cliente" ? (
-    <FormUpdateClient MainDiv={MainDiv} />
+    <FormUpdateClient MainDiv={MainDiv} setUser={setUser} />
   ) : (
-    <FormUpdateEmployee MainDiv={MainDiv} />
+    <FormUpdateEmployee MainDiv={MainDiv} setUser={setUser} />
   );
 };

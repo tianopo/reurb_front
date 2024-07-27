@@ -8,6 +8,7 @@ import { FormCreateEmployee } from "./FormCreateEmployee";
 
 export const UserCreate = () => {
   const [access, setAccess] = useState("Cliente");
+  const [user, setUser] = useState("Usuário");
 
   const handleUserTypeSelect = (option: string) => {
     setAccess(option);
@@ -15,7 +16,7 @@ export const UserCreate = () => {
 
   const MainDiv = () => (
     <div className="flex w-full flex-col items-start justify-between md:flex-row">
-      <h4 className="text-start text-write-primary">Usuário Adriana</h4>
+      <h4 className="md:w-max-80 w-full truncate text-start text-write-primary md:w-80">{user}</h4>
       <div className="flex gap-1">
         <SelectUser setAccess={handleUserTypeSelect} access={access} />
         <IconX
@@ -34,8 +35,8 @@ export const UserCreate = () => {
   );
 
   return access === "Cliente" ? (
-    <FormCreateClient MainDiv={MainDiv} />
+    <FormCreateClient MainDiv={MainDiv} setUser={setUser} />
   ) : (
-    <FormCreateEmployee MainDiv={MainDiv} />
+    <FormCreateEmployee MainDiv={MainDiv} setUser={setUser} />
   );
 };

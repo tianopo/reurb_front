@@ -1,5 +1,5 @@
 import { Files, ProjectorScreen, X } from "@phosphor-icons/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
@@ -25,9 +25,10 @@ import { useUpdateClient } from "../hooks/useUpdateClient";
 
 interface IFormClient {
   MainDiv: () => JSX.Element;
+  setUser: Dispatch<SetStateAction<string>>;
 }
 
-export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
+export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
   const [valueRG, setValueRG] = useState("");
   const [valueCPF, setValueCPF] = useState("");
   const [valueCEP, setValueCEP] = useState("");
@@ -119,6 +120,12 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
     setMaritalStatus(value);
   };
 
+  const handleNameChange = () => {
+    const name = watch("nome");
+    const formattedName = name.split(" ")[0];
+    setUser(formattedName);
+  };
+
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
@@ -128,6 +135,7 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
     formState: { errors },
     setValue,
     clearErrors,
+    watch,
   } = context;
   const onSubmit = (data: IClientDto) => {
     mutate(data);
@@ -183,7 +191,12 @@ export const FormUpdateClient = ({ MainDiv }: IFormClient) => {
             </>
           )}
           <div className="container-user pt-2.5">
-            <InputX title="Nome" placeholder="Ciclano Fonseca" required />
+            <InputX
+              title="Nome"
+              placeholder="Ciclano Fonseca"
+              required
+              onChange={handleNameChange}
+            />
             <InputX
               title="RG"
               placeholder="XX.XXX.XXX-X"

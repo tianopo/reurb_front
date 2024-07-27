@@ -1,5 +1,5 @@
 import { Files, ProjectorScreen, X } from "@phosphor-icons/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
@@ -24,9 +24,10 @@ import { useCreateClient } from "../hooks/useCreateClient";
 
 interface IFormClient {
   MainDiv: () => JSX.Element;
+  setUser: Dispatch<SetStateAction<string>>;
 }
 
-export const FormCreateClient = ({ MainDiv }: IFormClient) => {
+export const FormCreateClient = ({ MainDiv, setUser }: IFormClient) => {
   const [valueRG, setValueRG] = useState("");
   const [valueCPF, setValueCPF] = useState("");
   const [valueCEP, setValueCEP] = useState("");
@@ -114,6 +115,12 @@ export const FormCreateClient = ({ MainDiv }: IFormClient) => {
     }
   };
 
+  const handleNameChange = () => {
+    const name = watch("nome");
+    const formattedName = name.split(" ")[0];
+    setUser(formattedName);
+  };
+
   const handleMaritalStatusChange = (value: string) => {
     setMaritalStatus(value);
   };
@@ -138,7 +145,12 @@ export const FormCreateClient = ({ MainDiv }: IFormClient) => {
         <CardContainer>
           <MainDiv />
           <div className="container-user pt-2.5">
-            <InputX title="Nome" placeholder="Ciclano Fonseca" required />
+            <InputX
+              title="Nome"
+              placeholder="Ciclano Fonseca"
+              required
+              onChange={handleNameChange}
+            />
             <InputX
               title="RG"
               placeholder="XX.XXX.XXX-X"

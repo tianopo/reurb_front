@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/Buttons/Button";
@@ -13,9 +13,10 @@ import { useCreateEmployee } from "../hooks/useCreateEmployee";
 
 interface IFormEmployee {
   MainDiv: () => JSX.Element;
+  setUser: Dispatch<SetStateAction<string>>;
 }
 
-export const FormCreateEmployee = ({ MainDiv }: IFormEmployee) => {
+export const FormCreateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
   const [valueCPF, setValueCPF] = useState("");
   const [valuePhone, setValuePhone] = useState("");
 
@@ -31,12 +32,19 @@ export const FormCreateEmployee = ({ MainDiv }: IFormEmployee) => {
     setValuePhone(formattedPhone);
   };
 
+  const handleNameChange = () => {
+    const name = watch("nome");
+    const formattedName = name.split(" ")[0];
+    setUser(formattedName);
+  };
+
   const navigate = useNavigate();
 
   const { mutate, isPending, context } = useCreateEmployee();
   const {
     formState: { errors },
     setValue,
+    watch,
   } = context;
   const onSubmit = (data: IEmployeeDto) => {
     mutate(data);
@@ -48,7 +56,12 @@ export const FormCreateEmployee = ({ MainDiv }: IFormEmployee) => {
         <CardContainer>
           <MainDiv />
           <div className="container-user pt-2.5">
-            <InputX title="Nome" placeholder="Ciclano Fonseca" required />
+            <InputX
+              title="Nome"
+              placeholder="Ciclano Fonseca"
+              required
+              onChange={handleNameChange}
+            />
             <InputX
               title="CPF"
               placeholder="XXX.XXX.XXX-XX"
