@@ -26,9 +26,10 @@ import { useUpdateClient } from "../hooks/useUpdateClient";
 interface IFormClient {
   MainDiv: () => JSX.Element;
   setUser: Dispatch<SetStateAction<string>>;
+  edit: boolean;
 }
 
-export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
+export const FormUpdateClient = ({ MainDiv, setUser, edit }: IFormClient) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
@@ -147,6 +148,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
       setValue("rg", data.rg || "");
       setValue("cpf", data.cpf || "");
       setValue("profissao", data.profissao || "");
+      setValue("estadoCivil", data.estadoCivil || "");
       setValue("cep", formatCep(data.cep || ""));
       setValue("rua", data.rua || "");
       setValue("numero", data.numero || "");
@@ -161,11 +163,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
       setValue("quadraAtual", data.quadraAtual || "");
       setValue("quadraNova", data.quadraNova || "");
 
-      if (data.maritalStatus) {
-        setMaritalStatus(data.maritalStatus);
-      }
-
-      if (data.spouse) {
+      if (["Casado", "União Estável"].includes(data.estadoCivil)) {
         setValue("nomeConjuge", data.nomeConjuge || "");
         setValue("rgConjuge", data.rgConjuge || "");
         setValue("cpfConjuge", data.cpfConjuge || "");
@@ -194,14 +192,16 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
             <InputX
               title="Nome"
               placeholder="Ciclano Fonseca"
-              required
               onChange={handleNameChange}
+              disabled={edit}
+              required
             />
             <InputX
               title="RG"
               placeholder="XX.XXX.XXX-X"
               onChange={handleRGFormat}
               value={valueRG}
+              disabled={!edit}
               required
             />
             <InputX
@@ -209,23 +209,26 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               placeholder="XXX.XXX.XXX-XX"
               onChange={handleCPFFormat}
               value={valueCPF}
+              disabled={!edit}
               required
             />
             <Select
               title="Status"
               options={["Ativado", "Desativado"]}
-              value={data?.status ? "Ativado" : "Desativado"}
+              value={data && data.status ? "Ativado" : "Desativado"}
+              disabled={!edit}
               required
             />
           </div>
           <div className="container-user">
-            <InputX title="Profissão" placeholder="Carpinteiro" required />
+            <InputX title="Profissão" placeholder="Carpinteiro" disabled={!edit} required />
             <Select
               title="Estado Civil"
               placeholder="Solteiro"
               options={["Solteiro", "Casado", "União Estável", "Separado", "Divorciado", "Viúvo"]}
               onChange={handleMaritalStatusChange}
               value={maritalStatus}
+              disabled={!edit}
               required
             />
             <InputX
@@ -233,6 +236,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               placeholder="XX.XXX-XXX"
               onChange={handleCepChange}
               value={valueCEP}
+              disabled={!edit}
               required
             />
           </div>
@@ -242,20 +246,22 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               placeholder="Rua Salvador"
               value={valueStreet}
               onChange={(e) => setValueStreet(e.target.value)}
+              disabled={!edit}
               required
             />
             <div className="md:w-1/2">
-              <InputX title="Número" placeholder="100" required />
+              <InputX title="Número" placeholder="100" disabled={!edit} required />
             </div>
             <InputX
               title="Bairro"
               placeholder="Jardim Colinas"
               value={valueBairro}
               onChange={(e) => setValueBairro(e.target.value)}
+              disabled={!edit}
               required
             />
             <div className="md:w-1/8">
-              <InputX title="Complemento" placeholder="BL 8 apto 805" />
+              <InputX title="Complemento" placeholder="BL 8 apto 805" disabled={!edit} />
             </div>
             <div className="md:w-1/2">
               <InputX
@@ -263,6 +269,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
                 placeholder="SP"
                 value={valueState}
                 onChange={handleStateFormat}
+                disabled={!edit}
                 required
               />
             </div>
@@ -273,22 +280,24 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               placeholder="(12) 98243-5638"
               onChange={handlePhoneFormat}
               value={valuePhone}
+              disabled={!edit}
               required
             />
-            <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" required />
+            <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" disabled={!edit} required />
             <Select
               title="Tipos de Contrato"
               placeholder="Procuração"
               options={["Procuração", "Contrato", "Requerimento Reurb", "Memorando"]}
               value={data?.tiposDeContrato}
+              disabled={!edit}
               required
             />
           </div>
           <div className="container-user">
-            <InputX title="Lote Atual" placeholder="15" required />
-            <InputX title="Lote Novo" placeholder="17" required />
-            <InputX title="Quadra Atual" placeholder="A" required />
-            <InputX title="Quadra Nova" placeholder="B" required />
+            <InputX title="Lote Atual" placeholder="15" required disabled={!edit} />
+            <InputX title="Lote Novo" placeholder="17" required disabled={!edit} />
+            <InputX title="Quadra Atual" placeholder="A" required disabled={!edit} />
+            <InputX title="Quadra Nova" placeholder="B" required disabled={!edit} />
           </div>
           <ModalUserProjects isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
           <Button onClick={() => setIsModalVisible(true)}>adicionar projeto</Button>
@@ -308,6 +317,7 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               placeholder="R$12.000,00"
               onChange={handleCurrencyFormat}
               value={valueCurrency}
+              disabled={!edit}
               required
             />
             <Button>anexar documentos</Button>
@@ -319,16 +329,23 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
               <X width={12} height={12} weight="bold" className="cursor-pointer" />
             </div>
           </div>
-          {["Casado", "União Estável"].includes(maritalStatus) && (
+          {["Casado", "União Estável"].includes(data?.estadoCivil) && (
             <>
               <p className="w-full text-start font-bold text-write-primary">Cônjuge</p>
               <div className="container-user">
-                <InputX title="Nome Cônjuge" placeholder="Renata Siqueira" required />
+                <InputX
+                  title="Nome Cônjuge"
+                  placeholder="Renata Siqueira"
+                  value={data.nomeConjuge}
+                  disabled={!edit}
+                  required
+                />
                 <InputX
                   title="RG Cônjuge"
                   placeholder="XX.XXX.XXX-X"
                   onChange={handleRGConjugeFormat}
                   value={valueRGConjuge}
+                  disabled={!edit}
                   required
                 />
                 <InputX
@@ -336,9 +353,16 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
                   placeholder="XXX.XXX.XXX-XX"
                   onChange={handleCPFConjugeFormat}
                   value={valueCPFConjuge}
+                  disabled={!edit}
                   required
                 />
-                <InputX title="Profissão Cônjuge" placeholder="Carpinteiro" required />
+                <InputX
+                  title="Profissão Cônjuge"
+                  placeholder="Carpinteiro"
+                  value={data.profissaoConjuge}
+                  disabled={!edit}
+                  required
+                />
               </div>
               <div className="container-user">
                 <InputX
@@ -346,9 +370,16 @@ export const FormUpdateClient = ({ MainDiv, setUser }: IFormClient) => {
                   placeholder="(12) 98243-5638"
                   onChange={handlePhoneConjugeFormat}
                   value={valuePhoneConjuge}
+                  disabled={!edit}
                   required
                 />
-                <InputX title="E-mail Cônjuge" placeholder="adoleta@hotmail.com.br" required />
+                <InputX
+                  title="E-mail Cônjuge"
+                  placeholder="adoleta@hotmail.com.br"
+                  value={data.emailConjuge}
+                  disabled={!edit}
+                  required
+                />
               </div>
             </>
           )}

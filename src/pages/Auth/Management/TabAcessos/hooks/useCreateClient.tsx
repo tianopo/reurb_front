@@ -26,7 +26,12 @@ export const useCreateClient = () => {
 
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(255).label("Nome"),
-    email: Yup.string().required().email().max(255).label("E-mail"),
+    email: Yup.string()
+      .required()
+      .email()
+      .matches(Regex.email, "E-mail inválido")
+      .max(255)
+      .label("E-mail"),
     tiposDeContrato: Yup.string()
       .required()
       .oneOf(["Procuração", "Contrato", "Requerimento Reurb", "Memorando"])
@@ -94,6 +99,7 @@ export const useCreateClient = () => {
       .max(255)
       .optional()
       .email()
+      .matches(Regex.email, "E-mail inválido")
       .when("estadoCivil", {
         is: (value: EstadoCivil) => ["Casado", "União Estável"].includes(value),
         then: (schema) => schema.required().label("E-mail Cônjuge"),

@@ -16,9 +16,10 @@ import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
 interface IFormEmployee {
   MainDiv: () => JSX.Element;
   setUser: Dispatch<SetStateAction<string>>;
+  edit: boolean;
 }
 
-export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
+export const FormUpdateEmployee = ({ MainDiv, setUser, edit }: IFormEmployee) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
@@ -61,7 +62,6 @@ export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
       setValue("profissao", data.profissao || "");
       setValue("telefone", data.telefone || "");
       setValue("email", data.email || "");
-      setValue("status", data.status || false);
     }
   }, [data, setValue]);
 
@@ -83,20 +83,23 @@ export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
             <InputX
               title="Nome"
               placeholder="Ciclano Fonseca"
-              required
               onChange={handleNameChange}
+              disabled={!edit}
+              required
             />
             <InputX
               title="CPF"
               placeholder="XXX.XXX.XXX-XX"
               onChange={handleCPFFormat}
               value={valueCPF}
+              disabled={!edit}
               required
             />
             <Select
               title="Status"
               options={["Ativado", "Desativado"]}
-              value={data?.status ? "Ativado" : "Desativado"}
+              value={data && data.status ? "Ativado" : "Desativado"}
+              disabled={!edit}
               required
             />
           </div>
@@ -105,11 +108,12 @@ export const FormUpdateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
             placeholder="(12) 98243-5638"
             onChange={handlePhoneFormat}
             value={valuePhone}
+            disabled={!edit}
             required
           />
-          <InputX title="Profissão" placeholder="Carpinteiro" required />
+          <InputX title="Profissão" placeholder="Carpinteiro" disabled={!edit} required />
           <div className="container-user">
-            <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" required />
+            <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" disabled={!edit} required />
           </div>
           <div className="container-user md:justify-between">
             <Button disabled={isPending || Object.keys(errors).length > 0}>

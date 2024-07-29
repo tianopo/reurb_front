@@ -23,6 +23,7 @@ export const api = () =>
       Accept: "application/json",
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
+      accesso: "",
       ...authHeader(),
     },
   });

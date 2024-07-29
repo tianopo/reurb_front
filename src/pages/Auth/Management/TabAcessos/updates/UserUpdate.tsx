@@ -11,6 +11,7 @@ export const UserUpdate = () => {
   const location = useLocation();
   const [access, setAccess] = useState("");
   const [user, setUser] = useState("Usuário");
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     if (location.state?.access) {
@@ -24,9 +25,7 @@ export const UserUpdate = () => {
 
   const MainDiv = () => (
     <div className="flex w-full flex-col items-start justify-between md:flex-row">
-      <h4 className="Matheustruncate md:w-max-80 w-full text-start text-write-primary md:w-80">
-        Usuário Adriana
-      </h4>
+      <h4 className="md:w-max-80 w-full truncate text-start text-write-primary md:w-80">{user}</h4>
       <div className="flex gap-1">
         <SelectUser setAccess={handleUserTypeSelect} access={access} />
         <IconX
@@ -37,6 +36,7 @@ export const UserUpdate = () => {
               width={19.45}
               height={20}
               weight="fill"
+              onClick={() => setEdit(!edit)}
             />
           }
         />
@@ -45,8 +45,8 @@ export const UserUpdate = () => {
   );
 
   return access === "Cliente" ? (
-    <FormUpdateClient MainDiv={MainDiv} setUser={setUser} />
+    <FormUpdateClient MainDiv={MainDiv} setUser={setUser} edit={edit} />
   ) : (
-    <FormUpdateEmployee MainDiv={MainDiv} setUser={setUser} />
+    <FormUpdateEmployee MainDiv={MainDiv} setUser={setUser} edit={edit} />
   );
 };

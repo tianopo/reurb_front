@@ -26,11 +26,19 @@ export const useUpdateEmployee = (id: string) => {
 
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(255).label("Nome"),
-    email: Yup.string().required().email().max(255).label("E-mail"),
+    email: Yup.string()
+      .required()
+      .email()
+      .matches(Regex.email, "E-mail inválido")
+      .max(255)
+      .label("E-mail"),
     cpf: Yup.string().required().matches(Regex.cpf_mask, "CPF inválido").label("CPF"),
     profissao: Yup.string().required().max(100).label("Profissão"),
     telefone: Yup.string().required().label("Telefone"),
-    status: Yup.boolean().optional().label("Status"),
+    status: Yup.string()
+      .oneOf(["Ativado", "Desativado"], "Status inválido")
+      .optional()
+      .label("Status"),
   });
 
   const context = useForm<IEmployeeDto>({

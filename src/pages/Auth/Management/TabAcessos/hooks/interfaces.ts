@@ -6,6 +6,7 @@ export type EstadoCivil =
   | "Separado"
   | "Divorciado"
   | "Viúvo";
+type StatusType = "Ativado" | "Desativado";
 
 export interface IClientDto {
   nome: string;
@@ -27,7 +28,7 @@ export interface IClientDto {
   quadraAtual: string;
   quadraNova: string;
   totalRendaFamiliar: string;
-  status?: boolean;
+  status?: StatusType;
   nomeConjuge?: string;
   rgConjuge?: string;
   cpfConjuge?: string;
@@ -42,5 +43,5 @@ export interface IEmployeeDto {
   cpf: string;
   profissao: string;
   telefone: string;
-  status?: boolean;
+  status?: StatusType;
 }

@@ -26,7 +26,12 @@ export const useUpdateClient = (id: string) => {
 
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(255).label("Nome"),
-    email: Yup.string().required().email().max(255).label("E-mail"),
+    email: Yup.string()
+      .required()
+      .email()
+      .matches(Regex.email, "E-mail inválido")
+      .max(255)
+      .label("E-mail"),
     tiposDeContrato: Yup.string()
       .required()
       .oneOf(["Procuração", "Contrato", "Requerimento Reurb", "Memorando"])
@@ -52,7 +57,10 @@ export const useUpdateClient = (id: string) => {
     quadraAtual: Yup.string().required().max(50).label("Quadra Atual"),
     quadraNova: Yup.string().required().max(50).label("Quadra Nova"),
     totalRendaFamiliar: Yup.string().required().max(50).label("Total Renda Familiar"),
-    status: Yup.boolean().optional().label("Status"),
+    status: Yup.string()
+      .oneOf(["Ativado", "Desativado"], "Status inválido")
+      .optional()
+      .label("Status"),
     nomeConjuge: Yup.string()
       .max(255)
       .optional()
@@ -95,6 +103,7 @@ export const useUpdateClient = (id: string) => {
       .max(255)
       .optional()
       .email()
+      .matches(Regex.email, "E-mail inválido")
       .when("estadoCivil", {
         is: (value: EstadoCivil) => ["Casado", "União Estável"].includes(value),
         then: (schema) => schema.required().label("E-mail Cônjuge"),
@@ -108,7 +117,10 @@ export const useUpdateClient = (id: string) => {
   });
 
   async function path(id: string, data: Yup.InferType<typeof schema>): Promise<IClientDto> {
-    const result = await api().put(apiRoute.idClient(id), data);
+    const result = await api().put(apiRoute.idClient(id), {
+      ...data,
+      status: data.status === "Ativado",
+    });
     return result.data;
   }
 
