@@ -1,9 +1,10 @@
-import { Gear } from "@phosphor-icons/react";
+import { Gear, Trash } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IconX } from "src/components/Icons/IconX";
 import "../../Management.css";
 import { SelectUser } from "../components/SelectUser";
+import { useDelUser } from "../hooks/useDelUser";
 import { FormUpdateClient } from "./FormUpdateClient";
 import { FormUpdateEmployee } from "./FormUpdateEmployee";
 
@@ -12,6 +13,8 @@ export const UserUpdate = () => {
   const [access, setAccess] = useState("");
   const [user, setUser] = useState("Usuário");
   const [edit, setEdit] = useState(false);
+  const [idExcluir, setIdExcluir] = useState("");
+  const { mutate } = useDelUser(idExcluir || "");
 
   useEffect(() => {
     if (location.state?.access) {
@@ -40,13 +43,30 @@ export const UserUpdate = () => {
             />
           }
         />
+        <IconX
+          name="Excluir"
+          icon={
+            <Trash
+              className="cursor-pointer rounded-6 text-variation-error hover:bg-secundary hover:text-write-primary"
+              width={19.45}
+              height={20}
+              weight="regular"
+              onClick={() => mutate()}
+            />
+          }
+        />
       </div>
     </div>
   );
 
   return access === "Cliente" ? (
-    <FormUpdateClient MainDiv={MainDiv} setUser={setUser} edit={edit} />
+    <FormUpdateClient MainDiv={MainDiv} setUser={setUser} setIdExcluir={setIdExcluir} edit={edit} />
   ) : (
-    <FormUpdateEmployee MainDiv={MainDiv} setUser={setUser} edit={edit} />
+    <FormUpdateEmployee
+      MainDiv={MainDiv}
+      setUser={setUser}
+      setIdExcluir={setIdExcluir}
+      edit={edit}
+    />
   );
 };

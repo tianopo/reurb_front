@@ -16,10 +16,11 @@ import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
 interface IFormEmployee {
   MainDiv: () => JSX.Element;
   setUser: Dispatch<SetStateAction<string>>;
+  setIdExcluir: Dispatch<SetStateAction<string>>;
   edit: boolean;
 }
 
-export const FormUpdateEmployee = ({ MainDiv, setUser, edit }: IFormEmployee) => {
+export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFormEmployee) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
@@ -62,6 +63,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, edit }: IFormEmployee) =>
       setValue("profissao", data.profissao || "");
       setValue("telefone", data.telefone || "");
       setValue("email", data.email || "");
+      setIdExcluir(data.id);
     }
   }, [data, setValue]);
 

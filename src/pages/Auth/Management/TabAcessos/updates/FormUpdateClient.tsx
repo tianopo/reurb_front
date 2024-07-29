@@ -26,10 +26,11 @@ import { useUpdateClient } from "../hooks/useUpdateClient";
 interface IFormClient {
   MainDiv: () => JSX.Element;
   setUser: Dispatch<SetStateAction<string>>;
+  setIdExcluir: Dispatch<SetStateAction<string>>;
   edit: boolean;
 }
 
-export const FormUpdateClient = ({ MainDiv, setUser, edit }: IFormClient) => {
+export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IFormClient) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
@@ -171,6 +172,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, edit }: IFormClient) => {
         setValue("telefoneConjuge", formatPhone(data.telefoneConjuge || ""));
         setValue("emailConjuge", data.emailConjuge || "");
       }
+      setIdExcluir(data.id);
     }
   }, [data, setValue]);
 
