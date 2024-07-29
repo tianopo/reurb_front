@@ -25,12 +25,14 @@ export const UserUpdate = () => {
   const handleUserTypeSelect = (option: string) => {
     setAccess(option);
   };
-
+  console.log(access);
   const MainDiv = () => (
     <div className="flex w-full flex-col items-start justify-between md:flex-row">
       <h4 className="md:w-max-80 w-full truncate text-start text-write-primary md:w-80">{user}</h4>
       <div className="flex gap-1">
-        <SelectUser setAccess={handleUserTypeSelect} access={access} />
+        {!["Master", "Admin"].includes(access) && (
+          <SelectUser setAccess={handleUserTypeSelect} access={access} />
+        )}
         <IconX
           name="Editar"
           icon={
@@ -43,18 +45,20 @@ export const UserUpdate = () => {
             />
           }
         />
-        <IconX
-          name="Excluir"
-          icon={
-            <Trash
-              className="cursor-pointer rounded-6 text-variation-error hover:bg-secundary hover:text-write-primary"
-              width={19.45}
-              height={20}
-              weight="regular"
-              onClick={() => mutate()}
-            />
-          }
-        />
+        {!["Master", "Admin"].includes(access) && (
+          <IconX
+            name="Excluir"
+            icon={
+              <Trash
+                className="cursor-pointer rounded-6 text-variation-error hover:bg-secundary hover:text-write-primary"
+                width={19.45}
+                height={20}
+                weight="regular"
+                onClick={() => mutate()}
+              />
+            }
+          />
+        )}
       </div>
     </div>
   );

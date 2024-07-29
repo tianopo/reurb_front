@@ -163,6 +163,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
       setValue("loteNovo", data.loteNovo || "");
       setValue("quadraAtual", data.quadraAtual || "");
       setValue("quadraNova", data.quadraNova || "");
+      setValue("totalRendaFamiliar", data.totalRendaFamiliar || "");
 
       if (["Casado", "União Estável"].includes(data.estadoCivil)) {
         setValue("nomeConjuge", data.nomeConjuge || "");
@@ -318,7 +319,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
               title="Total Renda Familiar"
               placeholder="R$12.000,00"
               onChange={handleCurrencyFormat}
-              value={valueCurrency}
+              value={data.totalRendaFamiliar}
               disabled={!edit}
               required
             />

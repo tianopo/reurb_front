@@ -97,13 +97,15 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
               disabled={!edit}
               required
             />
-            <Select
-              title="Status"
-              options={["Ativado", "Desativado"]}
-              value={data && data.status ? "Ativado" : "Desativado"}
-              disabled={!edit}
-              required
-            />
+            {!["Master", "Admin"].includes(data.acesso) && (
+              <Select
+                title="Status"
+                options={["Ativado", "Desativado"]}
+                value={data && data.status ? "Ativado" : "Desativado"}
+                disabled={!edit}
+                required
+              />
+            )}
           </div>
           <InputX
             title="Telefone"
