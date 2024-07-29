@@ -5,6 +5,9 @@ export const apiRoute = {
   logout: (token: string) => `/auth/logout/${token}`,
   token: (token: string) => `/user/${token}`,
 
+  /* E-mail */
+  sendMembership: "/send/send-membership",
+
   /* User */
   user: "/user", // get
   client: "/user/client",
