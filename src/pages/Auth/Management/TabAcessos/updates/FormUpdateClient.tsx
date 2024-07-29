@@ -50,7 +50,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
   const [valueCEP, setValueCEP] = useState(data?.cep);
   const [valueState, setValueState] = useState(data?.estado);
   const [valuePhone, setValuePhone] = useState(data?.telefone);
-  const [valueCurrency, setValueCurrency] = useState(data?.estado);
+  const [valueCurrency, setValueCurrency] = useState(data?.totalRendaFamiliar);
   const [valueRGConjuge, setValueRGConjuge] = useState(data?.rgConjuge);
   const [valueCPFConjuge, setValueCPFConjuge] = useState(data?.cpf);
   const [valuePhoneConjuge, setValuePhoneConjuge] = useState(data?.telefoneConjuge);
@@ -303,7 +303,14 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
             <InputX title="Quadra Nova" placeholder="B" required disabled={!edit} />
           </div>
           <ModalUserProjects isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
-          <Button onClick={() => setIsModalVisible(true)}>adicionar projeto</Button>
+          <Button
+            disabled={!edit}
+            onClick={() => {
+              setIsModalVisible(true);
+            }}
+          >
+            adicionar projeto
+          </Button>
           <div className="container-user flex-wrap items-end">
             <div className="flex items-center gap-2 text-write-secundary">
               <span>Nome do arquivo</span>
@@ -319,11 +326,11 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
               title="Total Renda Familiar"
               placeholder="R$12.000,00"
               onChange={handleCurrencyFormat}
-              value={data.totalRendaFamiliar}
+              value={valueCurrency}
               disabled={!edit}
               required
             />
-            <Button>anexar documentos</Button>
+            <Button disabled={!edit}>anexar documentos</Button>
           </div>
           <div className="container-user flex-wrap items-end">
             <div className="flex items-center gap-2 text-write-secundary">
@@ -387,7 +394,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
             </>
           )}
           <div className="container-user md:justify-between">
-            <Button disabled={isPending || Object.keys(errors).length > 0}>
+            <Button disabled={isPending || Object.keys(errors).length > 0 || !edit}>
               {!isPending ? "salvar" : "loading..."}
             </Button>
             <Button onClick={() => navigate(app.management)}>Voltar</Button>

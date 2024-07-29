@@ -120,7 +120,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
             <InputX title="E-mail" placeholder="adoleta@hotmail.com.br" disabled={!edit} required />
           </div>
           <div className="container-user md:justify-between">
-            <Button disabled={isPending || Object.keys(errors).length > 0}>
+            <Button disabled={isPending || Object.keys(errors).length > 0 || !edit}>
               {!isPending ? "salvar" : "loading..."}
             </Button>
             <Button onClick={() => navigate(app.management)}>Voltar</Button>
