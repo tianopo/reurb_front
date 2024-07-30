@@ -4,7 +4,7 @@ export const app = {
   login: "/login",
   forgotPassword: "/esqueceu-senha",
   recoverPassword: "/recuperar-senha",
-  membership: "/formulario-adesao",
+  membership: (token: string) => `/formulario-adesao/${token}`,
 
   // After Login
   auth: "/",

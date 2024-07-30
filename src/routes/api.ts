@@ -6,7 +6,9 @@ export const apiRoute = {
   token: (token: string) => `/user/${token}`,
 
   /* E-mail */
-  sendMembership: "/send/send-membership",
+  receiveMembership: "/send/receive-membership",
+  sendMembership: `/send/send-membership`,
+  checkToken: (token: string) => `/send/${token}`,
 
   /* User */
   user: "/user", // get

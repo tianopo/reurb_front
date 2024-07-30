@@ -28,7 +28,7 @@ export const browserRouter = createBrowserRouter([
           { path: app.forgotPassword, element: <ForgotPassword /> },
           { path: app.recoverPassword, element: <RecoverPassword /> },
           { path: app.register, element: <Register /> },
-          { path: app.membership, element: <Membership /> },
+          { path: app.membership(":token"), element: <Membership /> },
           { path: "*", element: <Login /> },
         ],
       },

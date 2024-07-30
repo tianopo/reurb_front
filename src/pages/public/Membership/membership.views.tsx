@@ -6,6 +6,7 @@ import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
 import { app } from "src/routes/app";
 import { formatCep, formatPhone } from "src/utils/formats";
+import { useCheckToken } from "./useCheckToken";
 import { IMembershipDto, useMembership } from "./useMembership";
 
 export const Membership = () => {
@@ -33,6 +34,16 @@ export const Membership = () => {
   const onSubmit = (data: IMembershipDto) => {
     mutate(data);
   };
+
+  const { data, error, isLoading } = useCheckToken();
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (!data || error) {
+    return <div>Token inválido ou expirado.</div>;
+  }
 
   return (
     <section className="flex w-full flex-col items-center gap-5 p-2.5 md:w-fit">

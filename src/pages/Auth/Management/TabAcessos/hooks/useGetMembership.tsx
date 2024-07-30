@@ -4,21 +4,19 @@ import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { api, queryClient } from "src/config/api";
+import { api } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
 import { apiRoute } from "src/routes/api";
 import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
-export interface IMembershipDto {
+export interface IGetMembershipDto {
   nome: string;
   email: string;
-  telefone: string;
-  cep: string;
 }
 
-export const useMembership = () => {
+export const useGetMembership = () => {
   const navigate = useNavigate();
   const { t: translator } = useTranslation();
   const t = (t: string) => translator(`hooks.auth.${t}`);
@@ -26,10 +24,9 @@ export const useMembership = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: path,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["token-membership-data"] });
       responseSuccess("Formulário enviado com sucesso");
 
-      navigate(app.login);
+      navigate(app.management);
     },
     onError: (erro: AxiosError) => responseError(erro),
   });
@@ -37,17 +34,15 @@ export const useMembership = () => {
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).label("Nome"),
     email: Yup.string().required().email().matches(Regex.email, t("InvalidEmail")).label("E-mail"),
-    telefone: Yup.string().required().label("Telefone"),
-    cep: Yup.string().required().matches(Regex.cep_mask, "CEP inválido").label("CEP"),
   });
 
-  const context = useForm<IMembershipDto>({
+  const context = useForm<IGetMembershipDto>({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
   });
 
-  async function path(data: Yup.InferType<typeof schema>): Promise<IMembershipDto> {
-    const result = await api().post(apiRoute.receiveMembership, data);
+  async function path(data: Yup.InferType<typeof schema>): Promise<IGetMembershipDto> {
+    const result = await api().post(apiRoute.sendMembership, data);
     return result.data;
   }
 
