@@ -148,8 +148,8 @@ export const FormCreateClient = ({ MainDiv, setUser }: IFormClient) => {
             <InputX
               title="Nome"
               placeholder="Ciclano Fonseca"
-              required
               onChange={handleNameChange}
+              required
             />
             <InputX
               title="RG"

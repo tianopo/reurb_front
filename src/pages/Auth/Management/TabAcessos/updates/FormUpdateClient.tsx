@@ -196,7 +196,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
               title="Nome"
               placeholder="Ciclano Fonseca"
               onChange={handleNameChange}
-              disabled={edit}
+              disabled={!edit}
               required
             />
             <InputX
@@ -399,7 +399,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
             </Button>
             <Button onClick={() => navigate(app.management)}>Voltar</Button>
           </div>
-          <Button>gerar documento</Button>
+          <Button disabled={!edit}>gerar documento</Button>
         </CardContainer>
       </FormX>
     </FormProvider>

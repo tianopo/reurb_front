@@ -58,6 +58,7 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
           ref={ref}
           name={words}
           placeholder={placeholder}
+          disabled={disabled}
           value={selectedOption || ""}
           readOnly={true}
           onChange={(e) => {
@@ -65,7 +66,7 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
             onChange && onChange(e);
           }}
           onClick={() => !disabled && setIsOpen(!isOpen)}
-          className={`input cursor-pointer border-edge-primary ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
+          className={`input cursor-pointer border-edge-primary ${disabled ? "cursor-no-drop opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
           {...selectRegister}
           {...props}
         />

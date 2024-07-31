@@ -97,7 +97,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
               disabled={!edit}
               required
             />
-            {!["Master", "Admin"].includes(data.acesso) && (
+            {data && !["Master", "Admin"].includes(data.acesso) && (
               <Select
                 title="Status"
                 options={["Ativado", "Desativado"]}

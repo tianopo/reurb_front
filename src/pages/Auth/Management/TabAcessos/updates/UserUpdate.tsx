@@ -25,13 +25,13 @@ export const UserUpdate = () => {
   const handleUserTypeSelect = (option: string) => {
     setAccess(option);
   };
-  console.log(access);
+
   const MainDiv = () => (
     <div className="flex w-full flex-col items-start justify-between md:flex-row">
       <h4 className="md:w-max-80 w-full truncate text-start text-write-primary md:w-80">{user}</h4>
       <div className="flex gap-1">
         {!["Master", "Admin"].includes(access) && (
-          <SelectUser setAccess={handleUserTypeSelect} access={access} />
+          <SelectUser setAccess={handleUserTypeSelect} access={access} disabled={!edit} />
         )}
         <IconX
           name="Editar"
