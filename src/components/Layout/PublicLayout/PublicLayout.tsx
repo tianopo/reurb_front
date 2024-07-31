@@ -1,7 +1,10 @@
 import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { Outlet } from "react-router-dom";
+import { useTitle } from "src/hooks/utils/useTitle";
 
 export const PublicLayout = () => {
+  useTitle();
+
   return (
     <div className="flex">
       <div className="hidden h-screen w-1/2 items-center justify-center bg-gradient md:flex">

@@ -15,23 +15,17 @@ import { RecoverPassword } from "src/pages/public/RecoverPassword/recoverPasswor
 import { Register } from "src/pages/public/Register/register.views";
 import { app } from "./app";
 import { AuthenticatedRoute } from "./context/AuthenticatedRoute";
-import { PublicRoute } from "./context/PublicRoute";
 
 export const browserRouter = createBrowserRouter([
   {
-    element: <PublicRoute />,
+    element: <PublicLayout />,
     children: [
-      {
-        element: <PublicLayout />,
-        children: [
-          { path: app.login, element: <Login /> },
-          { path: app.register, element: <Register /> },
-          { path: app.forgotPassword, element: <ForgotPassword /> },
-          { path: app.recoverPassword(":token"), element: <RecoverPassword /> },
-          { path: app.membership(":token"), element: <Membership /> },
-          { path: "*", element: <Login /> },
-        ],
-      },
+      { path: app.login, element: <Login /> },
+      { path: app.forgotPassword, element: <ForgotPassword /> },
+      { path: app.register, element: <Register /> },
+      { path: app.recoverPassword(":token"), element: <RecoverPassword /> },
+      { path: app.membership(":token"), element: <Membership /> },
+      { path: "*", element: <Login /> },
     ],
   },
   {
