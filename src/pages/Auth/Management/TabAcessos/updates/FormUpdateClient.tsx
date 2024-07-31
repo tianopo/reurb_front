@@ -346,7 +346,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
                 <InputX
                   title="Nome Cônjuge"
                   placeholder="Renata Siqueira"
-                  value={data.nomeConjuge}
+                  value={data?.nomeConjuge}
                   disabled={!edit}
                   required
                 />
@@ -369,7 +369,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
                 <InputX
                   title="Profissão Cônjuge"
                   placeholder="Carpinteiro"
-                  value={data.profissaoConjuge}
+                  value={data?.profissaoConjuge}
                   disabled={!edit}
                   required
                 />
@@ -386,7 +386,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
                 <InputX
                   title="E-mail Cônjuge"
                   placeholder="adoleta@hotmail.com.br"
-                  value={data.emailConjuge}
+                  value={data?.emailConjuge}
                   disabled={!edit}
                   required
                 />

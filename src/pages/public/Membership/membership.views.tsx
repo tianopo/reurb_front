@@ -6,7 +6,7 @@ import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
 import { app } from "src/routes/app";
 import { formatCep, formatPhone } from "src/utils/formats";
-import { useCheckToken } from "./useCheckToken";
+import { useCheckTokenMembership } from "./useCheckTokenMembership";
 import { IMembershipDto, useMembership } from "./useMembership";
 
 export const Membership = () => {
@@ -35,7 +35,7 @@ export const Membership = () => {
     mutate(data);
   };
 
-  const { data, error, isLoading } = useCheckToken();
+  const { data, error, isLoading } = useCheckTokenMembership();
 
   if (isLoading) {
     return <div>Carregando...</div>;

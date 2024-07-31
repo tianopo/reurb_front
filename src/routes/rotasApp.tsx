@@ -25,9 +25,9 @@ export const browserRouter = createBrowserRouter([
         element: <PublicLayout />,
         children: [
           { path: app.login, element: <Login /> },
-          { path: app.forgotPassword, element: <ForgotPassword /> },
-          { path: app.recoverPassword, element: <RecoverPassword /> },
           { path: app.register, element: <Register /> },
+          { path: app.forgotPassword, element: <ForgotPassword /> },
+          { path: app.recoverPassword(":token"), element: <RecoverPassword /> },
           { path: app.membership(":token"), element: <Membership /> },
           { path: "*", element: <Login /> },
         ],

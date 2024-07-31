@@ -3,7 +3,7 @@ export const app = {
   register: "/cadastro",
   login: "/login",
   forgotPassword: "/esqueceu-senha",
-  recoverPassword: "/recuperar-senha",
+  recoverPassword: (token: string) => `/recuperar-senha/${token}`,
   membership: (token: string) => `/formulario-adesao/${token}`,
 
   // After Login
