@@ -9,3 +9,7 @@
 .descritivo {
   @apply text-center text-write-secundary hover:underline;
 }
+
+.div-inputs {
+  @apply flex flex-col gap-2 md:flex-row;
+}

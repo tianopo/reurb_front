@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
+import { ModalTaskCreate } from "./components/ModalTask";
 import "./Schedule.css";
 
 export const Schedule = () => {
+  const [openModal, setOpenModal] = useState(false);
   const testeCard = [
     { color: "green", name: "Nome do Projeto", hora: "15:00" },
     { color: "green", name: "Nome do Projeto", hora: "15:00" },
@@ -57,7 +60,8 @@ export const Schedule = () => {
             </div>
           ))}
         </div>
-        <Button>adicionar tarefa</Button>
+        <Button onClick={() => setOpenModal(!openModal)}>adicionar tarefa</Button>
+        {openModal && <ModalTaskCreate onClose={() => setOpenModal(false)} />}
       </CardContainer>
       <CardContainer>
         <h5 className="subtitulo">Agenda</h5>

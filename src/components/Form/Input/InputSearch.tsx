@@ -7,13 +7,24 @@ import "./Input.css";
 interface IInputSearch extends IUseForm {
   title: string;
   placeholder?: string;
+  label?: string;
   value?: string;
   typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local" | "password";
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 export const BeginInputSearch: ForwardRefRenderFunction<HTMLInputElement, IInputSearch> = (
-  { disabled, required, title, placeholder, value, typ = "text", onChange, ...rest }: IInputSearch,
+  {
+    disabled,
+    required,
+    title,
+    placeholder,
+    value,
+    typ = "text",
+    label,
+    onChange,
+    ...rest
+  }: IInputSearch,
   ref,
 ) => {
   const words = labelFormatted(title);

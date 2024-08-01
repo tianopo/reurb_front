@@ -137,7 +137,6 @@ export const FormCreateClient = ({ MainDiv, setUser }: IFormClient) => {
   const onSubmit = (data: IClientDto) => {
     mutate(data);
   };
-  console.log(watch("rg"));
 
   return (
     <FormProvider {...context}>

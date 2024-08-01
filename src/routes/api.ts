@@ -19,4 +19,8 @@ export const apiRoute = {
   idUser: (id: string) => `/user/${id}`,
   idClient: (id: string) => `/user/client/${id}`, // delete and update
   idEmployee: (id: string) => `/user/employee/${id}`,
+
+  /* Task */
+  task: "/task",
+  idTask: (id: string) => `/task/${id}`,
 };

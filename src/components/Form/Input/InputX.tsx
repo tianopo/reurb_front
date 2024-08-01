@@ -1,3 +1,4 @@
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { ChangeEventHandler, ForwardRefRenderFunction, forwardRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { IUseForm } from "src/interfaces/IUseForm";
@@ -13,6 +14,7 @@ interface IInputX extends IUseForm {
   typ?: "text" | "tel" | "date" | "email" | "number" | "time" | "datetime-local" | "password";
   onChange?: ChangeEventHandler<HTMLInputElement>;
   readOnly?: boolean;
+  busca?: boolean;
 }
 
 export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
@@ -23,6 +25,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
     placeholder,
     value,
     readOnly,
+    busca,
     typ = "text",
     onChange,
     ...rest
@@ -38,7 +41,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
   const errorMessage = errors && errors[words]?.message;
 
   return (
-    <div className="input_container">
+    <div className={`input_container ${busca && "relative"}`}>
       <Label title={title} words={words} required={required} />
       <input
         id={words}
@@ -58,6 +61,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
         className={`input border-edge-primary ${disabled ? "cursor-not-allowed opacity-80" : ""} ${errorMessage ? "border-1 border-variation-error" : ""} `}
         {...rest}
       />
+      {busca && <MagnifyingGlass size={20} className="absolute bottom-2.5 right-2 text-gray-500" />}
       <ErrorMessages errors={errorMessage?.toString()} />
     </div>
   );

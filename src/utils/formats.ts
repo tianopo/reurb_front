@@ -114,3 +114,32 @@ export const formatCurrency = (value: string): string => {
 
   return input;
 };
+
+export const formatDateHour = (value: string): string => {
+  let input = value.replace(/[^0-9]/g, ""); // Remove caracteres não numéricos
+
+  if (input.length <= 2) {
+    // Formata DD
+    input = input.replace(/^(\d{1,2})/, "$1");
+  } else if (input.length <= 4) {
+    // Formata DD/MM
+    input = input.replace(/^(\d{2})(\d{1,2})/, "$1/$2");
+  } else if (input.length <= 8) {
+    // Formata DD/MM/YYYY
+    input = input.replace(/^(\d{2})(\d{2})(\d{1,4})/, "$1/$2/$3");
+  } else if (input.length <= 10) {
+    // Formata HH
+    input = input.replace(/^(\d{2})(\d{2})(\d{4})(\d{1,2})/, "$1/$2/$3 $4");
+  } else if (input.length < 12) {
+    // Formata HH:MM
+    input = input.replace(/^(\d{2})(\d{2})(\d{4})(\d{2})(\d{1,2})/, "$1/$2/$3 $4:$5");
+  } else if (input.length === 12) {
+    input = input.replace(/^(\d{2})(\d{2})(\d{4})(\d{2})(\d{2})/, "$1/$2/$3 $4:$5");
+  } else if (input.length > 12) {
+    input = input = input
+      .slice(0, -1)
+      .replace(/^(\d{2})(\d{2})(\d{4})(\d{2})(\d{2})/, "$1/$2/$3 $4:$5");
+  }
+
+  return input;
+};
