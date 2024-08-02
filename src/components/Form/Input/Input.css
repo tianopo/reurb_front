@@ -17,3 +17,17 @@
 .input_textarea {
   @apply resize-none;
 }
+
+.options-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 4px;
+}
+
+.option-item {
+  border-bottom: 1px solid #fff;
+}
+
+.option-item:last-child {
+  border-bottom: none;
+}

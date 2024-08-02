@@ -19,7 +19,7 @@ export interface ITaskDto {
   prioridade: PrioridadeType;
   projeto: string;
   status: StatusType;
-  funcionarios: string[];
+  funcionarios?: string[];
 }
 
 export const useCreateTask = () => {
@@ -46,7 +46,7 @@ export const useCreateTask = () => {
       .label("Status"),
     funcionarios: Yup.array()
       .of(Yup.string().required())
-      .required()
+      .optional()
       .min(1, "Pelo menos um ID de usuário é necessário")
       .label("Funcionários"),
   });

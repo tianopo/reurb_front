@@ -1,3 +1,4 @@
+import { IdentificationCard } from "@phosphor-icons/react";
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Button } from "src/components/Buttons/Button";
@@ -8,28 +9,50 @@ import { TextAreaX } from "src/components/Form/Textarea";
 import { Modal } from "src/components/Modal/Modal";
 import { formatDateHour } from "src/utils/formats";
 import { ITaskDto, useCreateTask } from "../hooks/useCreateTask";
+import { useGetEmployees } from "../hooks/useGetEmployees";
 
 interface IModalTaskCreate {
   onClose: () => void;
 }
 
 export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
-  const [data, setData] = useState("");
+  const [date, setDate] = useState("");
+  const [funcionarios, setFuncionarios] = useState<string[]>([]);
+  const [funcionarioInput, setFuncionarioInput] = useState("");
+
   const { mutate, isPending, context } = useCreateTask();
   const {
     formState: { errors },
     setValue,
+    watch,
   } = context;
 
   const handleDataFormat = (e: { target: { value: string } }) => {
     const formattedData = formatDateHour(e.target.value);
     setValue("data", formattedData);
-    setData(formattedData);
+    setDate(formattedData);
+  };
+
+  const handleFuncionarioAdd = () => {
+    if (funcionarioInput.trim() && !funcionarios.includes(funcionarioInput.trim())) {
+      setFuncionarios([...funcionarios, funcionarioInput]);
+      setValue("funcionarios", funcionarios);
+      console.log(watch("funcionarios"));
+      setFuncionarioInput("");
+    }
+  };
+
+  const handleFuncionarioRemove = (funcionario: string) => {
+    setFuncionarios(funcionarios.filter((f) => f !== funcionario));
   };
 
   const onSubmit = (data: ITaskDto) => {
-    mutate(data);
+    mutate({
+      ...data,
+      funcionarios,
+    });
   };
+  const { data, isLoading, error } = useGetEmployees();
 
   return (
     <Modal onClose={onClose}>
@@ -44,7 +67,7 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
               title="Data"
               placeholder="DD/MM/YYYY HH:MM (apenas números)"
               onChange={handleDataFormat}
-              value={data}
+              value={date}
               required
             />
             <Select
@@ -63,10 +86,42 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
               required
             />
           </div>
-          <div className="div-inputs py-1">
-            <InputX title="Funcionários" placeholder="Funcionários envolvidos" busca />
+          <div className="div-inputs items-end py-1">
+            <InputX
+              title="Funcionário"
+              placeholder="Digite o nome do funcionário"
+              value={funcionarioInput}
+              onChange={(e) => setFuncionarioInput(e.target.value)}
+              busca
+              options={["oi", "aqui", "aq", "odfd dfdf df  df"].filter(
+                (option) => !funcionarios.includes(option),
+              )}
+            />
+            <Button type="button" onClick={handleFuncionarioAdd}>
+              Adicionar Funcionário
+            </Button>
           </div>
-          <Button disabled={isPending || Object.keys(errors).length > 0}>adicionar tarefa</Button>
+          {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}
+          {error && (
+            <>
+              <h6 className="text-center text-write-primary">
+                Ocorreu um erro ao carregar os dados.
+              </h6>
+              <p className="text-center text-red-500">{error.message}</p>
+            </>
+          )}
+          <div className="flex flex-wrap gap-2 text-write-secundary">
+            {funcionarios.map((funcionario) => (
+              <div key={funcionario} className="flex items-center gap-1">
+                <IdentificationCard />
+                <p>{funcionario}</p>
+                <button type="button" onClick={() => handleFuncionarioRemove(funcionario)}>
+                  ✖
+                </button>
+              </div>
+            ))}
+          </div>
+          <Button disabled={isPending || Object.keys(errors).length > 0}>Adicionar Tarefa</Button>
         </FormX>
       </FormProvider>
     </Modal>

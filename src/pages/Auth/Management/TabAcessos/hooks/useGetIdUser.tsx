@@ -13,6 +13,8 @@ export const useGetIdUser = (id: string) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["user-data", id],
     queryFn: path,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
     initialData: cachedData,
     enabled: !cachedData,
   });
