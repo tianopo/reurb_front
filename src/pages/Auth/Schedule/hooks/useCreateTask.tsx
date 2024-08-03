@@ -26,14 +26,10 @@ export const useCreateTask = () => {
   const navigate = useNavigate();
 
   const schema = Yup.object().shape({
-    descricao: Yup.string()
-      .required()
-      .min(1, "Descrição deve ter no mínimo 1 caractere")
-      .max(250, "Descrição deve ter no máximo 250 caracteres")
-      .label("Descrição"),
+    descricao: Yup.string().required().min(1).max(250).label("Descrição"),
     data: Yup.string()
-      .required("Data é obrigatória")
-      .matches(Regex.date_hour, "Data inválida")
+      .required()
+      .matches(Regex.date_hour, "Formato: DD/MM/YY HH:MM, apenas números")
       .label("Data"),
     prioridade: Yup.string()
       .required()
@@ -44,11 +40,7 @@ export const useCreateTask = () => {
       .required()
       .oneOf(["à Fazer", "Atrasados", "Feitos"], "Status inválido")
       .label("Status"),
-    funcionarios: Yup.array()
-      .of(Yup.string().required())
-      .optional()
-      .min(1, "Pelo menos um ID de usuário é necessário")
-      .label("Funcionários"),
+    funcionarios: Yup.array().of(Yup.string().required()).optional().min(1).label("Funcionários"),
   });
 
   const context = useForm<ITaskDto>({
@@ -66,7 +58,7 @@ export const useCreateTask = () => {
     onSuccess: () => {
       responseSuccess("Tarefa criada com sucesso");
       queryClient.invalidateQueries({ queryKey: ["task-data"] });
-      navigate(app.management);
+      navigate(app.schedule);
     },
     onError: (erro: AxiosError) => responseError(erro),
   });

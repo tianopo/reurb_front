@@ -95,7 +95,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
     setIsOpen(false);
   };
 
-  const buscaVal = busca && isOpen && options.length > 0;
+  const buscaVal = busca && isOpen;
   return (
     <div className={`input_container ${busca && "relative"}`}>
       <Label title={title} words={words} required={required} />
@@ -128,17 +128,21 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
         <ul
           className={`options-list absolute left-0 top-full z-10 h-16 max-h-20 w-full overflow-auto rounded-lg border border-gray-300 bg-white`}
         >
-          {options
-            .filter((option) => option.toLowerCase().includes(inputValue.toLowerCase()))
-            .map((option, index) => (
-              <li
-                key={index}
-                className={`option-item cursor-pointer p-2 hover:bg-gray-100`}
-                onMouseDown={() => handleOptionClick(option)}
-              >
-                {option}
-              </li>
-            ))}
+          {options.length > 0 ? (
+            options
+              .filter((option) => option.toLowerCase().includes(inputValue.toLowerCase()))
+              .map((option, index) => (
+                <li
+                  key={index}
+                  className={`option-item cursor-pointer p-2 hover:bg-gray-100`}
+                  onMouseDown={() => handleOptionClick(option)}
+                >
+                  {option}
+                </li>
+              ))
+          ) : (
+            <li className={`p-2 text-center text-14 text-write-placeholder`}>Sem dados</li>
+          )}
         </ul>
       )}
       <ErrorMessages errors={errorMessage?.toString()} />

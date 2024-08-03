@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "src/config/api";
+import { api, queryClient } from "src/config/api";
 import { apiRoute } from "src/routes/api";
 
 export const useGetEmployees = () => {
+  const user = queryClient.getQueryData<any[]>(["user-data"]);
   const path = async () => {
     const result = await api().get(apiRoute.employees);
     return result.data;
   };
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["user-data"],
+    queryKey: user ? ["user-data"] : ["employee-data"],
     queryFn: path,
     staleTime: Infinity,
     refetchOnWindowFocus: false,

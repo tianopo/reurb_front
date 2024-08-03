@@ -7,7 +7,8 @@ import { InputX } from "src/components/Form/Input/InputX";
 import { Select } from "src/components/Form/Select/Select";
 import { TextAreaX } from "src/components/Form/Textarea";
 import { Modal } from "src/components/Modal/Modal";
-import { formatDateHour } from "src/utils/formats";
+import { formatDateHour, formatDateToISO } from "src/utils/formats";
+import { IEmployeeDto } from "../../Management/TabAcessos/hooks/interfaces";
 import { ITaskDto, useCreateTask } from "../hooks/useCreateTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
 
@@ -29,30 +30,41 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
 
   const handleDataFormat = (e: { target: { value: string } }) => {
     const formattedData = formatDateHour(e.target.value);
-    setValue("data", formattedData);
     setDate(formattedData);
   };
 
   const handleFuncionarioAdd = () => {
-    if (funcionarioInput.trim() && !funcionarios.includes(funcionarioInput.trim())) {
-      setFuncionarios([...funcionarios, funcionarioInput]);
-      setValue("funcionarios", funcionarios);
-      console.log(watch("funcionarios"));
+    const selectedEmployee = data.find(
+      (employee: IEmployeeDto) => employee.nome === funcionarioInput.trim(),
+    );
+    if (selectedEmployee && !funcionarios.includes(selectedEmployee.id)) {
+      const updatedFuncionarios = [...funcionarios, selectedEmployee.id];
+      setFuncionarios(updatedFuncionarios);
+      setValue("funcionarios", updatedFuncionarios);
+      console.log(updatedFuncionarios);
       setFuncionarioInput("");
     }
   };
 
-  const handleFuncionarioRemove = (funcionario: string) => {
-    setFuncionarios(funcionarios.filter((f) => f !== funcionario));
+  const handleFuncionarioRemove = (id: string) => {
+    const updatedFuncionarios = funcionarios.filter((f) => f !== id);
+    setFuncionarios(updatedFuncionarios);
+    setValue("funcionarios", updatedFuncionarios);
   };
 
   const onSubmit = (data: ITaskDto) => {
+    const formattedDataIso = formatDateToISO(date);
+    setValue("data", formattedDataIso);
+    console.log(watch("funcionarios"), "onSubmit", watch("data"));
     mutate({
       ...data,
-      funcionarios,
+      funcionarios: funcionarios,
     });
   };
+
   const { data, isLoading, error } = useGetEmployees();
+
+  const employeeNames = data?.map((employee: IEmployeeDto) => employee.nome) || [];
 
   return (
     <Modal onClose={onClose}>
@@ -86,15 +98,19 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
               required
             />
           </div>
-          <div className="div-inputs items-end py-1">
+          <div className="div-inputs items-end">
             <InputX
               title="Funcionário"
               placeholder="Digite o nome do funcionário"
               value={funcionarioInput}
               onChange={(e) => setFuncionarioInput(e.target.value)}
               busca
-              options={["oi", "aqui", "aq", "odfd dfdf df  df"].filter(
-                (option) => !funcionarios.includes(option),
+              options={employeeNames.filter(
+                (option: string) =>
+                  !funcionarios.some(
+                    (id) =>
+                      data.find((employee: IEmployeeDto) => employee.nome === option)?.id === id,
+                  ),
               )}
             />
             <Button type="button" onClick={handleFuncionarioAdd}>
@@ -111,15 +127,18 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
             </>
           )}
           <div className="flex flex-wrap gap-2 text-write-secundary">
-            {funcionarios.map((funcionario) => (
-              <div key={funcionario} className="flex items-center gap-1">
-                <IdentificationCard />
-                <p>{funcionario}</p>
-                <button type="button" onClick={() => handleFuncionarioRemove(funcionario)}>
-                  ✖
-                </button>
-              </div>
-            ))}
+            {funcionarios.map((id) => {
+              const funcionario = data.find((emp: any) => emp.id === id);
+              return funcionario ? (
+                <div key={funcionario.id} className="flex items-center gap-1">
+                  <IdentificationCard />
+                  <p>{funcionario.nome}</p>
+                  <button type="button" onClick={() => handleFuncionarioRemove(funcionario.id)}>
+                    ✖
+                  </button>
+                </div>
+              ) : null;
+            })}
           </div>
           <Button disabled={isPending || Object.keys(errors).length > 0}>Adicionar Tarefa</Button>
         </FormX>

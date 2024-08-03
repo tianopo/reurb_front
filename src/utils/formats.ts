@@ -143,3 +143,36 @@ export const formatDateHour = (value: string): string => {
 
   return input;
 };
+
+export const formatDateToISO = (dateString: string): string => {
+  if (!dateString) return "";
+
+  const [datePart, timePart] = dateString.split(" ");
+
+  if (!datePart || !timePart) return "";
+
+  const [day, month, year] = datePart.split("/");
+  const [hour, minute] = timePart.split(":");
+
+  if (!day || !month || !year || !hour || !minute) return "";
+
+  return `${year}-${month}-${day}T${hour}:${minute}:00`;
+};
+
+export const formatISOToDateAndTime = (isoString: string): { date: string; time: string } => {
+  if (!isoString) return { date: "", time: "" };
+
+  const [dateTimePart] = isoString.split("T");
+
+  if (!dateTimePart) return { date: "", time: "" };
+
+  const [year, month, day] = dateTimePart.split("-");
+  const [hour, minute] = isoString.split("T")[1].split(":");
+
+  if (!year || !month || !day || !hour || !minute) return { date: "", time: "" };
+
+  const date = `${day}/${month}/${year}`;
+  const time = `${hour}:${minute}`;
+
+  return { date, time };
+};
