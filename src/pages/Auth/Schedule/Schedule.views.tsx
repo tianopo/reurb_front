@@ -5,6 +5,7 @@ import { ITaskDto } from "src/interfaces/models";
 import { ModalTaskCreate } from "./components/ModalTask";
 import { TaskSection } from "./components/TaskSection";
 import { useListTask } from "./hooks/useListTask";
+import { Calendar } from "./components/Calendar";
 
 export const Schedule = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -47,7 +48,12 @@ export const Schedule = () => {
   const startOfWeek = getStartOfWeek(today);
   const endOfWeek = getEndOfWeek(today);
 
-  const tasksByDay = (tasks || []).reduce((acc: any, task: any) => {
+  const formatDate = (date: Date) =>
+    date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+  const formattedStartOfWeek = formatDate(startOfWeek);
+  const formattedEndOfWeek = formatDate(endOfWeek);
+
+  const tasksByDay = (tasks || []).reduce((acc: any, task: ITaskDto) => {
     const taskDate = new Date(task.data);
     if (taskDate >= startOfWeek && taskDate <= endOfWeek) {
       const day = getDayOfWeek(task.data);
@@ -65,12 +71,9 @@ export const Schedule = () => {
         <h5 className="subtitulo">Tarefas de hoje</h5>
         {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}
         {error && (
-          <>
-            <h6 className="text-center text-write-primary">
-              Ocorreu um erro ao carregar os dados.
-            </h6>
-            <p className="text-center text-red-500">{error.message}</p>
-          </>
+          <h6 className="text-center text-write-primary">
+            Ocorreu um erro ao carregar os dados. {error.message}
+          </h6>
         )}
         {taskSections.map((section, index) => (
           <TaskSection key={index} title={section.title} tasks={section.tasks} />
@@ -80,7 +83,11 @@ export const Schedule = () => {
       </CardContainer>
 
       <CardContainer>
-        <h5 className="subtitulo">Agenda</h5>
+        <div className="flex w-full flex-col items-center gap-1 md:flex-row md:justify-between md:gap-0">
+          <h5 className="text-start">Agenda</h5>
+          <h4 className="text-write-primary">{`${formattedStartOfWeek} - ${formattedEndOfWeek}`}</h4>
+          <Calendar startOfWeek={formattedStartOfWeek} endOfWeek={formattedEndOfWeek} />
+        </div>
         {daysOfWeek.map((day) => (
           <TaskSection key={day} title={day} tasks={tasksByDay[day] || []} />
         ))}
