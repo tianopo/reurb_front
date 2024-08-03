@@ -4,21 +4,10 @@ import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
+import { ITaskDto } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
-
-type PrioridadeType = "Alta" | "Media" | "Baixa";
-type StatusType = "à Fazer" | "Atrasados" | "Feitos";
-
-export interface ITaskDto {
-  descricao: string;
-  data: string;
-  prioridade: PrioridadeType;
-  projeto?: string;
-  status: StatusType;
-  funcionarios?: string[];
-}
 
 export const useCreateTask = (onClose: () => void) => {
   const schema = Yup.object().shape({

@@ -2,14 +2,6 @@
   @apply w-full text-start;
 }
 
-.container-descritivo {
-  @apply h-fit w-32;
-}
-
-.descritivo {
-  @apply text-center text-write-secundary hover:underline;
-}
-
 .div-inputs {
   @apply flex flex-col gap-2 py-1 md:flex-row;
 }

@@ -19,9 +19,9 @@ import {
 } from "src/utils/formats";
 import "../../Management.css";
 import { ModalUserProjects } from "../components/ModalUserProjects";
-import { IClientDto } from "../hooks/interfaces";
 import { useGetIdUser } from "../hooks/useGetIdUser";
 import { useUpdateClient } from "../hooks/useUpdateClient";
+import { IClientDto } from "src/interfaces/models";
 
 interface IFormClient {
   MainDiv: () => JSX.Element;

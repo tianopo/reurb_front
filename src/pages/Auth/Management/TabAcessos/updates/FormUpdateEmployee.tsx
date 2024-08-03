@@ -9,9 +9,9 @@ import { CardContainer } from "src/components/Layout/CardContainer";
 import { app } from "src/routes/app";
 import { formatCPF, formatPhone } from "src/utils/formats";
 import "../../Management.css";
-import { IEmployeeDto } from "../hooks/interfaces";
 import { useGetIdUser } from "../hooks/useGetIdUser";
 import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
+import { IEmployeeDto } from "src/interfaces/models";
 
 interface IFormEmployee {
   MainDiv: () => JSX.Element;

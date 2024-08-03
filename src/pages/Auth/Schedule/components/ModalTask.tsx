@@ -7,9 +7,9 @@ import { InputX } from "src/components/Form/Input/InputX";
 import { Select } from "src/components/Form/Select/Select";
 import { TextAreaX } from "src/components/Form/Textarea";
 import { Modal } from "src/components/Modal/Modal";
+import { IEmployeeDto, ITaskDto } from "src/interfaces/models";
 import { formatDateHour, formatDateToISO } from "src/utils/formats";
-import { IEmployeeDto } from "../../Management/TabAcessos/hooks/interfaces";
-import { ITaskDto, useCreateTask } from "../hooks/useCreateTask";
+import { useCreateTask } from "../hooks/useCreateTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
 
 interface IModalTaskCreate {

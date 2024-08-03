@@ -8,6 +8,7 @@ import { InputX } from "src/components/Form/Input/InputX";
 import { Select } from "src/components/Form/Select/Select";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { useAddressByCep } from "src/hooks/API/AddressByCep";
+import { IClientDto } from "src/interfaces/models";
 import { app } from "src/routes/app";
 import {
   formatCep,
@@ -19,7 +20,6 @@ import {
 } from "src/utils/formats";
 import "../../Management.css";
 import { ModalUserProjects } from "../components/ModalUserProjects";
-import { IClientDto } from "../hooks/interfaces";
 import { useCreateClient } from "../hooks/useCreateClient";
 
 interface IFormClient {

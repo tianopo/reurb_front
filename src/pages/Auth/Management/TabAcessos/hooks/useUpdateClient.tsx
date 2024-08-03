@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
+import { EstadoCivil, IClientDto } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
 import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
-import { EstadoCivil, IClientDto } from "./interfaces";
 
 export const useUpdateClient = (id: string) => {
   const navigate = useNavigate();
