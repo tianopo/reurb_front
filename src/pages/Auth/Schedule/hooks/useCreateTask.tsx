@@ -2,11 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
 import { apiRoute } from "src/routes/api";
-import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
@@ -17,14 +15,12 @@ export interface ITaskDto {
   descricao: string;
   data: string;
   prioridade: PrioridadeType;
-  projeto: string;
+  projeto?: string;
   status: StatusType;
   funcionarios?: string[];
 }
 
-export const useCreateTask = () => {
-  const navigate = useNavigate();
-
+export const useCreateTask = (onClose: () => void) => {
   const schema = Yup.object().shape({
     descricao: Yup.string().required().min(1).max(250).label("Descrição"),
     data: Yup.string()
@@ -35,7 +31,7 @@ export const useCreateTask = () => {
       .required()
       .oneOf(["Alta", "Media", "Baixa"], "Prioridade inválida")
       .label("Prioridade"),
-    projeto: Yup.string().required().label("Projeto"),
+    projeto: Yup.string().optional().label("Projeto"),
     status: Yup.string()
       .required()
       .oneOf(["à Fazer", "Atrasados", "Feitos"], "Status inválido")
@@ -58,7 +54,7 @@ export const useCreateTask = () => {
     onSuccess: () => {
       responseSuccess("Tarefa criada com sucesso");
       queryClient.invalidateQueries({ queryKey: ["task-data"] });
-      navigate(app.schedule);
+      onClose();
     },
     onError: (erro: AxiosError) => responseError(erro),
   });

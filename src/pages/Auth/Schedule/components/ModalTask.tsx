@@ -21,11 +21,10 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
   const [funcionarios, setFuncionarios] = useState<string[]>([]);
   const [funcionarioInput, setFuncionarioInput] = useState("");
 
-  const { mutate, isPending, context } = useCreateTask();
+  const { mutate, isPending, context } = useCreateTask(onClose);
   const {
     formState: { errors },
     setValue,
-    watch,
   } = context;
 
   const handleDataFormat = (e: { target: { value: string } }) => {
@@ -41,7 +40,6 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
       const updatedFuncionarios = [...funcionarios, selectedEmployee.id];
       setFuncionarios(updatedFuncionarios);
       setValue("funcionarios", updatedFuncionarios);
-      console.log(updatedFuncionarios);
       setFuncionarioInput("");
     }
   };
@@ -54,10 +52,9 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
 
   const onSubmit = (data: ITaskDto) => {
     const formattedDataIso = formatDateToISO(date);
-    setValue("data", formattedDataIso);
-    console.log(watch("funcionarios"), "onSubmit", watch("data"));
     mutate({
       ...data,
+      data: formattedDataIso,
       funcionarios: funcionarios,
     });
   };

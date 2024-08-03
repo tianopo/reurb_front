@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import "./Home.css";
+import { ModalTaskCreate } from "../Schedule/components/ModalTask";
 
 export const Home = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <CardContainer>
@@ -32,7 +36,8 @@ export const Home = () => {
           Organize, priorize e conclua suas listas de tarefas para ter uma rotina mais produtiva e
           dinâmica
         </h6>
-        <Button>adicionar tarefa</Button>
+        <Button onClick={() => setOpenModal(!openModal)}>adicionar tarefa</Button>
+        {openModal && <ModalTaskCreate onClose={() => setOpenModal(false)} />}
       </CardContainer>
     </>
   );
