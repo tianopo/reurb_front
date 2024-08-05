@@ -2,14 +2,13 @@ import { useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { ITaskDto } from "src/interfaces/models";
+import { Calendar } from "./components/Calendar";
 import { ModalTaskCreate } from "./components/ModalTask";
 import { TaskSection } from "./components/TaskSection";
 import { useListTask } from "./hooks/useListTask";
-import { Calendar } from "./components/Calendar";
 
 export const Schedule = () => {
   const [openModal, setOpenModal] = useState(false);
-
   const { data: tasks, error, isLoading } = useListTask();
 
   const tarefasAFazer = tasks?.filter((task: ITaskDto) => task.status === "à Fazer") || [];
@@ -44,9 +43,13 @@ export const Schedule = () => {
     return end;
   };
 
-  const today = new Date();
-  const startOfWeek = getStartOfWeek(today);
-  const endOfWeek = getEndOfWeek(today);
+  const [startOfWeek, setStartOfWeek] = useState(getStartOfWeek(new Date()));
+  const [endOfWeek, setEndOfWeek] = useState(getEndOfWeek(new Date()));
+
+  const handleDateClick = (date: Date) => {
+    setStartOfWeek(getStartOfWeek(date));
+    setEndOfWeek(getEndOfWeek(date));
+  };
 
   const formatDate = (date: Date) =>
     date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
@@ -86,7 +89,11 @@ export const Schedule = () => {
         <div className="flex w-full flex-col items-center gap-1 md:flex-row md:justify-between md:gap-0">
           <h5 className="text-start">Agenda</h5>
           <h4 className="text-write-primary">{`${formattedStartOfWeek} - ${formattedEndOfWeek}`}</h4>
-          <Calendar startOfWeek={formattedStartOfWeek} endOfWeek={formattedEndOfWeek} />
+          <Calendar
+            startOfWeek={formattedStartOfWeek}
+            endOfWeek={formattedEndOfWeek}
+            onDateClick={handleDateClick}
+          />
         </div>
         {daysOfWeek.map((day) => (
           <TaskSection key={day} title={day} tasks={tasksByDay[day] || []} />

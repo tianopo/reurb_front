@@ -4,11 +4,11 @@ import { useState } from "react";
 interface CalendarProps {
   startOfWeek: string;
   endOfWeek: string;
+  onDateClick: (date: Date) => void;
 }
 
-export const Calendar = ({ startOfWeek, endOfWeek }: CalendarProps) => {
+export const Calendar = ({ startOfWeek, endOfWeek, onDateClick }: CalendarProps) => {
   const [showPopup, setShowPopup] = useState(false);
-
   const handleClick = () => setShowPopup(!showPopup);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -63,6 +63,11 @@ export const Calendar = ({ startOfWeek, endOfWeek }: CalendarProps) => {
 
   const daysOfWeek = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
 
+  const handleDayClick = (day: number) => {
+    const clickedDate = new Date(currentYear, currentMonth, day);
+    onDateClick(clickedDate);
+  };
+
   return (
     <div className="relative">
       <div
@@ -108,6 +113,7 @@ export const Calendar = ({ startOfWeek, endOfWeek }: CalendarProps) => {
               <div
                 key={index}
                 className={`cursor-pointer rounded border text-center sm:p-2 ${day === "" ? "bg-gray-100" : "hover:bg-gray-200"}`}
+                onClick={() => day && handleDayClick(Number(day))}
               >
                 {day}
               </div>
