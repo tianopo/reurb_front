@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
-import "./Home.css";
 import { ModalTaskCreate } from "../Schedule/components/ModalTask";
+import "./Home.css";
 
 export const Home = () => {
   const [openModal, setOpenModal] = useState(false);

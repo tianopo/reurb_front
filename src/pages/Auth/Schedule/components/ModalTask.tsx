@@ -11,6 +11,7 @@ import { IEmployeeDto, ITaskDto } from "src/interfaces/models";
 import { formatDateHour, formatDateToISO } from "src/utils/formats";
 import { useCreateTask } from "../hooks/useCreateTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
+import "../Schedule.css";
 
 interface IModalTaskCreate {
   onClose: () => void;
