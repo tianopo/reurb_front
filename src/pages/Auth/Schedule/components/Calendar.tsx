@@ -60,6 +60,10 @@ export const Calendar = ({ startOfWeek, endOfWeek, onDateClick }: CalendarProps)
   };
 
   const daysOfMonth = generateDaysOfMonth(currentYear, currentMonth);
+  const startOfWeekDate = new Date(startOfWeek);
+  const endOfWeekDate = new Date(endOfWeek);
+
+  const isWithinWeek = (date: Date) => date >= startOfWeekDate && date <= endOfWeekDate;
 
   const daysOfWeek = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
 
@@ -109,15 +113,18 @@ export const Calendar = ({ startOfWeek, endOfWeek, onDateClick }: CalendarProps)
             ))}
           </div>
           <div className="grid grid-cols-7 gap-1">
-            {daysOfMonth.map((day, index) => (
-              <div
-                key={index}
-                className={`cursor-pointer rounded border text-center sm:p-2 ${day === "" ? "bg-gray-100" : "hover:bg-gray-200"}`}
-                onClick={() => day && handleDayClick(Number(day))}
-              >
-                {day}
-              </div>
-            ))}
+            {daysOfMonth.map((day, index) => {
+              const date = new Date(currentYear, currentMonth, Number(day));
+              return (
+                <div
+                  key={index}
+                  className={`cursor-pointer rounded border text-center sm:p-2 ${day === "" ? "bg-gray-100" : isWithinWeek(date) ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-200"}`}
+                  onClick={() => day && handleDayClick(Number(day))}
+                >
+                  {day}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

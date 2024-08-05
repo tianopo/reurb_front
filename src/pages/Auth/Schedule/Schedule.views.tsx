@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { ITaskDto } from "src/interfaces/models";
@@ -11,9 +11,13 @@ export const Schedule = () => {
   const [openModal, setOpenModal] = useState(false);
   const { data: tasks, error, isLoading } = useListTask();
 
-  const tarefasAFazer = tasks?.filter((task: ITaskDto) => task.status === "à Fazer") || [];
-  const tarefasAtrasados = tasks?.filter((task: ITaskDto) => task.status === "Atrasados") || [];
-  const tarefasFeitos = tasks?.filter((task: ITaskDto) => task.status === "Feitos") || [];
+  const [tarefasHoje, setTarefasHoje] = useState<ITaskDto[]>([]);
+  const [tasksByDay, setTasksByDay] = useState<Record<string, ITaskDto[]>>({});
+
+  const tarefasAFazer = tarefasHoje?.filter((task: ITaskDto) => task.status === "à Fazer") || [];
+  const tarefasAtrasados =
+    tarefasHoje?.filter((task: ITaskDto) => task.status === "Atrasados") || [];
+  const tarefasFeitos = tarefasHoje?.filter((task: ITaskDto) => task.status === "Feitos") || [];
 
   const taskSections = [
     { title: "a Fazer", tasks: tarefasAFazer },
@@ -46,6 +50,37 @@ export const Schedule = () => {
   const [startOfWeek, setStartOfWeek] = useState(getStartOfWeek(new Date()));
   const [endOfWeek, setEndOfWeek] = useState(getEndOfWeek(new Date()));
 
+  const startOfDay = (date: Date) => new Date(date.setHours(0, 0, 0, 0));
+  const endOfDay = (date: Date) => new Date(date.setHours(23, 59, 59, 999));
+
+  useEffect(() => {
+    if (tasks) {
+      const today = new Date();
+      const formatTodayDate = today.toISOString().split("T")[0];
+      const todayTasks = tasks.filter((task: ITaskDto) => {
+        const taskDate = new Date(task.data).toISOString().split("T")[0];
+        return taskDate === formatTodayDate;
+      });
+      setTarefasHoje(todayTasks);
+
+      const startOfWeekDate = startOfDay(new Date(startOfWeek));
+      const endOfWeekDate = endOfDay(new Date(endOfWeek));
+
+      const updatedTasksByDay = tasks.reduce((acc: any, task: ITaskDto) => {
+        const taskDate = startOfDay(new Date(task.data));
+
+        if (taskDate >= startOfWeekDate && taskDate <= endOfWeekDate) {
+          const day = getDayOfWeek(task.data);
+          if (!acc[day]) acc[day] = [];
+          acc[day].push(task);
+        }
+        return acc;
+      }, {});
+
+      setTasksByDay(updatedTasksByDay);
+    }
+  }, [tasks, startOfWeek, endOfWeek]);
+
   const handleDateClick = (date: Date) => {
     setStartOfWeek(getStartOfWeek(date));
     setEndOfWeek(getEndOfWeek(date));
@@ -55,16 +90,6 @@ export const Schedule = () => {
     date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
   const formattedStartOfWeek = formatDate(startOfWeek);
   const formattedEndOfWeek = formatDate(endOfWeek);
-
-  const tasksByDay = (tasks || []).reduce((acc: any, task: ITaskDto) => {
-    const taskDate = new Date(task.data);
-    if (taskDate >= startOfWeek && taskDate <= endOfWeek) {
-      const day = getDayOfWeek(task.data);
-      if (!acc[day]) acc[day] = [];
-      acc[day].push(task);
-    }
-    return acc;
-  }, {});
 
   const daysOfWeek = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"];
 
