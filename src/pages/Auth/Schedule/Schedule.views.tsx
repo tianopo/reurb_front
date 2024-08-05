@@ -3,13 +3,16 @@ import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { ITaskDto } from "src/interfaces/models";
 import { Calendar } from "./components/Calendar";
-import { ModalTaskCreate } from "./components/ModalTask";
+import { ModalTaskCreate } from "./components/ModalTaskCreate";
+import { ModalTaskUpdate } from "./components/ModalTaskUpdate";
 import { TaskSection } from "./components/TaskSection";
 import { useListTask } from "./hooks/useListTask";
 
 export const Schedule = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const { data: tasks, error, isLoading } = useListTask();
+  const [taskToEdit, setTaskToEdit] = useState<ITaskDto | null>(null);
 
   const [tarefasHoje, setTarefasHoje] = useState<ITaskDto[]>([]);
   const [tasksByDay, setTasksByDay] = useState<Record<string, ITaskDto[]>>({});
@@ -104,10 +107,19 @@ export const Schedule = () => {
           </h6>
         )}
         {taskSections.map((section, index) => (
-          <TaskSection key={index} title={section.title} tasks={section.tasks} />
+          <TaskSection
+            key={index}
+            title={section.title}
+            tasks={section.tasks}
+            setTask={setTaskToEdit}
+            setOpenEditModal={setOpenEditModal}
+          />
         ))}
         <Button onClick={() => setOpenModal(!openModal)}>Adicionar tarefa</Button>
         {openModal && <ModalTaskCreate onClose={() => setOpenModal(false)} />}
+        {openEditModal && (
+          <ModalTaskUpdate onClose={() => setOpenEditModal(false)} task={taskToEdit} />
+        )}
       </CardContainer>
 
       <CardContainer>
@@ -121,7 +133,13 @@ export const Schedule = () => {
           />
         </div>
         {daysOfWeek.map((day) => (
-          <TaskSection key={day} title={day} tasks={tasksByDay[day] || []} />
+          <TaskSection
+            key={day}
+            title={day}
+            tasks={tasksByDay[day] || []}
+            setTask={setTaskToEdit}
+            setOpenEditModal={setOpenEditModal}
+          />
         ))}
       </CardContainer>
     </>

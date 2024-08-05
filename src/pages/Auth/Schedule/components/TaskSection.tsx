@@ -1,8 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
+import { ITaskDto } from "src/interfaces/models";
 import { formatISOToDateAndTime } from "src/utils/formats";
 
 interface ITaskSection {
   title: string;
   tasks: any[];
+  setTask: Dispatch<SetStateAction<ITaskDto | null>>;
+  setOpenEditModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const getColorByPriority = (priority: "Alta" | "Media" | "Baixa") => {
@@ -18,7 +22,7 @@ const getColorByPriority = (priority: "Alta" | "Media" | "Baixa") => {
   }
 };
 
-export const TaskSection = ({ title, tasks }: ITaskSection) => (
+export const TaskSection = ({ title, tasks, setTask, setOpenEditModal }: ITaskSection) => (
   <div className="flex w-full flex-wrap items-center gap-2">
     <h4 className="flex h-12 w-32 items-center text-start">{title}</h4>
     {tasks.map((task, index) => {
@@ -27,7 +31,11 @@ export const TaskSection = ({ title, tasks }: ITaskSection) => (
       return (
         <div
           key={index}
-          className={`flex h-12 w-fit items-center gap-0.5 rounded-6 px-2.5 md:w-56 md:justify-between ${bgColor}`}
+          className={`flex h-12 w-fit cursor-pointer items-center gap-0.5 rounded-6 px-2.5 md:w-56 md:justify-between ${bgColor}`}
+          onClick={() => {
+            setTask(task);
+            setOpenEditModal(true);
+          }}
         >
           <h6 className="truncate text-white">{task.descricao}</h6>
           <h6 className="w-fit text-white">{time}</h6>

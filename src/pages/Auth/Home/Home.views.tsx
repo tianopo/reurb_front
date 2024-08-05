@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
-import { ModalTaskCreate } from "../Schedule/components/ModalTask";
+import { ModalTaskCreate } from "../Schedule/components/ModalTaskCreate";
 import "./Home.css";
 
 export const Home = () => {

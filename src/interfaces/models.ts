@@ -61,6 +61,7 @@ type PrioridadeType = "Alta" | "Media" | "Baixa";
 type StatusTaskType = "à Fazer" | "Atrasados" | "Feitos";
 
 export interface ITaskDto {
+  id?: string;
   descricao: string;
   data: string;
   prioridade: PrioridadeType;
