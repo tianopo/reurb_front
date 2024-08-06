@@ -48,7 +48,7 @@ export interface IClientDto {
   emailConjuge?: string;
 }
 
-export interface IEmployeeDto {
+export interface IEmployeeDto extends IGeneralModel {
   nome: string;
   email: string;
   cpf: string;
@@ -61,11 +61,23 @@ type PrioridadeType = "Alta" | "Media" | "Baixa";
 type StatusTaskType = "à Fazer" | "Atrasados" | "Feitos";
 
 export interface ITaskDto {
-  id?: string;
   descricao: string;
   data: string;
   prioridade: PrioridadeType;
   projeto?: string;
   status: StatusTaskType;
   funcionarios?: string[];
+}
+
+export interface ITaskUpdateDto extends IGeneralModel {
+  descricao: string;
+  data: string;
+  prioridade: PrioridadeType;
+  projeto?: string;
+  status: StatusTaskType;
+  funcionarios?: {
+    id: string;
+    nome: string;
+    email: string;
+  }[];
 }

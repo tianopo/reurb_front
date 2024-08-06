@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
-import { ITaskDto } from "src/interfaces/models";
+import { ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
 import { Calendar } from "./components/Calendar";
 import { ModalTaskCreate } from "./components/ModalTaskCreate";
 import { ModalTaskUpdate } from "./components/ModalTaskUpdate";
@@ -12,7 +12,7 @@ export const Schedule = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { data: tasks, error, isLoading } = useListTask();
-  const [taskToEdit, setTaskToEdit] = useState<ITaskDto | null>(null);
+  const [taskToEdit, setTaskToEdit] = useState<ITaskUpdateDto | null>(null);
 
   const [tarefasHoje, setTarefasHoje] = useState<ITaskDto[]>([]);
   const [tasksByDay, setTasksByDay] = useState<Record<string, ITaskDto[]>>({});

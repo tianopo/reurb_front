@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
-import { ITaskDto } from "src/interfaces/models";
+import { ITaskUpdateDto } from "src/interfaces/models";
 import { formatISOToDateAndTime } from "src/utils/formats";
 
 interface ITaskSection {
   title: string;
   tasks: any[];
-  setTask: Dispatch<SetStateAction<ITaskDto | null>>;
+  setTask: Dispatch<SetStateAction<ITaskUpdateDto | null>>;
   setOpenEditModal: Dispatch<SetStateAction<boolean>>;
 }
 

@@ -2,24 +2,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
-import { ITaskDto } from "src/interfaces/models";
+import { ITaskUpdateDto } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
-import { app } from "src/routes/app";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
 export const useUpdateTask = (id: string, onClose: () => void) => {
-  const navigate = useNavigate();
-
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: ITaskDto) => path(id, data),
+    mutationFn: (data: ITaskUpdateDto) => path(id, data),
     onSuccess: () => {
       responseSuccess("Tarefa atualizada com sucesso");
       queryClient.invalidateQueries({ queryKey: ["task-data"] });
-      navigate(app.management);
       onClose();
     },
     onError: (erro: AxiosError) => responseError(erro),
@@ -40,15 +35,25 @@ export const useUpdateTask = (id: string, onClose: () => void) => {
       .required()
       .oneOf(["à Fazer", "Atrasados", "Feitos"], "Status inválido")
       .label("Status"),
-    funcionarios: Yup.array().of(Yup.string().required()).optional().min(1).label("Funcionários"),
+    funcionarios: Yup.array()
+      .of(
+        Yup.object().shape({
+          id: Yup.string().required(),
+          nome: Yup.string().required(),
+          email: Yup.string().required().email(),
+        }),
+      )
+      .optional()
+      .min(1)
+      .label("Funcionários"),
   });
 
-  const context = useForm<ITaskDto>({
+  const context = useForm<ITaskUpdateDto>({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
   });
 
-  async function path(id: string, data: Yup.InferType<typeof schema>): Promise<ITaskDto> {
+  async function path(id: string, data: Yup.InferType<typeof schema>): Promise<ITaskUpdateDto> {
     const result = await api().put(apiRoute.idTask(id), data);
     return result.data;
   }
