@@ -6,12 +6,13 @@ import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
 import { Select } from "src/components/Form/Select/Select";
 import { CardContainer } from "src/components/Layout/CardContainer";
+import { IEmployeeDto } from "src/interfaces/models";
 import { app } from "src/routes/app";
+import { useAccessControl } from "src/routes/context/AccessControl";
 import { formatCPF, formatPhone } from "src/utils/formats";
 import "../../Management.css";
 import { useGetIdUser } from "../hooks/useGetIdUser";
 import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
-import { IEmployeeDto } from "src/interfaces/models";
 
 interface IFormEmployee {
   MainDiv: () => JSX.Element;
@@ -24,6 +25,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
+  const { acesso } = useAccessControl();
 
   const { mutate, isPending, context } = useUpdateEmployee(id || "");
   const {
@@ -97,7 +99,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
               disabled={!edit}
               required
             />
-            {data && !["Master", "Admin"].includes(data.acesso) && (
+            {!["Master", "Admin", null].includes(acesso) && (
               <Select
                 title="Status"
                 options={["Ativado", "Desativado"]}

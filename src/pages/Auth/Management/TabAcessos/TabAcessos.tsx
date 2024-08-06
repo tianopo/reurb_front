@@ -7,6 +7,7 @@ import { InputSearch } from "src/components/Form/Input/InputSearch";
 import { InputX } from "src/components/Form/Input/InputX";
 import { Table } from "src/components/Table/Table";
 import { app } from "src/routes/app";
+import { useAccessControl } from "src/routes/context/AccessControl";
 import { IGetMembershipDto, useGetMembership } from "./hooks/useGetMembership";
 import { useListUser } from "./hooks/useListUser";
 
@@ -15,7 +16,7 @@ export const TabAcessos = () => {
   const { data, isLoading, error } = useListUser();
   const [filter, setFilter] = useState<any>("");
   const [isFormVisible, setFormVisible] = useState(false);
-  const master = data && data[0];
+  const { acesso } = useAccessControl();
 
   const headers = [
     { title: "Nome/Email", width: "32" },
@@ -56,7 +57,7 @@ export const TabAcessos = () => {
   return (
     <div className="flex w-full flex-col items-start gap-2.5">
       <h6 className="text-center text-write-primary">Acesso</h6>
-      {master && master.acesso === "Master" && (
+      {acesso === "Master" && (
         <>
           <div
             className={`w-full transition-transform duration-500 ease-in-out ${isFormVisible ? "translate-y-0 opacity-100" : "hidden translate-y-10 opacity-0"}`}
@@ -72,7 +73,9 @@ export const TabAcessos = () => {
           <Button onClick={() => setFormVisible(!isFormVisible)}>Formulário Adesão</Button>
         </>
       )}
-      <Button onClick={() => navigate(app.user)}>adicionar usuário</Button>
+      {!["Cliente", "Funcionário", null].includes(acesso) && (
+        <Button onClick={() => navigate(app.user)}>adicionar usuário</Button>
+      )}
       <InputSearch
         placeholder="Encontre um usuário"
         title="Encontre um Usuário"
