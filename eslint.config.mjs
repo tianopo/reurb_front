@@ -89,7 +89,7 @@ export default [
         rules: {
             "@typescript-eslint/no-explicit-any": "off",
         },
-        files: ["src/pages/Auth/Management/TabAcessos/**/*.tsx"],
+        files: ["src/pages/Auth/Management/TabAcessos/**/*.tsx", "src/pages/Auth/Schedule/components/ModalTaskUpdate.tsx"],
         rules: {
             "max-lines": ["error", {
                 max: 500,

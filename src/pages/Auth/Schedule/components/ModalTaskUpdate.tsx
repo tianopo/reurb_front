@@ -9,6 +9,7 @@ import { TextAreaX } from "src/components/Form/Textarea";
 import { IconX } from "src/components/Icons/IconX";
 import { Modal } from "src/components/Modal/Modal";
 import { IEmployeeDto, ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
+import { useAccessControl } from "src/routes/context/AccessControl";
 import { formatDateHour, formatDateToISO, formatISOToDateAndTime } from "src/utils/formats";
 import { useDelTask } from "../hooks/useDelTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
@@ -33,15 +34,12 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
   >(task?.funcionarios || []);
   const [funcionarioInput, setFuncionarioInput] = useState("");
   const [edit, setEdit] = useState(false);
-
   const { mutate, isPending, context } = useUpdateTask(task?.id || "", onClose);
   const {
     formState: { errors },
     setValue,
-    watch,
   } = context;
-
-  watch("data");
+  const { acesso } = useAccessControl();
 
   const handleDataFormat = (e: { target: { value: string } }) => {
     const formattedData = formatDateHour(e.target.value);
@@ -74,9 +72,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
       funcionarios: funcionarios,
     });
   };
-
   const { data, isLoading, error } = useGetEmployees();
-
   const employeeNames = data?.map((employee: IEmployeeDto) => employee.nome) || [];
 
   useEffect(() => {
@@ -89,39 +85,40 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
       setValue("funcionarios", task.funcionarios || []);
     }
   }, [task, setValue]);
-
   const { mutate: mutateDel } = useDelTask(task?.id || "", onClose);
 
   return (
     <Modal onClose={onClose}>
       <div className="flex justify-between">
         <h5>Atualizar Tarefa</h5>
-        <div className="flex gap-1">
-          <IconX
-            name="Excluir"
-            icon={
-              <Trash
-                className="cursor-pointer rounded-6 text-variation-error hover:bg-secundary hover:text-write-primary"
-                width={19.45}
-                height={20}
-                weight="regular"
-                onClick={() => mutateDel()}
-              />
-            }
-          />
-          <IconX
-            name="Editar"
-            icon={
-              <Gear
-                className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
-                width={19.45}
-                height={20}
-                weight="fill"
-                onClick={() => setEdit(!edit)}
-              />
-            }
-          />
-        </div>
+        {acesso !== "Cliente" && (
+          <div className="flex gap-1">
+            <IconX
+              name="Excluir"
+              icon={
+                <Trash
+                  className="cursor-pointer rounded-6 text-variation-error hover:bg-secundary hover:text-write-primary"
+                  width={19.45}
+                  height={20}
+                  weight="regular"
+                  onClick={() => mutateDel()}
+                />
+              }
+            />
+            <IconX
+              name="Editar"
+              icon={
+                <Gear
+                  className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
+                  width={19.45}
+                  height={20}
+                  weight="fill"
+                  onClick={() => setEdit(!edit)}
+                />
+              }
+            />
+          </div>
+        )}
       </div>
       <FormProvider {...context}>
         <FormX onSubmit={onSubmit}>
@@ -177,13 +174,15 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
                 (option: string) => !funcionarios.some((f) => f.nome === option),
               )}
             />
-            <Button
-              type="button"
-              onClick={handleFuncionarioAdd}
-              disabled={isPending || Object.keys(errors).length > 0 || !edit}
-            >
-              Adicionar Funcionário
-            </Button>
+            {!["Cliente", "Funcionário", null].includes(acesso) && (
+              <Button
+                type="button"
+                onClick={handleFuncionarioAdd}
+                disabled={isPending || Object.keys(errors).length > 0 || !edit}
+              >
+                Adicionar Funcionário
+              </Button>
+            )}
           </div>
           {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}
           {error && (

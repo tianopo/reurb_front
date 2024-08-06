@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
+import { useAccessControl } from "src/routes/context/AccessControl";
 import { Calendar } from "./components/Calendar";
 import { ModalTaskCreate } from "./components/ModalTaskCreate";
 import { ModalTaskUpdate } from "./components/ModalTaskUpdate";
@@ -13,6 +14,7 @@ export const Schedule = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const { data: tasks, error, isLoading } = useListTask();
   const [taskToEdit, setTaskToEdit] = useState<ITaskUpdateDto | null>(null);
+  const { acesso } = useAccessControl();
 
   const [tarefasHoje, setTarefasHoje] = useState<ITaskDto[]>([]);
   const [tasksByDay, setTasksByDay] = useState<Record<string, ITaskDto[]>>({});
@@ -115,7 +117,9 @@ export const Schedule = () => {
             setOpenEditModal={setOpenEditModal}
           />
         ))}
-        <Button onClick={() => setOpenModal(!openModal)}>Adicionar tarefa</Button>
+        {!["Cliente", "Funcionário", null].includes(acesso) && (
+          <Button onClick={() => setOpenModal(!openModal)}>Adicionar tarefa</Button>
+        )}
         {openModal && <ModalTaskCreate onClose={() => setOpenModal(false)} />}
         {openEditModal && (
           <ModalTaskUpdate onClose={() => setOpenEditModal(false)} task={taskToEdit} />
