@@ -57,7 +57,7 @@ export const TabAcessos = () => {
   return (
     <div className="flex w-full flex-col items-start gap-2.5">
       <h6 className="text-center text-write-primary">Acesso</h6>
-      {acesso === "Master" && (
+      {acesso === "Gestor" && (
         <>
           <div
             className={`w-full transition-transform duration-500 ease-in-out ${isFormVisible ? "translate-y-0 opacity-100" : "hidden translate-y-10 opacity-0"}`}

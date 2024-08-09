@@ -11,10 +11,10 @@
     "**/.git": true,
     ".github": true,
     "eslint.config.mjs": false,
-    ".lintstagedrc.json": true,
+    ".lintstagedrc.json": false,
     ".prettierrc": true,
     ".husky": true,
-    ".tool-versions": true,
+    ".tool-versions": false,
   },
   "typescript.preferences.quoteStyle": "double",
   "editor.minimap.enabled": true, // ativa o minimap

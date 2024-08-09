@@ -81,3 +81,18 @@ export interface ITaskUpdateDto extends IGeneralModel {
     email: string;
   }[];
 }
+
+interface IContributionDto {
+  userId: string;
+  valor: string;
+}
+
+export interface IProjectDto {
+  nome: string;
+  descricao: string;
+  valorTotal: string;
+  valorAcumulado: string;
+  funcionarios?: string[];
+  clientes?: string[];
+  contribuicoes: IContributionDto[];
+}

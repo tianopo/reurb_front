@@ -24,4 +24,8 @@ export const apiRoute = {
   /* Task */
   task: "/task",
   idTask: (id: string) => `/task/${id}`,
+
+  /* Projeto */
+  project: "/project",
+  idProject: (id: string) => `/project/${id}`,
 };
