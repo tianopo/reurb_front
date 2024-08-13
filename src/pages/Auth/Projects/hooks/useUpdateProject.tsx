@@ -38,7 +38,6 @@ export const useUpdateProject = (id: string, onClose: () => void) => {
         }),
       )
       .optional()
-      .min(1)
       .label("Funcionário"),
     clientes: Yup.array()
       .of(
@@ -48,7 +47,6 @@ export const useUpdateProject = (id: string, onClose: () => void) => {
         }),
       )
       .optional()
-      .min(1)
       .label("Cliente"),
     contributions: Yup.array()
       .of(
@@ -57,8 +55,7 @@ export const useUpdateProject = (id: string, onClose: () => void) => {
           valor: Yup.string().optional().label("Valor"),
         }),
       )
-      .optional()
-      .min(1),
+      .optional(),
   });
 
   const context = useForm<IProjectUpdateDto>({

@@ -3,11 +3,11 @@ import { Button } from "src/components/Buttons/Button";
 import { InputSearch } from "src/components/Form/Input/InputSearch";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { Table } from "src/components/Table/Table";
+import { IProjectUpdateDto } from "src/interfaces/models";
 import { ModalProjectCreate } from "./components/ModalProjectCreate";
 import { ModalProjectUpdate } from "./components/ModalProjectUpdate";
 import { useListProject } from "./hooks/useListProject";
 import "./Projects.css";
-import { IProjectUpdateDto } from "src/interfaces/models";
 
 export const Projects = () => {
   const { data, isLoading, error } = useListProject();
@@ -17,9 +17,9 @@ export const Projects = () => {
   const [projectToEdit, setProjectToEdit] = useState<IProjectUpdateDto | undefined>();
 
   const headers = [
-    { title: "Nome", width: "32" },
-    { title: "Valor", width: "14" },
-    { title: "Status", width: "12" },
+    { title: "Nome", width: "20" },
+    { title: "Valor", width: "20" },
+    { title: "Status", width: "20" },
   ];
 
   const transformedData =

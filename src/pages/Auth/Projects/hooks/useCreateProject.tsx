@@ -20,8 +20,8 @@ export const useCreateProject = (onClose: () => void) => {
     valorTotal: Yup.string().required().label("Valor Total"),
     valorAcumulado: Yup.string().required().label("Valor Acumulado"),
     status: Yup.string().oneOf(["Aberto", "Progresso", "Concluido"]).required(),
-    funcionarios: Yup.array().optional().min(1).label("Funcionários"),
-    clientes: Yup.array().optional().min(1).label("Clientes"),
+    funcionarios: Yup.array().optional().label("Funcionários"),
+    clientes: Yup.array().optional().label("Clientes"),
     contribuicoes: Yup.array()
       .of(
         Yup.object().shape({
@@ -29,8 +29,7 @@ export const useCreateProject = (onClose: () => void) => {
           valor: Yup.string().optional().label("Valor"),
         }),
       )
-      .optional()
-      .min(1),
+      .optional(),
   });
 
   const context = useForm<IProjectDto>({

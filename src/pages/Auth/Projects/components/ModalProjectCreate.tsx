@@ -60,6 +60,7 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
   const handleTotalValueFormat = (e: { target: { value: string } }) => {
     const formattedTotalValue = formatCurrency(e.target.value);
     setTotalValue(formattedTotalValue);
+    setValue("valorTotal", formattedTotalValue);
   };
 
   const handleFuncionarioAdd = () => {
@@ -151,6 +152,7 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
 
   const handleProjectTypeSelect = (option: StatusProjectType) => {
     setStatus(option);
+    setValue("status", option);
   };
 
   return (

@@ -43,7 +43,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
   const [funcionarioInput, setFuncionarioInput] = useState("");
   const [clientes, setClientes] = useState<IUpdateProject[]>(project?.clientes || []);
   const [clienteInput, setClienteInput] = useState("");
-  const [totalValue, setTotalValue] = useState(project?.valorTotal);
+  const [totalValue, setTotalValue] = useState(project?.valorTotal || "");
   const [contributions, setContributions] = useState<IContributionDto[]>(
     project?.contributions || [],
   );
@@ -63,13 +63,13 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
     if (project) {
       setValue("nome", project.nome || "");
       setValue("descricao", project.descricao || "");
-      setValue("dataInicio", date || "");
-      setValue("valorTotal", project.valorTotal || "");
-      setValue("valorAcumulado", project.valorAcumulado || "");
-      setValue("status", project.status || "");
-      setValue("funcionarios", project.funcionarios || []);
-      setValue("clientes", project.clientes || []);
-      setValue("contributions", project.contributions || []);
+      setValue("dataInicio", date);
+      setValue("valorTotal", totalValue);
+      setValue("valorAcumulado", valorAcumulado);
+      setValue("status", status);
+      setValue("funcionarios", funcionarios || []);
+      setValue("clientes", clientes || []);
+      setValue("contributions", contributions || []);
     }
   }, [project, setValue]);
 
@@ -86,6 +86,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
   const handleTotalValueFormat = (e: { target: { value: string } }) => {
     const formattedTotalValue = formatCurrency(e.target.value);
     setTotalValue(formattedTotalValue);
+    setValue("valorTotal", formattedTotalValue);
   };
 
   const handleFuncionarioAdd = () => {
@@ -177,6 +178,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
 
   const handleProjectTypeSelect = (option: StatusProjectType) => {
     setStatus(option);
+    setValue("status", option);
   };
 
   return (

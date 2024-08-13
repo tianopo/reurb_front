@@ -26,7 +26,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
   const { acesso } = useAccessControl();
-
+  console.log(id);
   const { mutate, isPending, context } = useUpdateEmployee(id || "");
   const {
     formState: { errors },
