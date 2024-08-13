@@ -9,8 +9,8 @@ import { TextAreaX } from "src/components/Form/Textarea";
 import { IconX } from "src/components/Icons/IconX";
 import { Modal } from "src/components/Modal/Modal";
 import { IEmployeeDto, ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
-import { useAccessControl } from "src/routes/context/AccessControl";
-import { formatDateHour, formatDateToISO, formatISOToDateAndTime } from "src/utils/formats";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
+import { formatDateHour, formatDateHourToISO, formatISOToDateAndTime } from "src/utils/formats";
 import { useDelTask } from "../hooks/useDelTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
 import { useUpdateTask } from "../hooks/useUpdateTask";
@@ -65,7 +65,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
   };
 
   const onSubmit = (data: ITaskDto) => {
-    const formattedDataIso = formatDateToISO(date);
+    const formattedDataIso = formatDateHourToISO(date);
     mutate({
       ...data,
       data: formattedDataIso,
@@ -91,7 +91,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
     <Modal onClose={onClose}>
       <div className="flex justify-between">
         <h5>Atualizar Tarefa</h5>
-        {acesso !== "Cliente" && (
+        {acesso !== Role.Cliente && (
           <div className="flex gap-1">
             <IconX
               name="Excluir"
@@ -174,7 +174,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
                 (option: string) => !funcionarios.some((f) => f.nome === option),
               )}
             />
-            {!["Cliente", "Funcionário", null].includes(acesso) && (
+            {![Role.Cliente, Role.Funcionario, null].includes(acesso) && (
               <Button
                 type="button"
                 onClick={handleFuncionarioAdd}

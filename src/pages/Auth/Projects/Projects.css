@@ -9,3 +9,7 @@
 .descritivo {
   @apply text-center text-write-secundary hover:underline;
 }
+
+.option-select-project {
+  @apply cursor-pointer rounded-lg p-2.5 text-write-secundary hover:bg-selected-primary hover:text-write-primary;
+}

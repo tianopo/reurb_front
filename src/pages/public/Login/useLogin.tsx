@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import { responseError, responseSuccess } from "src/config/responseErrors";
 import { IAuthModel } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
 import { app } from "src/routes/app";
+import { TokenPayload, useAccessControl } from "src/routes/context/AccessControl";
 import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
@@ -21,6 +23,7 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const { t: translator } = useTranslation();
   const t = (t: string) => translator(`hooks.auth.${t}`);
+  const { setAccessControl } = useAccessControl();
 
   const { mutate, isPending } = useMutation({
     mutationFn: path,
@@ -31,6 +34,9 @@ export const useLogin = () => {
         timestamp: Date.now(),
       });
       localStorage.setItem("token", data.token);
+
+      const decodedToken = jwtDecode<TokenPayload>(data.token);
+      setAccessControl(decodedToken.email, decodedToken.acesso);
 
       navigate(app.home);
     },

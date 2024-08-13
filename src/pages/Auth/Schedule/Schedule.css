@@ -3,5 +3,5 @@
 }
 
 .div-inputs {
-  @apply flex flex-col gap-2 py-1 md:flex-row;
+  @apply flex flex-col gap-2 md:flex-row;
 }

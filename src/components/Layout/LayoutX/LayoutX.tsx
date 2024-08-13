@@ -8,14 +8,14 @@ export const LayoutX = () => {
   const nav = [
     { text: "Início", route: app.home, icon: <House width={20} height={17} weight="fill" /> },
     {
-      text: "Agenda",
-      route: app.schedule,
-      icon: <Calendar width={20} height={17} weight="duotone" />,
-    },
-    {
       text: "Projetos",
       route: app.projects,
       icon: <ProjectorScreen width={20} height={17} weight="duotone" />,
+    },
+    {
+      text: "Agenda",
+      route: app.schedule,
+      icon: <Calendar width={20} height={17} weight="duotone" />,
     },
     {
       text: "Financeiro",

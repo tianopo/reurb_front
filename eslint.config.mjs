@@ -50,7 +50,7 @@ export default [
             }],
 
             "max-lines": ["error", {
-                max: 200,
+                max: 250,
             }],
 
             "no-duplicate-imports": "error",
@@ -89,7 +89,7 @@ export default [
         rules: {
             "@typescript-eslint/no-explicit-any": "off",
         },
-        files: ["src/pages/Auth/Management/TabAcessos/**/*.tsx", "src/pages/Auth/Schedule/components/ModalTaskUpdate.tsx"],
+        files: ["src/pages/Auth/Management/TabAcessos/**/*.tsx", "src/pages/Auth/Schedule/components/ModalTaskUpdate.tsx", "src/pages/Auth/Projects/**/*.tsx"],
         rules: {
             "max-lines": ["error", {
                 max: 500,

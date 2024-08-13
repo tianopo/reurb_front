@@ -115,8 +115,25 @@ export const formatCurrency = (value: string): string => {
   return input;
 };
 
+export const parseCurrency = (value: string): number => {
+  return Number(
+    value
+      .replace(/[^\d,-]/g, "")
+      .replace("R$", "")
+      .replace(".", "")
+      .replace(",", "."),
+  );
+};
+
+export const parseToFormatCurrency = (value: number): string => {
+  const numberValue = parseFloat(value.toString().replace(",", "."));
+
+  const fixedNumberValue = numberValue.toFixed(2);
+  return `R$ ${fixedNumberValue.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}`;
+};
+
 export const formatDateHour = (value: string): string => {
-  let input = value.replace(/[^0-9]/g, ""); // Remove caracteres não numéricos
+  let input = value.replace(/[^0-9]/g, "");
 
   if (input.length <= 2) {
     // Formata DD
@@ -144,7 +161,7 @@ export const formatDateHour = (value: string): string => {
   return input;
 };
 
-export const formatDateToISO = (dateString: string): string => {
+export const formatDateHourToISO = (dateString: string): string => {
   if (!dateString) return "";
 
   const [datePart, timePart] = dateString.split(" ");
@@ -159,20 +176,48 @@ export const formatDateToISO = (dateString: string): string => {
   return `${year}-${month}-${day}T${hour}:${minute}:00`;
 };
 
-export const formatISOToDateAndTime = (isoString: string): { date: string; time: string } => {
-  if (!isoString) return { date: "", time: "" };
+export const formatISOToDateAndTime = (isoString: string): { date: string; time?: string } => {
+  if (!isoString) return { date: "" };
+  const [datePart, timePart] = isoString.split("T");
 
-  const [dateTimePart] = isoString.split("T");
+  if (!datePart) return { date: "" };
 
-  if (!dateTimePart) return { date: "", time: "" };
-
-  const [year, month, day] = dateTimePart.split("-");
-  const [hour, minute] = isoString.split("T")[1].split(":");
-
-  if (!year || !month || !day || !hour || !minute) return { date: "", time: "" };
+  const [year, month, day] = datePart.split("-");
+  if (!year || !month || !day) return { date: "" };
 
   const date = `${day}/${month}/${year}`;
-  const time = `${hour}:${minute}`;
 
-  return { date, time };
+  let time;
+  if (timePart) {
+    const [hour, minute] = timePart.split(":");
+    if (hour && minute) {
+      time = `${hour}:${minute}`;
+    }
+  }
+
+  return time ? { date, time } : { date };
+};
+
+export const formatDate = (value: string): string => {
+  let input = value.replace(/[^0-9]/g, "");
+
+  if (input.length <= 2) {
+    input = input.replace(/^(\d{1,2})/, "$1");
+  } else if (input.length <= 4) {
+    input = input.replace(/^(\d{2})(\d{1,2})/, "$1/$2");
+  } else if (input.length <= 8) {
+    input = input.replace(/^(\d{2})(\d{2})(\d{1,4})/, "$1/$2/$3");
+  } else {
+    // Se a string tiver mais de 8 caracteres, limita a 10 (formato DD/MM/YYYY)
+    input = input.slice(0, 8).replace(/^(\d{2})(\d{2})(\d{1,4})/, "$1/$2/$3");
+  }
+
+  return input;
+};
+
+export const formatDateToISO = (dateString: string): string => {
+  if (!dateString) return "";
+  const [day, month, year] = dateString.split("/");
+  if (!day || !month || !year) return "";
+  return `${year}-${month}-${day}`;
 };

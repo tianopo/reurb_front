@@ -1,21 +1,33 @@
 import { jwtDecode } from "jwt-decode";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-interface TokenPayload {
+export interface TokenPayload {
   email: string;
-  acesso: string;
+  acesso: Role;
 }
 
 interface AccessControlContextType {
   email: string | null;
-  acesso: string | null;
+  acesso: Role | null;
+  setAccessControl: (email: string, acesso: Role) => void;
 }
 
-const AccessControlContext = createContext<AccessControlContextType>({ email: null, acesso: null });
+export enum Role {
+  Cliente = "Cliente",
+  Funcionario = "Funcionário",
+  Admin = "Admin",
+  Gestor = "Gestor",
+}
+
+const AccessControlContext = createContext<AccessControlContextType>({
+  email: null,
+  acesso: null,
+  setAccessControl: () => {},
+});
 
 export const AccessControlProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [email, setEmail] = useState<string | null>(null);
-  const [acesso, setAcesso] = useState<string | null>(null);
+  const [acesso, setAcesso] = useState<Role | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,8 +42,13 @@ export const AccessControlProvider: React.FC<{ children: ReactNode }> = ({ child
     }
   }, []);
 
+  const setAccessControl = (email: string, acesso: Role) => {
+    setEmail(email);
+    setAcesso(acesso);
+  };
+
   return (
-    <AccessControlContext.Provider value={{ email, acesso }}>
+    <AccessControlContext.Provider value={{ email, acesso, setAccessControl }}>
       {children}
     </AccessControlContext.Provider>
   );

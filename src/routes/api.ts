@@ -16,6 +16,7 @@ export const apiRoute = {
   client: "/user/client",
   employee: "/user/employee",
   employees: "/user/employee/funcionario",
+  clientAndEmployees: "/user/client/employee",
   recoverPassword: "/user/recover-password",
   idUser: (id: string) => `/user/${id}`,
   idClient: (id: string) => `/user/client/${id}`, // delete and update

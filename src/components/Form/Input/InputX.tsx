@@ -14,6 +14,7 @@ import { Label } from "../Label/Label";
 import "./Input.css";
 
 interface IInputX extends IUseForm {
+  index?: string;
   title: string;
   placeholder?: string;
   value?: string;
@@ -28,6 +29,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
   {
     disabled,
     required,
+    index,
     title,
     placeholder,
     value,
@@ -40,7 +42,7 @@ export const BeginInput: ForwardRefRenderFunction<HTMLInputElement, IInputX> = (
   }: IInputX,
   ref,
 ) => {
-  const words = labelFormatted(title);
+  const words = labelFormatted(index ? `${title}-${index}` : title);
   const formContext = useFormContext();
   const { register, formState, setValue } = formContext || {};
 

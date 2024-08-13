@@ -6,26 +6,31 @@ import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
 import { IProjectDto } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
+import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
 export const useCreateProject = (onClose: () => void) => {
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(100).label("Nome"),
+    dataInicio: Yup.string()
+      .required()
+      .matches(Regex["DD/MM/YYYY"], "Formato: DD/MM/YYYY, data inválida")
+      .label("Data Inicio"),
     descricao: Yup.string().required().min(1).max(250).label("Descrição"),
     valorTotal: Yup.string().required().label("Valor Total"),
     valorAcumulado: Yup.string().required().label("Valor Acumulado"),
-    funcionarios: Yup.array().of(Yup.string().required()).optional().min(1).label("Funcionários"),
-    clientes: Yup.array().of(Yup.string().required()).optional().min(1).label("Clientes"),
+    status: Yup.string().oneOf(["Aberto", "Progresso", "Concluido"]).required(),
+    funcionarios: Yup.array().optional().min(1).label("Funcionários"),
+    clientes: Yup.array().optional().min(1).label("Clientes"),
     contribuicoes: Yup.array()
       .of(
         Yup.object().shape({
-          userId: Yup.string().required().label("ID do Usuário"),
-          valor: Yup.string().required().label("Valor da Contribuição"),
+          userId: Yup.string().optional(),
+          valor: Yup.string().optional().label("Valor"),
         }),
       )
-      .required()
-      .min(1)
-      .label("Contribuições"),
+      .optional()
+      .min(1),
   });
 
   const context = useForm<IProjectDto>({

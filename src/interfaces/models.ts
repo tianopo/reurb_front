@@ -1,3 +1,5 @@
+import { Role } from "src/routes/context/AccessControl";
+
 export interface IGeneralModel {
   id?: string;
   createdIn?: Date;
@@ -19,7 +21,7 @@ export type EstadoCivil =
   | "Viúvo";
 type StatusType = "Ativado" | "Desativado";
 
-export interface IClientDto {
+export interface IClientDto extends IGeneralModel {
   nome: string;
   email: string;
   tiposDeContrato: TipoDeContrato;
@@ -46,6 +48,7 @@ export interface IClientDto {
   profissaoConjuge?: string;
   telefoneConjuge?: string;
   emailConjuge?: string;
+  acesso?: Role;
 }
 
 export interface IEmployeeDto extends IGeneralModel {
@@ -55,6 +58,7 @@ export interface IEmployeeDto extends IGeneralModel {
   profissao: string;
   telefone: string;
   status?: StatusType;
+  acesso?: Role;
 }
 
 type PrioridadeType = "Alta" | "Media" | "Baixa";
@@ -82,17 +86,38 @@ export interface ITaskUpdateDto extends IGeneralModel {
   }[];
 }
 
-interface IContributionDto {
-  userId: string;
-  valor: string;
+export interface IContributionDto {
+  userId?: string;
+  valor?: string;
 }
 
-export interface IProjectDto {
+export type StatusProjectType = "Aberto" | "Progresso" | "Concluido";
+
+export interface IUpdateProject {
+  id: string;
+  nome: string;
+}
+
+export interface IProjectDto extends IGeneralModel {
   nome: string;
   descricao: string;
   valorTotal: string;
   valorAcumulado: string;
+  dataInicio: string;
+  status: StatusProjectType;
   funcionarios?: string[];
   clientes?: string[];
-  contribuicoes: IContributionDto[];
+  contribuicoes?: IContributionDto[];
+}
+
+export interface IProjectUpdateDto extends IGeneralModel {
+  nome: string;
+  descricao: string;
+  valorTotal: string;
+  valorAcumulado: string;
+  dataInicio: string;
+  status: StatusProjectType;
+  funcionarios?: IUpdateProject[];
+  clientes?: IUpdateProject[];
+  contributions?: IContributionDto[];
 }

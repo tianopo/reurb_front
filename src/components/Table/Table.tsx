@@ -1,5 +1,5 @@
 import { Gear } from "@phosphor-icons/react";
-import { useAccessControl } from "src/routes/context/AccessControl";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import { IconX } from "../Icons/IconX";
 import "./Table.css";
 
@@ -22,7 +22,7 @@ export const Table = ({ headers, data, onClick }: ITable) => {
   return (
     <div className="w-full overflow-x-auto">
       <span className="text-write-primary">
-        Mostrando {data.length} usuário{data.length > 1 && "s"}
+        Mostrando {data.length} dado{data.length > 1 && "s"}
       </span>
       <table className="w-full rounded-lg border-1 border-edge-primary bg-white text-start">
         <thead>
@@ -47,7 +47,7 @@ export const Table = ({ headers, data, onClick }: ITable) => {
               <td className={`space-b min-w-${headers[2].width} max-w-${headers[2].width}`}>
                 {row?.three}
               </td>
-              {acesso !== "Cliente" && (
+              {acesso !== Role.Cliente && (
                 <td className={`space-b min-w-6 max-w-6`}>
                   <IconX
                     name="Editar"

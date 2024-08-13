@@ -8,7 +8,7 @@ import { Select } from "src/components/Form/Select/Select";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { IEmployeeDto } from "src/interfaces/models";
 import { app } from "src/routes/app";
-import { useAccessControl } from "src/routes/context/AccessControl";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import { formatCPF, formatPhone } from "src/utils/formats";
 import "../../Management.css";
 import { useGetIdUser } from "../hooks/useGetIdUser";
@@ -99,7 +99,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
               disabled={!edit}
               required
             />
-            {!["Gestor", "Admin", null].includes(acesso) && (
+            {![Role.Gestor, Role.Admin, null].includes(acesso) && (
               <Select
                 title="Status"
                 options={["Ativado", "Desativado"]}

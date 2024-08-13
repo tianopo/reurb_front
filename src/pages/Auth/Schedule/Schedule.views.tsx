@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "src/components/Buttons/Button";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
-import { useAccessControl } from "src/routes/context/AccessControl";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import { Calendar } from "./components/Calendar";
 import { ModalTaskCreate } from "./components/ModalTaskCreate";
 import { ModalTaskUpdate } from "./components/ModalTaskUpdate";
@@ -117,7 +117,7 @@ export const Schedule = () => {
             setOpenEditModal={setOpenEditModal}
           />
         ))}
-        {!["Cliente", "Funcionário", null].includes(acesso) && (
+        {![Role.Cliente, Role.Funcionario, null].includes(acesso) && (
           <Button onClick={() => setOpenModal(!openModal)}>Adicionar tarefa</Button>
         )}
         {openModal && <ModalTaskCreate onClose={() => setOpenModal(false)} />}

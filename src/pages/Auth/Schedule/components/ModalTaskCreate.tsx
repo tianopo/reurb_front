@@ -8,7 +8,7 @@ import { Select } from "src/components/Form/Select/Select";
 import { TextAreaX } from "src/components/Form/Textarea";
 import { Modal } from "src/components/Modal/Modal";
 import { IEmployeeDto, ITaskDto } from "src/interfaces/models";
-import { formatDateHour, formatDateToISO } from "src/utils/formats";
+import { formatDateHour, formatDateHourToISO } from "src/utils/formats";
 import { useCreateTask } from "../hooks/useCreateTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
 import "../Schedule.css";
@@ -52,7 +52,7 @@ export const ModalTaskCreate = ({ onClose }: IModalTaskCreate) => {
   };
 
   const onSubmit = (data: ITaskDto) => {
-    const formattedDataIso = formatDateToISO(date);
+    const formattedDataIso = formatDateHourToISO(date);
     mutate({
       ...data,
       data: formattedDataIso,

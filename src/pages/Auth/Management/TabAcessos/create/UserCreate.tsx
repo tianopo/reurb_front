@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { Role } from "src/routes/context/AccessControl";
 import "../../Management.css";
 import { SelectUser } from "../components/SelectUser";
 import { FormCreateClient } from "./FormCreateClient";
 import { FormCreateEmployee } from "./FormCreateEmployee";
 
 export const UserCreate = () => {
-  const [access, setAccess] = useState("Cliente");
+  const [access, setAccess] = useState<Role | string>(Role.Cliente);
   const [user, setUser] = useState("Usuário");
 
-  const handleUserTypeSelect = (option: string) => {
+  const handleUserTypeSelect = (option: Role | string) => {
     setAccess(option);
   };
 
@@ -21,7 +22,7 @@ export const UserCreate = () => {
     </div>
   );
 
-  return access === "Cliente" ? (
+  return access === Role.Cliente ? (
     <FormCreateClient MainDiv={MainDiv} setUser={setUser} />
   ) : (
     <FormCreateEmployee MainDiv={MainDiv} setUser={setUser} />

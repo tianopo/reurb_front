@@ -2,6 +2,7 @@ import { Gear, Trash } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IconX } from "src/components/Icons/IconX";
+import { Role } from "src/routes/context/AccessControl";
 import "../../Management.css";
 import { SelectUser } from "../components/SelectUser";
 import { useDelUser } from "../hooks/useDelUser";
@@ -10,7 +11,7 @@ import { FormUpdateEmployee } from "./FormUpdateEmployee";
 
 export const UserUpdate = () => {
   const location = useLocation();
-  const [access, setAccess] = useState("");
+  const [access, setAccess] = useState<Role | string>("");
   const [user, setUser] = useState("Usuário");
   const [edit, setEdit] = useState(false);
   const [idExcluir, setIdExcluir] = useState("");
@@ -22,7 +23,7 @@ export const UserUpdate = () => {
     }
   }, [location.state]);
 
-  const handleUserTypeSelect = (option: string) => {
+  const handleUserTypeSelect = (option: Role | string) => {
     setAccess(option);
   };
 
@@ -30,7 +31,7 @@ export const UserUpdate = () => {
     <div className="flex w-full flex-col items-start justify-between md:flex-row">
       <h4 className="md:w-max-80 w-full truncate text-start text-write-primary md:w-80">{user}</h4>
       <div className="flex gap-1">
-        {["Gestor", "Admin"].includes(access) && (
+        {[Role.Gestor, Role.Admin].includes(access as Role) && (
           <SelectUser setAccess={handleUserTypeSelect} access={access} disabled={!edit} />
         )}
         <IconX
@@ -45,7 +46,7 @@ export const UserUpdate = () => {
             />
           }
         />
-        {["Gestor", "Admin"].includes(access) && (
+        {[Role.Gestor, Role.Admin].includes(access as Role) && (
           <IconX
             name="Excluir"
             icon={
@@ -63,7 +64,7 @@ export const UserUpdate = () => {
     </div>
   );
 
-  return access === "Cliente" ? (
+  return access === Role.Cliente ? (
     <FormUpdateClient MainDiv={MainDiv} setUser={setUser} setIdExcluir={setIdExcluir} edit={edit} />
   ) : (
     <FormUpdateEmployee
