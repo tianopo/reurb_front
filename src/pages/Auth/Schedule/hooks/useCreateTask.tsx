@@ -20,12 +20,12 @@ export const useCreateTask = (onClose: () => void) => {
       .required()
       .oneOf(["Alta", "Media", "Baixa"], "Prioridade inválida")
       .label("Prioridade"),
-    projeto: Yup.string().optional().label("Projeto"),
+    projetoId: Yup.string().optional(),
     status: Yup.string()
       .required()
       .oneOf(["à Fazer", "Atrasados", "Feitos"], "Status inválido")
       .label("Status"),
-    funcionarios: Yup.array().of(Yup.string().required()).optional().min(1).label("Funcionários"),
+    funcionarios: Yup.array().of(Yup.string().required()).optional().label("Funcionários"),
   });
 
   const context = useForm<ITaskDto>({

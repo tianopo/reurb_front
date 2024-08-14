@@ -30,7 +30,6 @@ export const useUpdateTask = (id: string, onClose: () => void) => {
       .required()
       .oneOf(["Alta", "Media", "Baixa"], "Prioridade inválida")
       .label("Prioridade"),
-    projeto: Yup.string().optional().label("Projeto"),
     status: Yup.string()
       .required()
       .oneOf(["à Fazer", "Atrasados", "Feitos"], "Status inválido")
@@ -44,7 +43,6 @@ export const useUpdateTask = (id: string, onClose: () => void) => {
         }),
       )
       .optional()
-      .min(1)
       .label("Funcionários"),
   });
 

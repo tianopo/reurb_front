@@ -110,7 +110,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
   const handleClienteAdd = () => {
     const selectedClient = data.find((client: IClientDto) => client.nome === clienteInput.trim());
     if (selectedClient && !clientes.some((f) => f.id === selectedClient.id)) {
-      const updatedClientes = [...clientes, selectedClient.id];
+      const updatedClientes = [...clientes, selectedClient];
       setClientes(updatedClientes);
       setValue("clientes", updatedClientes);
       setClienteInput("");
@@ -257,11 +257,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
               )}
             />
             {![Role.Cliente, Role.Funcionario, null].includes(acesso) && (
-              <Button
-                type="button"
-                onClick={handleClienteAdd}
-                disabled={isPending || Object.keys(errors).length > 0 || !edit}
-              >
+              <Button type="button" onClick={handleClienteAdd} disabled={isPending || !edit}>
                 Adicionar Cliente
               </Button>
             )}
@@ -269,12 +265,17 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
           <div className="flex flex-wrap gap-2 text-write-secundary">
             {clientes.map((cliente) => {
               const contribution = contributions.find((contrib) => contrib.userId === cliente.id);
+              console.log(cliente, "here", funcionarios);
               return (
                 <div key={cliente.id} className="flex flex-col">
                   <div className="flex items-center gap-1">
                     <IdentificationCard />
                     <p>{cliente.nome}</p>
-                    <button type="button" onClick={() => handleClienteRemove(cliente.id)}>
+                    <button
+                      type="button"
+                      onClick={() => handleClienteRemove(cliente.id)}
+                      disabled={isPending || !edit}
+                    >
                       ✖
                     </button>
                   </div>

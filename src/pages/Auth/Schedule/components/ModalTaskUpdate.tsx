@@ -8,9 +8,10 @@ import { Select } from "src/components/Form/Select/Select";
 import { TextAreaX } from "src/components/Form/Textarea";
 import { IconX } from "src/components/Icons/IconX";
 import { Modal } from "src/components/Modal/Modal";
-import { IEmployeeDto, ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
+import { IEmployeeDto, IProjectUpdateDto, ITaskDto, ITaskUpdateDto } from "src/interfaces/models";
 import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import { formatDateHour, formatDateHourToISO, formatISOToDateAndTime } from "src/utils/formats";
+import { useListProject } from "../../Projects/hooks/useListProject";
 import { useDelTask } from "../hooks/useDelTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
 import { useUpdateTask } from "../hooks/useUpdateTask";
@@ -40,6 +41,8 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
     setValue,
   } = context;
   const { acesso } = useAccessControl();
+  const [projeto, setProjeto] = useState<ITaskUpdateDto["projeto"]>(task?.projeto || undefined);
+  const [projetoInput, setProjetoInput] = useState("");
 
   const handleDataFormat = (e: { target: { value: string } }) => {
     const formattedData = formatDateHour(e.target.value);
@@ -64,8 +67,27 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
     setValue("funcionarios", updatedFuncionarios);
   };
 
+  const handleProjetoAdd = () => {
+    const selectedProjeto = projetos.find(
+      (projetoBack: IProjectUpdateDto) =>
+        projetoBack.nome === projetoInput.trim() && projetoBack.id !== projeto,
+    );
+
+    if (selectedProjeto) {
+      setProjeto(selectedProjeto);
+      setProjetoInput("");
+    }
+  };
+
+  const handleProjetoRemove = () => {
+    setProjeto(undefined);
+    setValue("projeto", undefined);
+  };
+
   const onSubmit = (data: ITaskDto) => {
     const formattedDataIso = formatDateHourToISO(date);
+    setValue("projeto", projeto);
+    console.log(data);
     mutate({
       ...data,
       data: formattedDataIso,
@@ -75,14 +97,14 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
   const { data, isLoading, error } = useGetEmployees();
   const employeeNames = data?.map((employee: IEmployeeDto) => employee.nome) || [];
 
+  const { data: projetos, isLoading: isLoadingProjetos, error: errorProjetos } = useListProject();
   useEffect(() => {
     if (task) {
       setValue("descricao", task.descricao || "");
       setValue("data", dateTime);
       setValue("prioridade", task.prioridade || "");
-      setValue("projeto", task.projeto || "");
       setValue("status", task.status || "");
-      setValue("funcionarios", task.funcionarios || []);
+      setValue("funcionarios", funcionarios || []);
     }
   }, [task, setValue]);
   const { mutate: mutateDel } = useDelTask(task?.id || "", onClose);
@@ -121,7 +143,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
         )}
       </div>
       <FormProvider {...context}>
-        <FormX onSubmit={onSubmit}>
+        <FormX onSubmit={onSubmit} className="flex flex-col gap-1">
           <TextAreaX
             title="Descrição"
             placeholder="Digite a descrição da tarefa"
@@ -146,21 +168,57 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
               required
             />
           </div>
-          <div className="div-inputs">
+          <Select
+            title="Status"
+            placeholder="Feitos"
+            value={task?.status}
+            options={["à Fazer", "Atrasados", "Feitos"]}
+            disabled={!edit}
+            required
+          />
+          <div className="div-inputs items-end">
             <InputX
               title="Projeto"
-              placeholder="ainda à fazer"
-              value={task?.projeto}
+              placeholder="Digite o nome do funcionário"
+              value={projetoInput}
               disabled={!edit}
+              onChange={(e) => setProjetoInput(e.target.value)}
+              busca
+              options={projetos
+                ?.filter(
+                  (projetoBack: IProjectUpdateDto) =>
+                    projetoBack.nome.toLowerCase().includes(projetoInput.toLowerCase()) &&
+                    projetoBack.id !== projeto?.id,
+                )
+                .map((projeto: IProjectUpdateDto) => projeto.nome)}
             />
-            <Select
-              title="Status"
-              placeholder="Feitos"
-              value={task?.status}
-              options={["à Fazer", "Atrasados", "Feitos"]}
-              disabled={!edit}
-              required
-            />
+            <Button type="button" disabled={isLoadingProjetos || !edit} onClick={handleProjetoAdd}>
+              Adicionar Projeto
+            </Button>
+          </div>
+          {isLoadingProjetos && <h6 className="text-center text-write-primary">Carregando...</h6>}
+          {errorProjetos && (
+            <>
+              <h6 className="text-center text-write-primary">
+                Ocorreu um erro ao carregar os dados.
+              </h6>
+              <p className="text-center text-red-500">{errorProjetos?.message}</p>
+            </>
+          )}
+          <div className="flex flex-wrap gap-2 text-write-secundary">
+            {projeto && (
+              <div key={projeto.id} className="flex items-center gap-1">
+                <IdentificationCard />
+                <p>{projeto.nome}</p>
+                <button
+                  type="button"
+                  disabled={isLoadingProjetos || !edit}
+                  onClick={handleProjetoRemove}
+                >
+                  ✖
+                </button>
+              </div>
+            )}
           </div>
           <div className="div-inputs items-end">
             <InputX

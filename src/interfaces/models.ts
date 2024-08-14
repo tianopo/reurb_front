@@ -68,7 +68,7 @@ export interface ITaskDto {
   descricao: string;
   data: string;
   prioridade: PrioridadeType;
-  projeto?: string;
+  projetoId?: string;
   status: StatusTaskType;
   funcionarios?: string[];
 }
@@ -77,7 +77,7 @@ export interface ITaskUpdateDto extends IGeneralModel {
   descricao: string;
   data: string;
   prioridade: PrioridadeType;
-  projeto?: string;
+  projeto?: Partial<Pick<IProjectUpdateDto, "id" | "nome">>;
   status: StatusTaskType;
   funcionarios?: {
     id: string;
