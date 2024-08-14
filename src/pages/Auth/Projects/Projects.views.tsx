@@ -4,6 +4,7 @@ import { InputSearch } from "src/components/Form/Input/InputSearch";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { Table } from "src/components/Table/Table";
 import { IProjectUpdateDto } from "src/interfaces/models";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import { ModalProjectCreate } from "./components/ModalProjectCreate";
 import { ModalProjectUpdate } from "./components/ModalProjectUpdate";
 import { useListProject } from "./hooks/useListProject";
@@ -15,6 +16,7 @@ export const Projects = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [projectToEdit, setProjectToEdit] = useState<IProjectUpdateDto | undefined>();
+  const { acesso } = useAccessControl();
 
   const headers = [
     { title: "Nome", width: "20" },
@@ -56,7 +58,9 @@ export const Projects = () => {
             title="Encontre um Projeto"
             onChange={(e) => setFilter(e.target.value)}
           />
-          <Button onClick={() => setOpenModal(!openModal)}>adicionar</Button>
+          {[Role.Gestor, Role.Admin, null].includes(acesso) && (
+            <Button onClick={() => setOpenModal(!openModal)}>adicionar</Button>
+          )}
           <Table headers={headers} data={filteredData} onClick={handleRowClick} />
         </>
       ) : (
@@ -71,7 +75,9 @@ export const Projects = () => {
           <h6 className="descritivo-tarefa">
             Centralize seus projetos e defina as prioridade em um só lugar
           </h6>
-          <Button onClick={() => setOpenModal(!openModal)}>adicionar</Button>
+          {[Role.Gestor, Role.Admin, null].includes(acesso) && (
+            <Button onClick={() => setOpenModal(!openModal)}>adicionar</Button>
+          )}
         </>
       )}
       {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}

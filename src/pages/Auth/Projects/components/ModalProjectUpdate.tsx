@@ -187,7 +187,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
         <h5>Atualizar Projeto</h5>
         <div className="flex gap-1">
           <SelectProject setStatus={handleProjectTypeSelect} disabled={!edit} status={status} />
-          {acesso !== Role.Cliente && (
+          {[Role.Gestor, Role.Admin, null].includes(acesso) && (
             <div className="flex gap-1">
               <IconX
                 name="Excluir"

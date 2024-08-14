@@ -13,7 +13,7 @@ import {
   IProjectDto,
   StatusProjectType,
 } from "src/interfaces/models";
-import { Role } from "src/routes/context/AccessControl";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import {
   formatCurrency,
   formatDate,
@@ -40,6 +40,7 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
   const [contributions, setContributions] = useState<IContributionDto[]>([]);
   const [valorAcumulado, setValorAcumulado] = useState("");
   const [status, setStatus] = useState<StatusProjectType>("Aberto");
+  const { acesso } = useAccessControl();
 
   const { mutate, isPending, context } = useCreateProject(onClose);
   const {
