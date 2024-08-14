@@ -19,14 +19,20 @@ interface IFormEmployee {
   setUser: Dispatch<SetStateAction<string>>;
   setIdExcluir: Dispatch<SetStateAction<string>>;
   edit: boolean;
+  access: Role;
 }
 
-export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFormEmployee) => {
+export const FormUpdateEmployee = ({
+  MainDiv,
+  setUser,
+  setIdExcluir,
+  edit,
+  access,
+}: IFormEmployee) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = useGetIdUser(id || "");
   const { acesso } = useAccessControl();
-  console.log(id);
   const { mutate, isPending, context } = useUpdateEmployee(id || "");
   const {
     formState: { errors },
@@ -34,6 +40,7 @@ export const FormUpdateEmployee = ({ MainDiv, setUser, setIdExcluir, edit }: IFo
     watch,
   } = context;
   const onSubmit = (data: IEmployeeDto) => {
+    setValue("acesso", access);
     mutate(data);
   };
 

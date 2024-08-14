@@ -25,6 +25,6 @@ export const UserCreate = () => {
   return access === Role.Cliente ? (
     <FormCreateClient MainDiv={MainDiv} setUser={setUser} />
   ) : (
-    <FormCreateEmployee MainDiv={MainDiv} setUser={setUser} />
+    <FormCreateEmployee MainDiv={MainDiv} setUser={setUser} access={access as Role} />
   );
 };

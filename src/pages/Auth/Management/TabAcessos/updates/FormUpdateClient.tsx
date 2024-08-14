@@ -8,6 +8,7 @@ import { InputX } from "src/components/Form/Input/InputX";
 import { Select } from "src/components/Form/Select/Select";
 import { CardContainer } from "src/components/Layout/CardContainer";
 import { useAddressByCep } from "src/hooks/API/AddressByCep";
+import { IClientDto } from "src/interfaces/models";
 import { app } from "src/routes/app";
 import {
   formatCep,
@@ -18,10 +19,8 @@ import {
   formatState,
 } from "src/utils/formats";
 import "../../Management.css";
-import { ModalUserProjects } from "../components/ModalUserProjects";
 import { useGetIdUser } from "../hooks/useGetIdUser";
 import { useUpdateClient } from "../hooks/useUpdateClient";
-import { IClientDto } from "src/interfaces/models";
 
 interface IFormClient {
   MainDiv: () => JSX.Element;
@@ -57,8 +56,6 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
 
   const [valueStreet, setValueStreet] = useState(data?.rua);
   const [valueBairro, setValueBairro] = useState(data?.bairro);
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [maritalStatus, setMaritalStatus] = useState(data?.estadoCivil);
 
@@ -163,6 +160,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
       setValue("loteNovo", data.loteNovo || "");
       setValue("quadraAtual", data.quadraAtual || "");
       setValue("quadraNova", data.quadraNova || "");
+      setValue("projetosCli", data.projetosCli || "");
       setValue("totalRendaFamiliar", data.totalRendaFamiliar || "");
 
       if (["Casado", "União Estável"].includes(data.estadoCivil)) {
@@ -291,7 +289,7 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
               title="Tipos de Contrato"
               placeholder="Procuração"
               options={["Procuração", "Contrato", "Requerimento Reurb", "Memorando"]}
-              value={data?.tiposDeContrato}
+              value={data && data.tiposDeContrato}
               disabled={!edit}
               required
             />
@@ -302,22 +300,14 @@ export const FormUpdateClient = ({ MainDiv, setUser, setIdExcluir, edit }: IForm
             <InputX title="Quadra Atual" placeholder="A" required disabled={!edit} />
             <InputX title="Quadra Nova" placeholder="B" required disabled={!edit} />
           </div>
-          <ModalUserProjects isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
-          <Button
-            disabled={!edit}
-            onClick={() => {
-              setIsModalVisible(true);
-            }}
-          >
-            adicionar projeto
-          </Button>
-          <div className="container-user flex-wrap items-end">
-            <div className="flex items-center gap-2 text-write-secundary">
-              <span>Nome do arquivo</span>
-              <ProjectorScreen width={22} height={22} weight="duotone" />
-              <X width={12} height={12} weight="bold" className="cursor-pointer" />
+          {watch("projetosCli")?.map((projeto) => (
+            <div key={projeto.id} className="container-user flex-wrap items-end">
+              <div className="flex items-center gap-2 text-write-secundary">
+                <span>{projeto.nome}</span>
+                <ProjectorScreen width={22} height={22} weight="duotone" />
+              </div>
             </div>
-          </div>
+          ))}
         </CardContainer>
         <CardContainer>
           <h4 className="text-write-primary">Renda</h4>

@@ -46,7 +46,7 @@ export const UserUpdate = () => {
             />
           }
         />
-        {[Role.Gestor, Role.Admin].includes(access as Role) && (
+        {![Role.Gestor, Role.Admin].includes(access as Role) && (
           <IconX
             name="Excluir"
             icon={
@@ -72,6 +72,7 @@ export const UserUpdate = () => {
       setUser={setUser}
       setIdExcluir={setIdExcluir}
       edit={edit}
+      access={access as Role}
     />
   );
 };

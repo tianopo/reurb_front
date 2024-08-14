@@ -49,6 +49,7 @@ export interface IClientDto extends IGeneralModel {
   telefoneConjuge?: string;
   emailConjuge?: string;
   acesso?: Role;
+  projetosCli?: Partial<Pick<IProjectDto, "id" | "nome">>[];
 }
 
 export interface IEmployeeDto extends IGeneralModel {
@@ -60,6 +61,8 @@ export interface IEmployeeDto extends IGeneralModel {
   status?: StatusType;
   acesso?: Role;
 }
+
+export interface IUserDto extends IEmployeeDto, IClientDto {}
 
 type PrioridadeType = "Alta" | "Media" | "Baixa";
 type StatusTaskType = "à Fazer" | "Atrasados" | "Feitos";

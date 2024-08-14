@@ -15,7 +15,7 @@ export const useLogout = () => {
     mutationFn: path,
     onSuccess: () => {
       localStorage.removeItem("token");
-      queryClient.removeQueries({ queryKey: ["user-data", "token-data"] });
+      queryClient.clear();
       toast.success("Você saiu com sucesso");
       navigate(app.login);
     },

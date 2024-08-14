@@ -59,7 +59,7 @@ const BeginSelect: ForwardRefRenderFunction<HTMLInputElement, ISelect> = (
           name={words}
           placeholder={placeholder}
           disabled={disabled}
-          value={selectedOption || ""}
+          value={selectedOption || value}
           readOnly={true}
           onChange={(e) => {
             selectRegister?.onChange(e);

@@ -1,5 +1,6 @@
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
 import { forwardRef, ForwardRefRenderFunction, useState } from "react";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import "../../Management.css";
 
 interface SelectUserProps {
@@ -13,6 +14,7 @@ const BeginSelectUser: ForwardRefRenderFunction<HTMLInputElement, SelectUserProp
   ref,
 ) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { acesso } = useAccessControl();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -56,9 +58,11 @@ const BeginSelectUser: ForwardRefRenderFunction<HTMLInputElement, SelectUserProp
             <li className="option-select-user" onClick={() => handleOptionSelect("Cliente")}>
               Cliente
             </li>
-            <li className="option-select-user" onClick={() => handleOptionSelect("Admin")}>
-              Admin
-            </li>
+            {acesso === Role.Gestor && (
+              <li className="option-select-user" onClick={() => handleOptionSelect("Admin")}>
+                Admin
+              </li>
+            )}
           </ul>
         </div>
       )}

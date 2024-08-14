@@ -23,7 +23,6 @@ export const TabAcessos = () => {
     { title: "Acessos", width: "14" },
     { title: "Status", width: "12" },
   ];
-
   const transformedData =
     data?.map((user: any) => ({
       id: user.id,
@@ -76,11 +75,13 @@ export const TabAcessos = () => {
       {![Role.Cliente, Role.Funcionario, null].includes(acesso) && (
         <Button onClick={() => navigate(app.user)}>adicionar usuário</Button>
       )}
-      <InputSearch
-        placeholder="Encontre um usuário"
-        title="Encontre um Usuário"
-        onChange={(e) => setFilter(e.target.value)}
-      />
+      {acesso !== Role.Cliente && (
+        <InputSearch
+          placeholder="Encontre um usuário"
+          title="Encontre um Usuário"
+          onChange={(e) => setFilter(e.target.value)}
+        />
+      )}
       {isLoading && <h6 className="text-center text-write-primary">Carregando...</h6>}
       {error && (
         <>

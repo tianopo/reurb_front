@@ -5,18 +5,20 @@ import { Button } from "src/components/Buttons/Button";
 import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
 import { CardContainer } from "src/components/Layout/CardContainer";
+import { IEmployeeDto } from "src/interfaces/models";
 import { app } from "src/routes/app";
+import { Role } from "src/routes/context/AccessControl";
 import { formatCPF, formatPhone } from "src/utils/formats";
 import "../../Management.css";
 import { useCreateEmployee } from "../hooks/useCreateEmployee";
-import { IEmployeeDto } from "src/interfaces/models";
 
 interface IFormEmployee {
   MainDiv: () => JSX.Element;
   setUser: Dispatch<SetStateAction<string>>;
+  access: Role;
 }
 
-export const FormCreateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
+export const FormCreateEmployee = ({ MainDiv, setUser, access }: IFormEmployee) => {
   const [valueCPF, setValueCPF] = useState("");
   const [valuePhone, setValuePhone] = useState("");
 
@@ -47,6 +49,7 @@ export const FormCreateEmployee = ({ MainDiv, setUser }: IFormEmployee) => {
     watch,
   } = context;
   const onSubmit = (data: IEmployeeDto) => {
+    setValue("acesso", access);
     mutate(data);
   };
 

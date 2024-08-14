@@ -19,7 +19,6 @@ import {
   formatState,
 } from "src/utils/formats";
 import "../../Management.css";
-import { ModalUserProjects } from "../components/ModalUserProjects";
 import { useCreateClient } from "../hooks/useCreateClient";
 
 interface IFormClient {
@@ -40,8 +39,6 @@ export const FormCreateClient = ({ MainDiv, setUser }: IFormClient) => {
 
   const [valueStreet, setValueStreet] = useState("");
   const [valueBairro, setValueBairro] = useState("");
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [maritalStatus, setMaritalStatus] = useState("");
 
@@ -234,15 +231,6 @@ export const FormCreateClient = ({ MainDiv, setUser }: IFormClient) => {
             <InputX title="Lote Novo" placeholder="17" required />
             <InputX title="Quadra Atual" placeholder="A" required />
             <InputX title="Quadra Nova" placeholder="B" required />
-          </div>
-          <ModalUserProjects isVisible={isModalVisible} onClose={() => setIsModalVisible(false)} />
-          <Button onClick={() => setIsModalVisible(true)}>adicionar projeto</Button>
-          <div className="container-user flex-wrap items-end">
-            <div className="flex items-center gap-2 text-write-secundary">
-              <span>Nome do arquivo</span>
-              <ProjectorScreen width={22} height={22} weight="duotone" />
-              <X width={12} height={12} weight="bold" className="cursor-pointer" />
-            </div>
           </div>
         </CardContainer>
         <CardContainer>
