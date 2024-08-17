@@ -14,6 +14,7 @@ export const apiRoute = {
   /* User */
   user: "/user", // get
   client: "/user/client",
+  clients: "/user/client/cliente",
   employee: "/user/employee",
   employees: "/user/employee/funcionario",
   clientAndEmployees: "/user/client/employee",
@@ -29,4 +30,8 @@ export const apiRoute = {
   /* Projeto */
   project: "/project",
   idProject: (id: string) => `/project/${id}`,
+
+  /* Financeiro */
+  financial: "/financial",
+  idFinancial: (id: string) => `/financial/${id}`,
 };

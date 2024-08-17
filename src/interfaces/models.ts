@@ -124,3 +124,7 @@ export interface IProjectUpdateDto extends IGeneralModel {
   clientes?: IUpdateProject[];
   contributions?: IContributionDto[];
 }
+
+export interface IFinancialDto extends IGeneralModel {}
+
+export interface IFinancialUpdateDto extends IGeneralModel {}

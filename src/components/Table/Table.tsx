@@ -6,7 +6,6 @@ import "./Table.css";
 interface ITable {
   headers: {
     title: string;
-    width: string;
   }[];
   data: {
     id: string;
@@ -28,7 +27,7 @@ export const Table = ({ headers, data, onClick }: ITable) => {
         <thead>
           <tr className="bg-secundary uppercase leading-pattern text-write-primary">
             {headers.map((header, index) => (
-              <th key={index} className={`space-h truncate max-w-${header.width}`}>
+              <th key={index} className={`space-h max-w-full truncate`}>
                 {header.title}
               </th>
             ))}
@@ -38,9 +37,9 @@ export const Table = ({ headers, data, onClick }: ITable) => {
         <tbody>
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className="">
-              <td className={`space-b truncate max-w-${headers[0].width}`}>{row.one}</td>
-              <td className={`space-b truncate max-w-${headers[1].width}`}>{row?.two}</td>
-              <td className={`space-b truncate max-w-${headers[2].width}`}>{row?.three}</td>
+              <td className={`space-b max-w-32 truncate`}>{row.one}</td>
+              <td className={`space-b max-w-12 truncate`}>{row?.two}</td>
+              <td className={`space-b max-w-8 truncate`}>{row?.three}</td>
               {acesso !== Role.Cliente && (
                 <td className={`space-b min-w-6 max-w-6`}>
                   <IconX

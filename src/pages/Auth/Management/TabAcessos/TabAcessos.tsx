@@ -18,18 +18,17 @@ export const TabAcessos = () => {
   const [isFormVisible, setFormVisible] = useState(false);
   const { acesso } = useAccessControl();
 
-  const headers = [
-    { title: "Nome/Email", width: "32" },
-    { title: "Acessos", width: "14" },
-    { title: "Status", width: "12" },
-  ];
+  const headers = [{ title: "Nome/Email" }, { title: "Acessos" }, { title: "Status" }];
   const transformedData =
-    data?.map((user: any) => ({
-      id: user.id,
-      one: `${user.nome} / ${user.email}`,
-      two: user.acesso,
-      three: user.status ? "ativado" : "desativado",
-    })) || [];
+    data?.map((user: any) => {
+      const [firstName, lastName] = user.nome.split(" ");
+      return {
+        id: user.id,
+        one: `${firstName} ${lastName || ""} / ${user.email}`,
+        two: user.acesso,
+        three: user.status ? "ativado" : "desativado",
+      };
+    }) || [];
 
   const filteredData = transformedData.filter((user: any) => {
     const filterText = filter.toLowerCase();
