@@ -22,14 +22,32 @@ export const useCreateProject = (onClose: () => void) => {
     status: Yup.string().oneOf(["Aberto", "Progresso", "Concluido"]).required(),
     funcionarios: Yup.array().optional().label("Funcionários"),
     clientes: Yup.array().optional().label("Clientes"),
-    contribuicoes: Yup.array()
+    contributions: Yup.array()
       .of(
         Yup.object().shape({
-          userId: Yup.string().optional(),
-          valor: Yup.string().optional().label("Valor"),
+          valor: Yup.string().required().label("Valor"),
+          entrada: Yup.string().required().label("Entrada"),
+          parcelas: Yup.string().required().min(1).max(2).label("Parcelas"),
+          valorParcela: Yup.string().required().label("Valor Parcela"),
+          userId: Yup.string().required(),
         }),
       )
-      .optional(),
+      .optional()
+      .when("clientes", {
+        is: (clientes: any[]) => clientes && clientes.length > 0,
+        then: (schema) =>
+          schema
+            .min(
+              Yup.ref("clientes.length"),
+              "O número de contribuições deve ser igual ao número de clientes",
+            )
+            .max(
+              Yup.ref("clientes.length"),
+              "O número de contribuições deve ser igual ao número de clientes",
+            )
+            .required("Contributions são obrigatórios quando há clientes"),
+        otherwise: (schema) => schema.optional(),
+      }),
   });
 
   const context = useForm<IProjectDto>({

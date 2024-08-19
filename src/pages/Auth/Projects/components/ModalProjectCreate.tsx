@@ -13,7 +13,7 @@ import {
   IProjectDto,
   StatusProjectType,
 } from "src/interfaces/models";
-import { Role, useAccessControl } from "src/routes/context/AccessControl";
+import { Role } from "src/routes/context/AccessControl";
 import {
   formatCurrency,
   formatDate,
@@ -40,12 +40,13 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
   const [contributions, setContributions] = useState<IContributionDto[]>([]);
   const [valorAcumulado, setValorAcumulado] = useState("");
   const [status, setStatus] = useState<StatusProjectType>("Aberto");
-  const { acesso } = useAccessControl();
 
   const { mutate, isPending, context } = useCreateProject(onClose);
   const {
     formState: { errors },
     setValue,
+    clearErrors,
+    watch,
   } = context;
 
   useEffect(() => {
@@ -101,17 +102,45 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
     setContributions(updatedContributions);
   };
 
-  const handleContributionChange = (id: string, valor: string) => {
+  const handleContributionChange = (id: string, field: keyof IContributionDto, value: string) => {
     const updatedContributions = contributions.map((contrib) =>
-      contrib.userId === id ? { ...contrib, valor: formatCurrency(valor) } : contrib,
+      contrib.userId === id
+        ? { ...contrib, [field]: field === "parcelas" ? value : formatCurrency(value) }
+        : contrib,
     );
 
     if (!updatedContributions.some((contrib) => contrib.userId === id)) {
-      updatedContributions.push({ userId: id, valor: formatCurrency(valor) });
+      updatedContributions.push({
+        userId: id,
+        valor: field === "valor" ? formatCurrency(value) : "",
+        entrada: field === "entrada" ? formatCurrency(value) : "",
+        parcelas: field === "parcelas" ? value : "",
+        valorParcela: field === "valorParcela" ? formatCurrency(value) : "",
+      });
+    }
+    clearErrors("contributions");
+    const updatedContribution = updatedContributions.find((contrib) => contrib.userId === id);
+
+    if (updatedContribution) {
+      const entrada = parseCurrency(updatedContribution.entrada || "0");
+      const parcelas = Number(updatedContribution.parcelas || "1");
+      const valorParcela = parseCurrency(updatedContribution.valorParcela || "0");
+
+      const valorTotal = entrada + parcelas * valorParcela;
+      updatedContribution.valor = parseToFormatCurrency(valorTotal);
     }
 
+    updatedContributions.forEach((contrib, index) => {
+      setValue(`contributions.${index}.valor`, contrib.valor, { shouldValidate: true });
+      setValue(`contributions.${index}.entrada`, contrib.entrada, { shouldValidate: true });
+      setValue(`contributions.${index}.parcelas`, contrib.parcelas, { shouldValidate: true });
+      setValue(`contributions.${index}.valorParcela`, contrib.valorParcela, {
+        shouldValidate: true,
+      });
+    });
+
     setContributions(updatedContributions);
-    setValue("contribuicoes", updatedContributions);
+    setValue("contributions", updatedContributions);
   };
 
   const calculateTotalContributions = () => {
@@ -136,7 +165,7 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
       dataInicio: formattedDataIso,
       funcionarios: funcionarios,
       clientes: clientes,
-      contribuicoes: contributions,
+      contributions,
     });
   };
   const { data, isLoading, error } = useGetClientsAndEmployees();
@@ -200,9 +229,10 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
               Adicionar Cliente
             </Button>
           </div>
-          <div className="flex flex-col gap-1 text-write-secundary">
-            {clientes.map((id) => {
+          <div className="cliente-data">
+            {clientes.map((id, index) => {
               const cliente = data.find((emp: any) => emp.id === id);
+              const contributionErrors = errors.contributions && errors.contributions[index];
               return cliente ? (
                 <div key={cliente.id} className="flex flex-col">
                   <div className="flex items-center gap-2">
@@ -212,14 +242,56 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
                       ✖
                     </button>
                   </div>
-                  <InputX
-                    index={cliente.id}
-                    title="Valor"
-                    placeholder="apenas números"
-                    value={contributions.find((contrib) => contrib.userId === id)?.valor || ""}
-                    onChange={(e) => handleContributionChange(cliente.id, e.target.value)}
-                    required
-                  />
+                  <div className="flex flex-col gap-1 md:flex-row">
+                    <InputX
+                      index={cliente.id}
+                      title="Valor"
+                      placeholder="apenas números"
+                      value={contributions.find((contrib) => contrib.userId === id)?.valor || ""}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "valor", e.target.value)
+                      }
+                      error={contributionErrors?.valor?.message}
+                      disabled
+                      readOnly
+                      required
+                    />
+                    <InputX
+                      index={cliente.id}
+                      title="Entrada"
+                      placeholder="apenas números"
+                      value={contributions.find((contrib) => contrib.userId === id)?.entrada || ""}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "entrada", e.target.value)
+                      }
+                      error={contributionErrors?.entrada?.message}
+                      required
+                    />
+                    <InputX
+                      index={cliente.id}
+                      title="Parcelas"
+                      placeholder="apenas números"
+                      value={contributions.find((contrib) => contrib.userId === id)?.parcelas || ""}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "parcelas", e.target.value)
+                      }
+                      error={contributionErrors?.parcelas?.message}
+                      required
+                    />
+                    <InputX
+                      index={cliente.id}
+                      title="Valor Parcela"
+                      placeholder="apenas números"
+                      value={
+                        contributions.find((contrib) => contrib.userId === id)?.valorParcela || ""
+                      }
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "valorParcela", e.target.value)
+                      }
+                      error={contributionErrors?.valorParcela?.message}
+                      required
+                    />
+                  </div>
                 </div>
               ) : null;
             })}

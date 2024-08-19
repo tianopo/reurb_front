@@ -90,8 +90,11 @@ export interface ITaskUpdateDto extends IGeneralModel {
 }
 
 export interface IContributionDto {
-  userId?: string;
-  valor?: string;
+  valor: string;
+  entrada: string;
+  parcelas: string;
+  valorParcela: string;
+  userId: string;
 }
 
 export type StatusProjectType = "Aberto" | "Progresso" | "Concluido";
@@ -110,7 +113,7 @@ export interface IProjectDto extends IGeneralModel {
   status: StatusProjectType;
   funcionarios?: string[];
   clientes?: string[];
-  contribuicoes?: IContributionDto[];
+  contributions?: IContributionDto[];
 }
 
 export interface IProjectUpdateDto extends IGeneralModel {

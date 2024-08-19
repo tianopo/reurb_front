@@ -126,13 +126,19 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
     setContributions(updatedContributions);
   };
 
-  const handleContributionChange = (id: string, valor: string) => {
+  const handleContributionChange = (id: string, field: keyof IContributionDto, value: string) => {
     const updatedContributions = contributions.map((contrib) =>
-      contrib.userId === id ? { ...contrib, valor: formatCurrency(valor) } : contrib,
+      contrib.userId === id ? { ...contrib, [field]: formatCurrency(value) } : contrib,
     );
 
     if (!updatedContributions.some((contrib) => contrib.userId === id)) {
-      updatedContributions.push({ userId: id, valor: formatCurrency(valor) });
+      updatedContributions.push({
+        userId: id,
+        valor: field === "valor" ? formatCurrency(value) : "",
+        entrada: field === "entrada" ? formatCurrency(value) : "",
+        parcelas: field === "parcelas" ? value : "",
+        valorParcela: field === "valorParcela" ? formatCurrency(value) : "",
+      });
     }
 
     setContributions(updatedContributions);
@@ -262,8 +268,8 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
               </Button>
             )}
           </div>
-          <div className="flex flex-wrap gap-2 text-write-secundary">
-            {clientes.map((cliente) => {
+          <div className="cliente-data">
+            {clientes.map((cliente: IUpdateProject) => {
               const contribution = contributions.find((contrib) => contrib.userId === cliente.id);
               console.log(cliente, "here", funcionarios);
               return (
@@ -284,8 +290,39 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
                     title="Valor"
                     placeholder="apenas números"
                     value={contribution?.valor}
-                    disabled={!edit}
-                    onChange={(e) => handleContributionChange(cliente.id, e.target.value)}
+                    onChange={(e) => handleContributionChange(cliente.id, "valor", e.target.value)}
+                    disabled
+                    readOnly
+                    required
+                  />
+                  <InputX
+                    index={cliente.id}
+                    title="Entrada"
+                    placeholder="apenas números"
+                    value={contribution?.entrada}
+                    onChange={(e) =>
+                      handleContributionChange(cliente.id, "entrada", e.target.value)
+                    }
+                    required
+                  />
+                  <InputX
+                    index={cliente.id}
+                    title="Parcelas"
+                    placeholder="apenas números"
+                    value={contribution?.parcelas}
+                    onChange={(e) =>
+                      handleContributionChange(cliente.id, "parcelas", e.target.value)
+                    }
+                    required
+                  />
+                  <InputX
+                    index={cliente.id}
+                    title="Valor Parcela"
+                    placeholder="apenas números"
+                    value={contribution?.valorParcela}
+                    onChange={(e) =>
+                      handleContributionChange(cliente.id, "valorParcela", e.target.value)
+                    }
                     required
                   />
                 </div>
