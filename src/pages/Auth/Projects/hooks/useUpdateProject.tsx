@@ -15,6 +15,8 @@ export const useUpdateProject = (id: string, onClose: () => void) => {
     onSuccess: () => {
       responseSuccess("Projeto atualizado com sucesso");
       queryClient.invalidateQueries({ queryKey: ["project-data"] });
+      queryClient.invalidateQueries({ queryKey: ["task-data"] });
+      queryClient.invalidateQueries({ queryKey: ["financial-data"] });
       onClose();
     },
     onError: (erro: AxiosError) => responseError(erro),

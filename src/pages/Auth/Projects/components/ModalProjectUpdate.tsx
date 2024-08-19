@@ -271,7 +271,6 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
           <div className="cliente-data">
             {clientes.map((cliente: IUpdateProject) => {
               const contribution = contributions.find((contrib) => contrib.userId === cliente.id);
-              console.log(cliente, "here", funcionarios);
               return (
                 <div key={cliente.id} className="flex flex-col">
                   <div className="flex items-center gap-1">

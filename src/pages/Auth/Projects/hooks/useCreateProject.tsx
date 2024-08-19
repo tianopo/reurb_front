@@ -65,6 +65,8 @@ export const useCreateProject = (onClose: () => void) => {
     onSuccess: () => {
       responseSuccess("Projeto criado com sucesso");
       queryClient.invalidateQueries({ queryKey: ["project-data"] });
+      queryClient.invalidateQueries({ queryKey: ["task-data"] });
+      queryClient.invalidateQueries({ queryKey: ["financial-data"] });
       onClose();
     },
     onError: (erro: AxiosError) => responseError(erro),

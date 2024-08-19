@@ -10,6 +10,8 @@ export const useDelProject = (id: string, onClose: () => void) => {
     onSuccess: () => {
       responseSuccess("Projeto excluido com sucesso");
       queryClient.refetchQueries({ queryKey: ["project-data"] });
+      queryClient.refetchQueries({ queryKey: ["task-data"] });
+      queryClient.refetchQueries({ queryKey: ["financial-data"] });
       onClose();
     },
     onError: (erro: AxiosError) => responseError(erro),

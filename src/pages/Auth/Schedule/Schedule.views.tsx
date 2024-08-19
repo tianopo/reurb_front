@@ -134,6 +134,7 @@ export const Schedule = () => {
             startOfWeek={formattedStartOfWeek}
             endOfWeek={formattedEndOfWeek}
             onDateClick={handleDateClick}
+            tasks={tasks}
           />
         </div>
         {daysOfWeek.map((day) => (

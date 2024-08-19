@@ -87,7 +87,6 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
   const onSubmit = (data: ITaskDto) => {
     const formattedDataIso = formatDateHourToISO(date);
     setValue("projeto", projeto);
-    console.log(data);
     mutate({
       ...data,
       data: formattedDataIso,

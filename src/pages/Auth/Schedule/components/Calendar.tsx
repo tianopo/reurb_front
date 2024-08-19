@@ -1,13 +1,15 @@
 import { CalendarBlank, X } from "@phosphor-icons/react";
 import { useState } from "react";
+import { ITaskDto } from "src/interfaces/models";
 
 interface CalendarProps {
   startOfWeek: string;
   endOfWeek: string;
   onDateClick: (date: Date) => void;
+  tasks: ITaskDto[];
 }
 
-export const Calendar = ({ startOfWeek, endOfWeek, onDateClick }: CalendarProps) => {
+export const Calendar = ({ startOfWeek, endOfWeek, onDateClick, tasks }: CalendarProps) => {
   const [showPopup, setShowPopup] = useState(false);
   const handleClick = () => setShowPopup(!showPopup);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -36,9 +38,22 @@ export const Calendar = ({ startOfWeek, endOfWeek, onDateClick }: CalendarProps)
     const firstDay = new Date(year, month, 1).getDay();
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-    const leadingDays = Array.from({ length: firstDay }, (_, i) => "");
+    const leadingDays = Array.from({ length: firstDay }, () => ({ day: "", hasTask: false }));
 
-    return [...leadingDays, ...days];
+    return [
+      ...leadingDays,
+      ...days.map((day) => {
+        const hasTask = tasks?.some((task) => {
+          const taskDate = new Date(task.data);
+          return (
+            taskDate.getFullYear() === year &&
+            taskDate.getMonth() === month &&
+            taskDate.getDate() === day
+          );
+        });
+        return { day, hasTask };
+      }),
+    ];
   };
 
   const changeMonth = (increment: number) => {
@@ -113,15 +128,18 @@ export const Calendar = ({ startOfWeek, endOfWeek, onDateClick }: CalendarProps)
             ))}
           </div>
           <div className="grid grid-cols-7 gap-1">
-            {daysOfMonth.map((day, index) => {
+            {daysOfMonth.map(({ day, hasTask }, index) => {
               const date = new Date(currentYear, currentMonth, Number(day));
               return (
                 <div
                   key={index}
-                  className={`cursor-pointer rounded border text-center sm:p-2 ${day === "" ? "bg-gray-100" : isWithinWeek(date) ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-200"}`}
+                  className={`relative cursor-pointer rounded border text-center sm:p-2 ${!day ? "bg-gray-100" : isWithinWeek(date) ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-200"}`}
                   onClick={() => day && handleDayClick(Number(day))}
                 >
                   {day}
+                  {hasTask && (
+                    <div className="absolute bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 transform rounded-full bg-green-500"></div>
+                  )}
                 </div>
               );
             })}
