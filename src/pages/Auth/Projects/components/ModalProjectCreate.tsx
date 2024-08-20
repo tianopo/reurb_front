@@ -46,7 +46,6 @@ export const ModalProjectCreate = ({ onClose }: IModalProjectCreate) => {
     formState: { errors },
     setValue,
     clearErrors,
-    watch,
   } = context;
 
   useEffect(() => {

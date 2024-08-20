@@ -9,3 +9,15 @@
 .descritivo {
   @apply text-center text-write-secundary hover:underline;
 }
+
+.option-select-financial {
+  @apply cursor-pointer rounded-lg p-2.5 text-write-secundary hover:bg-selected-primary hover:text-write-primary;
+}
+
+.space-h {
+  @apply truncate py-3 pl-1.5 text-start text-14;
+}
+
+.space-b {
+  @apply truncate py-3 pl-1.5 text-12;
+}

@@ -15,14 +15,28 @@ export const useCreateFinancial = (onClose: () => void) => {
     valor: Yup.string().required().min(1).max(100).label("Valor"),
     status: Yup.string()
       .required()
-      .oneOf(["Lançamentos", "Em processo", "Concluidos"])
+      .oneOf(["Lançamentos", "Em Processo", "Concluidos"])
       .label("Status"),
     pagamento: Yup.string()
       .required()
       .oneOf(["Crédito", "Débito", "Boleto", "Dinheiro", "Pix", "Outros"])
       .max(100)
       .label("Pagamento"),
-    vencimento: Yup.string().required().oneOf(["10", "20", "30"]).max(2).label("Vencimento"),
+    vencimento: Yup.string()
+      .max(2)
+      .test("vencimento-test", "Vencimento é obrigatório para Entradas", function (value) {
+        const { tipo } = this.parent;
+        if (tipo === "Entrada") {
+          return value && ["10", "20", "30"].includes(value)
+            ? true
+            : this.createError({
+                message: "Vencimento deve ser um dos valores permitidos: 10, 20, 30",
+              });
+        }
+        return true;
+      })
+      .optional()
+      .label("Vencimento"),
     contributionId: Yup.string().optional(),
     clienteId: Yup.string().optional(),
   });
