@@ -4,14 +4,13 @@ import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
-import { IProjectUpdateDto } from "src/interfaces/models";
+import { IFinancialUpdateDto } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
-import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
 export const useUpdateFinancial = (id: string, onClose: () => void) => {
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: IProjectUpdateDto) => path(id, data),
+    mutationFn: (data: IFinancialUpdateDto) => path(id, data),
     onSuccess: () => {
       responseSuccess("Financeiro atualizado com sucesso");
       queryClient.invalidateQueries({ queryKey: ["financial-data"] });
@@ -22,66 +21,43 @@ export const useUpdateFinancial = (id: string, onClose: () => void) => {
 
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(100).label("Nome"),
-    descricao: Yup.string().required().min(1).max(250).label("Descrição"),
-    dataInicio: Yup.string()
+    tipo: Yup.string().required().oneOf(["Entrada", "Saída"]).max(7).label("Tipo"),
+    valor: Yup.string().required().min(1).max(100).label("Valor"),
+    status: Yup.string()
       .required()
-      .matches(Regex["DD/MM/YYYY"], "Formato: DD/MM/YY, apenas números")
-      .label("Data Inicio"),
-    valorTotal: Yup.string().required().label("Valor Total"),
-    valorAcumulado: Yup.string().required().label("Valor Acumulado"),
-    status: Yup.string().oneOf(["Aberto", "Progresso", "Concluido"]).required(),
-    funcionarios: Yup.array()
-      .of(
-        Yup.object().shape({
-          id: Yup.string().required(),
-          nome: Yup.string().required(),
-        }),
-      )
+      .oneOf(["Lançamentos", "Em processo", "Concluidos"])
+      .label("Status"),
+    pagamento: Yup.string()
+      .required()
+      .oneOf(["Crédito", "Débito", "Boleto", "Dinheiro", "Pix", "Outros"])
+      .max(100)
+      .label("Pagamento"),
+    vencimento: Yup.string().required().oneOf(["10", "20", "30"]).max(2).label("Vencimento"),
+    contribution: Yup.object()
+      .shape({
+        id: Yup.string().required(),
+        nome: Yup.string().required().label("Nome"),
+      })
       .optional()
-      .label("Funcionário"),
-    clientes: Yup.array()
-      .of(
-        Yup.object().shape({
-          id: Yup.string().required(),
-          nome: Yup.string().required(),
-        }),
-      )
+      .label("Contribution"),
+    cliente: Yup.object()
+      .shape({
+        id: Yup.string().required(),
+        nome: Yup.string().required().label("Nome"),
+      })
       .optional()
       .label("Cliente"),
-    contributions: Yup.array()
-      .of(
-        Yup.object().shape({
-          valor: Yup.string().required().label("Valor"),
-          entrada: Yup.string().required().label("Entrada"),
-          parcelas: Yup.string().required().label("Parcelas"),
-          valorParcela: Yup.string().required().label("Valor Parcela"),
-          userId: Yup.string().required(),
-        }),
-      )
-      .optional()
-      .when("clientes", {
-        is: (clientes: any[]) => clientes && clientes.length > 0,
-        then: (schema) =>
-          schema
-            .min(
-              Yup.ref("clientes.length"),
-              "O número de contribuições deve ser igual ao número de clientes",
-            )
-            .max(
-              Yup.ref("clientes.length"),
-              "O número de contribuições deve ser igual ao número de clientes",
-            )
-            .required("Contributions são obrigatórios quando há clientes"),
-        otherwise: (schema) => schema.optional(),
-      }),
   });
 
-  const context = useForm<IProjectUpdateDto>({
+  const context = useForm<IFinancialUpdateDto>({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
   });
 
-  async function path(id: string, data: Yup.InferType<typeof schema>): Promise<IProjectUpdateDto> {
+  async function path(
+    id: string,
+    data: Yup.InferType<typeof schema>,
+  ): Promise<IFinancialUpdateDto> {
     const result = await api().put(apiRoute.idFinancial(id), data);
     return result.data;
   }

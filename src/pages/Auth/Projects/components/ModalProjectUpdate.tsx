@@ -56,6 +56,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
   const {
     formState: { errors },
     setValue,
+    clearErrors,
   } = context;
 
   const { mutate: mutateDel } = useDelProject(project?.id || "", onClose);
@@ -124,11 +125,14 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
     setClientes(updatedClientes);
     setValue("clientes", updatedClientes);
     setContributions(updatedContributions);
+    setValue("contributions", updatedContributions);
   };
 
   const handleContributionChange = (id: string, field: keyof IContributionDto, value: string) => {
     const updatedContributions = contributions.map((contrib) =>
-      contrib.userId === id ? { ...contrib, [field]: formatCurrency(value) } : contrib,
+      contrib.userId === id
+        ? { ...contrib, [field]: field === "parcelas" ? value : formatCurrency(value) }
+        : contrib,
     );
 
     if (!updatedContributions.some((contrib) => contrib.userId === id)) {
@@ -140,6 +144,26 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
         valorParcela: field === "valorParcela" ? formatCurrency(value) : "",
       });
     }
+    clearErrors("contributions");
+    const updatedContribution = updatedContributions.find((contrib) => contrib.userId === id);
+
+    if (updatedContribution) {
+      const entrada = parseCurrency(updatedContribution.entrada || "0");
+      const parcelas = Number(updatedContribution.parcelas || "1");
+      const valorParcela = parseCurrency(updatedContribution.valorParcela || "0");
+
+      const valorTotal = entrada + parcelas * valorParcela;
+      updatedContribution.valor = parseToFormatCurrency(valorTotal);
+    }
+
+    updatedContributions.forEach((contrib, index) => {
+      setValue(`contributions.${index}.valor`, contrib.valor, { shouldValidate: true });
+      setValue(`contributions.${index}.entrada`, contrib.entrada, { shouldValidate: true });
+      setValue(`contributions.${index}.parcelas`, contrib.parcelas, { shouldValidate: true });
+      setValue(`contributions.${index}.valorParcela`, contrib.valorParcela, {
+        shouldValidate: true,
+      });
+    });
 
     setContributions(updatedContributions);
     setValue("contributions", updatedContributions);
@@ -269,11 +293,12 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
             )}
           </div>
           <div className="cliente-data">
-            {clientes.map((cliente: IUpdateProject) => {
+            {clientes.map((cliente: IUpdateProject, index) => {
               const contribution = contributions.find((contrib) => contrib.userId === cliente.id);
+              const contributionErrors = errors.contributions && errors.contributions[index];
               return (
                 <div key={cliente.id} className="flex flex-col">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <IdentificationCard />
                     <p>{cliente.nome}</p>
                     <button
@@ -284,46 +309,57 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
                       ✖
                     </button>
                   </div>
-                  <InputX
-                    index={cliente.id}
-                    title="Valor"
-                    placeholder="apenas números"
-                    value={contribution?.valor}
-                    onChange={(e) => handleContributionChange(cliente.id, "valor", e.target.value)}
-                    disabled
-                    readOnly
-                    required
-                  />
-                  <InputX
-                    index={cliente.id}
-                    title="Entrada"
-                    placeholder="apenas números"
-                    value={contribution?.entrada}
-                    onChange={(e) =>
-                      handleContributionChange(cliente.id, "entrada", e.target.value)
-                    }
-                    required
-                  />
-                  <InputX
-                    index={cliente.id}
-                    title="Parcelas"
-                    placeholder="apenas números"
-                    value={contribution?.parcelas}
-                    onChange={(e) =>
-                      handleContributionChange(cliente.id, "parcelas", e.target.value)
-                    }
-                    required
-                  />
-                  <InputX
-                    index={cliente.id}
-                    title="Valor Parcela"
-                    placeholder="apenas números"
-                    value={contribution?.valorParcela}
-                    onChange={(e) =>
-                      handleContributionChange(cliente.id, "valorParcela", e.target.value)
-                    }
-                    required
-                  />
+                  <div className="flex flex-col gap-1 md:flex-row">
+                    <InputX
+                      index={cliente.id}
+                      title="Valor"
+                      placeholder="apenas números"
+                      value={contribution?.valor}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "valor", e.target.value)
+                      }
+                      error={contributionErrors?.valor?.message}
+                      disabled
+                      readOnly
+                      required
+                    />
+                    <InputX
+                      index={cliente.id}
+                      title="Entrada"
+                      placeholder="apenas números"
+                      value={contribution?.entrada}
+                      disabled={!edit}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "entrada", e.target.value)
+                      }
+                      error={contributionErrors?.entrada?.message}
+                      required
+                    />
+                    <InputX
+                      index={cliente.id}
+                      title="Parcelas"
+                      placeholder="apenas números"
+                      value={contribution?.parcelas}
+                      disabled={!edit}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "parcelas", e.target.value)
+                      }
+                      error={contributionErrors?.parcelas?.message}
+                      required
+                    />
+                    <InputX
+                      index={cliente.id}
+                      title="Valor Parcela"
+                      placeholder="apenas números"
+                      value={contribution?.valorParcela}
+                      disabled={!edit}
+                      onChange={(e) =>
+                        handleContributionChange(cliente.id, "valorParcela", e.target.value)
+                      }
+                      error={contributionErrors?.valorParcela?.message}
+                      required
+                    />
+                  </div>
                 </div>
               );
             })}

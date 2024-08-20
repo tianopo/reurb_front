@@ -4,58 +4,35 @@ import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { api, queryClient } from "src/config/api";
 import { responseError, responseSuccess } from "src/config/responseErrors";
-import { IProjectDto } from "src/interfaces/models";
+import { IFinancialDto } from "src/interfaces/models";
 import { apiRoute } from "src/routes/api";
-import { Regex } from "src/utils/Regex";
 import Yup from "src/utils/yupValidation";
 
 export const useCreateFinancial = (onClose: () => void) => {
   const schema = Yup.object().shape({
     nome: Yup.string().required().min(1).max(100).label("Nome"),
-    dataInicio: Yup.string()
+    tipo: Yup.string().required().oneOf(["Entrada", "Saída"]).max(7).label("Tipo"),
+    valor: Yup.string().required().min(1).max(100).label("Valor"),
+    status: Yup.string()
       .required()
-      .matches(Regex["DD/MM/YYYY"], "Formato: DD/MM/YYYY, data inválida")
-      .label("Data Inicio"),
-    descricao: Yup.string().required().min(1).max(250).label("Descrição"),
-    valorTotal: Yup.string().required().label("Valor Total"),
-    valorAcumulado: Yup.string().required().label("Valor Acumulado"),
-    status: Yup.string().oneOf(["Aberto", "Progresso", "Concluido"]).required(),
-    funcionarios: Yup.array().optional().label("Funcionários"),
-    clientes: Yup.array().optional().label("Clientes"),
-    contributions: Yup.array()
-      .of(
-        Yup.object().shape({
-          valor: Yup.string().required().label("Valor"),
-          entrada: Yup.string().required().label("Entrada"),
-          parcelas: Yup.string().required().label("Parcelas"),
-          valorParcela: Yup.string().required().label("Valor Parcela"),
-          userId: Yup.string().required(),
-        }),
-      )
-      .optional()
-      .when("clientes", {
-        is: (clientes: any[]) => clientes && clientes.length > 0,
-        then: (schema) =>
-          schema
-            .min(
-              Yup.ref("clientes.length"),
-              "O número de contribuições deve ser igual ao número de clientes",
-            )
-            .max(
-              Yup.ref("clientes.length"),
-              "O número de contribuições deve ser igual ao número de clientes",
-            )
-            .required("Contributions são obrigatórios quando há clientes"),
-        otherwise: (schema) => schema.optional(),
-      }),
+      .oneOf(["Lançamentos", "Em processo", "Concluidos"])
+      .label("Status"),
+    pagamento: Yup.string()
+      .required()
+      .oneOf(["Crédito", "Débito", "Boleto", "Dinheiro", "Pix", "Outros"])
+      .max(100)
+      .label("Pagamento"),
+    vencimento: Yup.string().required().oneOf(["10", "20", "30"]).max(2).label("Vencimento"),
+    contributionId: Yup.string().optional(),
+    clienteId: Yup.string().optional(),
   });
 
-  const context = useForm<IProjectDto>({
+  const context = useForm<IFinancialDto>({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
   });
 
-  async function path(data: IProjectDto): Promise<IProjectDto> {
+  async function path(data: IFinancialDto): Promise<IFinancialDto> {
     const result = await api().post(apiRoute.financial, data);
     return result.data;
   }

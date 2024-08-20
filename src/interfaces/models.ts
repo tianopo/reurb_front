@@ -128,6 +128,34 @@ export interface IProjectUpdateDto extends IGeneralModel {
   contributions?: IContributionDto[];
 }
 
-export interface IFinancialDto extends IGeneralModel {}
+type TypeTipo = "Entrada" | "Saída";
+type TypeFinancialStatus = "Lançamentos" | "Em processo" | "Concluidos";
+type TypePagamento = "Crédito" | "Débito" | "Boleto" | "Dinheiro" | "Pix" | "Outros";
+type TypeVencimento = "10" | "20" | "30";
 
-export interface IFinancialUpdateDto extends IGeneralModel {}
+interface IUpdateFinancial {
+  id: string;
+  nome: string;
+}
+
+export interface IFinancialDto extends IGeneralModel {
+  nome: string;
+  tipo: TypeTipo;
+  valor: string;
+  status: TypeFinancialStatus;
+  pagamento: TypePagamento;
+  vencimento: TypeVencimento;
+  contributionId?: string;
+  clienteId?: string;
+}
+
+export interface IFinancialUpdateDto extends IGeneralModel {
+  nome: string;
+  tipo: TypeTipo;
+  valor: string;
+  status: TypeFinancialStatus;
+  pagamento: TypePagamento;
+  vencimento: TypeVencimento;
+  contribution?: IUpdateFinancial;
+  cliente?: IUpdateFinancial;
+}

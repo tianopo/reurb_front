@@ -12,6 +12,7 @@ interface ITable {
     one: string;
     two?: string;
     three?: string;
+    four?: string;
   }[];
   onClick?: (id: string, access: string) => void;
 }
@@ -40,6 +41,7 @@ export const Table = ({ headers, data, onClick }: ITable) => {
               <td className={`space-b max-w-32 truncate`}>{row.one}</td>
               <td className={`space-b max-w-12 truncate`}>{row?.two}</td>
               <td className={`space-b max-w-8 truncate`}>{row?.three}</td>
+              {row?.four && <td className={`space-b max-w-8 truncate`}>{row?.four}</td>}
               {acesso !== Role.Cliente && (
                 <td className={`space-b min-w-6 max-w-6`}>
                   <IconX

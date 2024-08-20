@@ -19,9 +19,10 @@ export const Projects = () => {
   const { acesso } = useAccessControl();
 
   const headers = [
-    { title: "Nome", width: "20" },
-    { title: "Valor", width: "20" },
-    { title: "Status", width: "20" },
+    { title: "Nome" },
+    { title: "Valor" },
+    { title: "Acumulado" },
+    { title: "Status" },
   ];
 
   const transformedData =
@@ -29,14 +30,16 @@ export const Projects = () => {
       id: project.id,
       one: `${project.nome}`,
       two: project.valorTotal,
-      three: project.status,
+      three: project.valorAcumulado,
+      four: project.status,
     })) || [];
 
   const filteredData = transformedData.filter((project: any) => {
     const filterText = filter.toLowerCase();
     return (
       project.one.toLowerCase().includes(filterText) ||
-      project.two.toLowerCase().includes(filterText)
+      project.two.toLowerCase().includes(filterText) ||
+      project.three.toLowerCase().includes(filterText)
     );
   });
 
@@ -58,9 +61,6 @@ export const Projects = () => {
             title="Encontre um Projeto"
             onChange={(e) => setFilter(e.target.value)}
           />
-          {[Role.Gestor, Role.Admin, null].includes(acesso) && (
-            <Button onClick={() => setOpenModal(!openModal)}>adicionar</Button>
-          )}
           <Table headers={headers} data={filteredData} onClick={handleRowClick} />
         </>
       ) : (
