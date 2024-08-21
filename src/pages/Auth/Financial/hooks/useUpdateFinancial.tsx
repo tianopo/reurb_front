@@ -47,20 +47,6 @@ export const useUpdateFinancial = (id: string, onClose: () => void) => {
       })
       .optional()
       .label("Vencimento"),
-    contribution: Yup.object()
-      .shape({
-        id: Yup.string().required(),
-        nome: Yup.string().required().label("Nome"),
-      })
-      .optional()
-      .label("Contribution"),
-    cliente: Yup.object()
-      .shape({
-        id: Yup.string().required(),
-        nome: Yup.string().required().label("Nome"),
-      })
-      .optional()
-      .label("Cliente"),
   });
 
   const context = useForm<IFinancialUpdateDto>({

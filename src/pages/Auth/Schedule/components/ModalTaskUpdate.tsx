@@ -16,6 +16,7 @@ import { useDelTask } from "../hooks/useDelTask";
 import { useGetEmployees } from "../hooks/useGetEmployees";
 import { useUpdateTask } from "../hooks/useUpdateTask";
 import "../Schedule.css";
+import { ConfirmationModal } from "src/components/Modal/ConfirmationModal";
 
 interface IModalTaskUpdate {
   onClose: () => void;
@@ -43,6 +44,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
   const { acesso } = useAccessControl();
   const [projeto, setProjeto] = useState<ITaskUpdateDto["projeto"]>(task?.projeto || undefined);
   const [projetoInput, setProjetoInput] = useState("");
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const handleDataFormat = (e: { target: { value: string } }) => {
     const formattedData = formatDateHour(e.target.value);
@@ -108,6 +110,19 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
   }, [task, setValue]);
   const { mutate: mutateDel } = useDelTask(task?.id || "", onClose);
 
+  const handleDelete = () => {
+    setIsConfirming(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setIsConfirming(false);
+    mutateDel();
+  };
+
+  const handleCancelDelete = () => {
+    setIsConfirming(false);
+  };
+
   return (
     <Modal onClose={onClose}>
       <div className="flex justify-between">
@@ -122,7 +137,7 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
                   width={19.45}
                   height={20}
                   weight="regular"
-                  onClick={() => mutateDel()}
+                  onClick={handleDelete}
                 />
               }
             />
@@ -266,6 +281,9 @@ export const ModalTaskUpdate = ({ onClose, task }: IModalTaskUpdate) => {
           </Button>
         </FormX>
       </FormProvider>
+      {isConfirming && (
+        <ConfirmationModal onConfirm={handleConfirmDelete} onCancel={handleCancelDelete} />
+      )}
     </Modal>
   );
 };

@@ -8,6 +8,7 @@ import { SelectUser } from "../components/SelectUser";
 import { useDelUser } from "../hooks/useDelUser";
 import { FormUpdateClient } from "./FormUpdateClient";
 import { FormUpdateEmployee } from "./FormUpdateEmployee";
+import { ConfirmationModal } from "src/components/Modal/ConfirmationModal";
 
 export const UserUpdate = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ export const UserUpdate = () => {
   const [edit, setEdit] = useState(false);
   const [idExcluir, setIdExcluir] = useState("");
   const { mutate } = useDelUser(idExcluir || "");
+  const [isConfirming, setIsConfirming] = useState(false);
 
   useEffect(() => {
     if (location.state?.access) {
@@ -25,6 +27,19 @@ export const UserUpdate = () => {
 
   const handleUserTypeSelect = (option: Role | string) => {
     setAccess(option);
+  };
+
+  const handleDelete = () => {
+    setIsConfirming(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setIsConfirming(false);
+    mutate();
+  };
+
+  const handleCancelDelete = () => {
+    setIsConfirming(false);
   };
 
   const MainDiv = () => (
@@ -55,7 +70,7 @@ export const UserUpdate = () => {
                 width={19.45}
                 height={20}
                 weight="regular"
-                onClick={() => mutate()}
+                onClick={handleDelete}
               />
             }
           />
@@ -64,15 +79,27 @@ export const UserUpdate = () => {
     </div>
   );
 
-  return access === Role.Cliente ? (
-    <FormUpdateClient MainDiv={MainDiv} setUser={setUser} setIdExcluir={setIdExcluir} edit={edit} />
-  ) : (
-    <FormUpdateEmployee
-      MainDiv={MainDiv}
-      setUser={setUser}
-      setIdExcluir={setIdExcluir}
-      edit={edit}
-      access={access as Role}
-    />
+  return (
+    <>
+      {access === Role.Cliente ? (
+        <FormUpdateClient
+          MainDiv={MainDiv}
+          setUser={setUser}
+          setIdExcluir={setIdExcluir}
+          edit={edit}
+        />
+      ) : (
+        <FormUpdateEmployee
+          MainDiv={MainDiv}
+          setUser={setUser}
+          setIdExcluir={setIdExcluir}
+          edit={edit}
+          access={access as Role}
+        />
+      )}
+      {isConfirming && (
+        <ConfirmationModal onConfirm={handleConfirmDelete} onCancel={handleCancelDelete} />
+      )}
+    </>
   );
 };

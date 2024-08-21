@@ -35,9 +35,9 @@ export const ModalFinancialCreate = ({ onClose }: IModalFinancialCreate) => {
   }, [setStatus]);
 
   const handleValorFormat = (e: { target: { value: string } }) => {
-    const formattedTotalValue = formatCurrency(e.target.value);
-    setValor(formattedTotalValue);
-    setValue("valor", formattedTotalValue);
+    const formattedValue = formatCurrency(e.target.value);
+    setValor(formattedValue);
+    setValue("valor", formattedValue);
   };
 
   const handleTipoFormat = (e: { target: { value: string } }) => {

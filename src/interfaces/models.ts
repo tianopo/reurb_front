@@ -132,11 +132,6 @@ type TypeTipo = "Entrada" | "Saída";
 type TypeFinancialStatus = "Lançamentos" | "Em Processo" | "Concluidos";
 type TypePagamento = "Crédito" | "Débito" | "Boleto" | "Dinheiro" | "Pix" | "Outros";
 
-interface IUpdateFinancial {
-  id: string;
-  nome: string;
-}
-
 export interface IFinancialDto extends IGeneralModel {
   nome: string;
   tipo: TypeTipo;
@@ -155,6 +150,5 @@ export interface IFinancialUpdateDto extends IGeneralModel {
   status: TypeFinancialStatus;
   pagamento: TypePagamento;
   vencimento?: string;
-  contribution?: IUpdateFinancial;
-  cliente?: IUpdateFinancial;
+  cliente?: Partial<Pick<IClientDto, "id" | "nome">>;
 }

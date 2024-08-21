@@ -30,6 +30,7 @@ import { useDelProject } from "../hooks/useDelProject";
 import { useGetClientsAndEmployees } from "../hooks/useGetClientsAndEmployees";
 import { useUpdateProject } from "../hooks/useUpdateProject";
 import { SelectProject } from "./SelectProject";
+import { ConfirmationModal } from "src/components/Modal/ConfirmationModal";
 
 interface IModalProjectUpdate {
   onClose: () => void;
@@ -51,6 +52,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
   const [status, setStatus] = useState<StatusProjectType>(project?.status || "Aberto");
   const [edit, setEdit] = useState(false);
   const { acesso } = useAccessControl();
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const { mutate, isPending, context } = useUpdateProject(project?.id || "", onClose);
   const {
@@ -211,6 +213,19 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
     setValue("status", option);
   };
 
+  const handleDelete = () => {
+    setIsConfirming(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setIsConfirming(false);
+    mutateDel();
+  };
+
+  const handleCancelDelete = () => {
+    setIsConfirming(false);
+  };
+
   return (
     <Modal onClose={onClose}>
       <div className="flex w-full flex-col justify-between md:flex-row">
@@ -227,7 +242,7 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
                     width={19.45}
                     height={20}
                     weight="regular"
-                    onClick={() => mutateDel()}
+                    onClick={handleDelete}
                   />
                 }
               />
@@ -425,6 +440,9 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
           </Button>
         </FormX>
       </FormProvider>
+      {isConfirming && (
+        <ConfirmationModal onConfirm={handleConfirmDelete} onCancel={handleCancelDelete} />
+      )}
     </Modal>
   );
 };
