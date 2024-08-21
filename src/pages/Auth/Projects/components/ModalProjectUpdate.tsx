@@ -1,4 +1,4 @@
-import { Gear, IdentificationCard, Trash } from "@phosphor-icons/react";
+import { FilePdf, Gear, IdentificationCard, Trash } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Button } from "src/components/Buttons/Button";
@@ -6,6 +6,7 @@ import { FormX } from "src/components/Form/FormX";
 import { InputX } from "src/components/Form/Input/InputX";
 import { TextAreaX } from "src/components/Form/Textarea";
 import { IconX } from "src/components/Icons/IconX";
+import { ConfirmationModal } from "src/components/Modal/ConfirmationModal";
 import { Modal } from "src/components/Modal/Modal";
 import {
   IClientDto,
@@ -30,7 +31,7 @@ import { useDelProject } from "../hooks/useDelProject";
 import { useGetClientsAndEmployees } from "../hooks/useGetClientsAndEmployees";
 import { useUpdateProject } from "../hooks/useUpdateProject";
 import { SelectProject } from "./SelectProject";
-import { ConfirmationModal } from "src/components/Modal/ConfirmationModal";
+import { generatePdfReport } from "./generatePdfReport";
 
 interface IModalProjectUpdate {
   onClose: () => void;
@@ -258,6 +259,20 @@ export const ModalProjectUpdate = ({ onClose, project }: IModalProjectUpdate) =>
                   />
                 }
               />
+              {project && (
+                <IconX
+                  name="Relatório"
+                  icon={
+                    <FilePdf
+                      className="cursor-pointer rounded-6 text-write-secundary hover:bg-secundary hover:text-write-primary"
+                      width={19.45}
+                      height={20}
+                      weight="fill"
+                      onClick={() => generatePdfReport(project)}
+                    />
+                  }
+                />
+              )}
             </div>
           )}
         </div>

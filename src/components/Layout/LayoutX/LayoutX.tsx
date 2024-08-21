@@ -1,10 +1,12 @@
 import { Calendar, House, Money, ProjectorScreen } from "@phosphor-icons/react";
 import { Outlet } from "react-router-dom";
 import { app } from "src/routes/app";
+import { Role, useAccessControl } from "src/routes/context/AccessControl";
 import { Header } from "../Header/Header";
 import { SidebarX } from "../Sidebar/SidebarX";
 
 export const LayoutX = () => {
+  const { acesso } = useAccessControl();
   const nav = [
     { text: "Início", route: app.home, icon: <House width={20} height={17} weight="fill" /> },
     {
@@ -17,12 +19,15 @@ export const LayoutX = () => {
       route: app.schedule,
       icon: <Calendar width={20} height={17} weight="duotone" />,
     },
-    {
+  ];
+
+  if ([Role.Gestor, Role.Admin, null].includes(acesso)) {
+    nav.push({
       text: "Financeiro",
       route: app.financial,
       icon: <Money width={20} height={17} weight="fill" />,
-    },
-  ];
+    });
+  }
 
   return (
     <div className="flex h-full w-full flex-col">
