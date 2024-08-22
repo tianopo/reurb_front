@@ -17,7 +17,7 @@ export const PublicLayout = () => {
           rel="noopener noreferrer"
           onClick={() => {
             const newWindow = window.open(
-              "https://wa.me/5511981452227",
+              "https://wa.me/5512982435638",
               "_blank",
               "noopener,noreferrer",
             );
