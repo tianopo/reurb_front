@@ -42,10 +42,15 @@ export const RecoverPassword = () => {
           <InputX
             title="Senha"
             placeholder="Senha deve ter 6 ou mais caracteres"
-            required
             typ="password"
+            required
           />
-          <InputX title="Confirmar Senha" placeholder="A mesma senha acima" required />
+          <InputX
+            title="Confirmar Senha"
+            placeholder="A mesma senha acima"
+            typ="password"
+            required
+          />
           <Button disabled={isPending || Object.keys(errors).length > 0}>entrar</Button>
         </FormX>
       </FormProvider>

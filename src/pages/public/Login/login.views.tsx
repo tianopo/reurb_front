@@ -36,6 +36,12 @@ export const Login = () => {
       </FormProvider>
       <h6
         className="cursor-pointer font-bold uppercase text-primary hover:text-terciary"
+        onClick={() => navigate(app.register)}
+      >
+        Cadastre-se
+      </h6>
+      <h6
+        className="cursor-pointer font-bold uppercase text-primary hover:text-terciary"
         onClick={() => navigate(app.forgotPassword)}
       >
         esqueceu sua senha
